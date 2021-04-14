@@ -21,6 +21,10 @@ public class GameManager : MonoBehaviour
             GameObject spawnedFruit = Instantiate(fruitPrefab, spawnPoint.position, spawnPoint.rotation);
             spawnedFruit.GetComponent<Rigidbody2D>().AddForce(transform.up * Random.Range(10f, 15f), ForceMode2D.Impulse);
             spawnedFruit.GetComponent<Rigidbody2D>().AddForce(transform.right * Random.Range(-5f, 5f), ForceMode2D.Impulse);
+            
+            // hämta beat
+            // kolla hur lång tid animation tar
+            // spawna frukt
 
             Destroy(spawnedFruit, 5f);
         }
