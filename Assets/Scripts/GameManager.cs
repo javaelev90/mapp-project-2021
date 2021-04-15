@@ -1,24 +1,40 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     [SerializeField] GameObject fruitPrefab;
     [SerializeField] Transform[] spawnPoints;
     [SerializeField] AudioSource audioSource;
+    [SerializeField] Button startGameButton;
 
     void Start()
     {   
-        if(SongHandler.Instance.GetSongAudioClip() != null)
+        //if(SongHandler.Instance.GetSongAudioClip() != null)
+        //{
+        //    StartCoroutine(SpawnFruits2());
+        //}
+        //else 
+        //{
+        //    StartCoroutine(SpawnFruits());
+        //}
+        
+    }
+
+    public void OnStartGame()
+    {
+        if (SongHandler.Instance.GetSongAudioClip() != null)
         {
+            startGameButton.gameObject.SetActive(false);
             StartCoroutine(SpawnFruits2());
         }
-        else 
+        else
         {
+            startGameButton.gameObject.SetActive(false);
             StartCoroutine(SpawnFruits());
         }
-        
     }
 
     IEnumerator SpawnFruits()
