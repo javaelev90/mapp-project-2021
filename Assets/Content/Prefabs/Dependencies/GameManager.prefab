@@ -77,7 +77,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 369fa72da6075ba43bd7e2864c980c64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fruitPrefab: {fileID: 4852005174848202885, guid: 17ffa1f7e6500be40932f384dfa9d79d, type: 3}
+  fruitPrefab: {fileID: 4600915889894013459, guid: 7ae7f7d3da3f0be4bbd26881aa314538, type: 3}
   spawnPoints:
   - {fileID: 5231825054225336345}
   - {fileID: 2488138577927577832}
