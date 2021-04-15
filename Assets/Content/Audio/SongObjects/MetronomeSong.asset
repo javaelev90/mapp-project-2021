@@ -10,18 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: eb6baf8922a41ce468d4d617a52c2d57, type: 3}
-  m_Name: DemoSong
+  m_Name: MetronomeSong
   m_EditorClassIdentifier: 
-  song: {fileID: 8300000, guid: dc591f19c3a0111458085badbac1528e, type: 3}
+  song: {fileID: 8300000, guid: d67fbe9ab58e06043a29513c61f24f64, type: 3}
   prefferedMarginTimeBeforeBeat: 0.9
   beats:
-  - 2.5
-  - 3.5
-  - 4
-  - 4.5
-  - 5
-  - 5.5
-  - 5.8
-  - 6
-  - 7
-  - 7.5
+  - 1.2
+  - 1.9
+  - 2.7
+  - 3.4
+  - 4.2
+  - 4.9
+  - 5.7
+  - 6.4
+  - 7.2
+  - 7.9
+  - 8.7
+  - 9.4
+  - 10.2
