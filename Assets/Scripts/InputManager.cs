@@ -15,14 +15,14 @@ public class InputManager : MonoBehaviour
     {
         // Use mouse input in editor or computer
 //#if UNITY_EDITOR || UNITY_STANDALONE
-        if (Input.GetMouseButtonDown(0))
-        {
-            blade.StartCutting();
-        }
-        else if (Input.GetMouseButtonUp(0))
-        {
-            blade.StopCutting();
-        }
+        // if (Input.GetMouseButtonDown(0))
+        // {
+        //     blade.StartCutting();
+        // }
+        // else if (Input.GetMouseButtonUp(0))
+        // {
+        //     blade.StopCutting();
+        // }
 //#else
 //        // Use touch input on mobile
 //        if (Input.touchCount == 1)

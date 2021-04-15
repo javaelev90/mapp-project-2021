@@ -5,6 +5,8 @@ using UnityEngine;
 public class Fruit : MonoBehaviour
 {
 	[SerializeField] GameObject fruitSlicedPrefab;
+	
+	[SerializeField] Animator ringAnimator;
 
 	void OnTriggerEnter2D(Collider2D col)
 	{
@@ -18,5 +20,13 @@ public class Fruit : MonoBehaviour
 			Destroy(slicedFruit, 3f);
 			Destroy(this.gameObject);
 		}
+	}
+
+	public void Initiate(float countDownValue)
+	{
+		AnimatorClipInfo[] currentClipInfo = ringAnimator.GetCurrentAnimatorClipInfo(0);
+        float currentClipLength = currentClipInfo[0].clip.length;
+		float animatorSpeed = (1 / (countDownValue / currentClipLength));
+		ringAnimator.speed = animatorSpeed;
 	}
 }

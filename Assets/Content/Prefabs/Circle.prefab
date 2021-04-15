@@ -74,7 +74,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: -2413806693520163455, guid: 4adeaf2d2b1c7417e89f026626d8264f, type: 3}
   m_Color: {r: 1, g: 0.031372547, b: 0.8666296, a: 1}
   m_FlipX: 0
@@ -115,6 +115,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fruitSlicedPrefab: {fileID: 4852005174848202885, guid: 4d3b57482db69da4cab1ba79113fb7e9, type: 3}
+  ringAnimator: {fileID: 2229734430163255525}
 --- !u!50 &-7455691316857403893
 Rigidbody2D:
   serializedVersion: 4
