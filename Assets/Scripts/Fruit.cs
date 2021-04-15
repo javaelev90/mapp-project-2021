@@ -7,7 +7,7 @@ public class Fruit : MonoBehaviour
 	[SerializeField] GameObject fruitSlicedPrefab;
 	
 	[SerializeField] Animator ringAnimator;
-
+	[SerializeField] AnimationClip ringAnimationClip;
 	float beatTime;
 	AudioSource audioSource;
 	void OnTriggerEnter2D(Collider2D col)
@@ -19,7 +19,7 @@ public class Fruit : MonoBehaviour
 			//Quaternion rotation = Quaternion.LookRotation(direction);
 
 			GameObject slicedFruit = Instantiate(fruitSlicedPrefab, transform.position, Quaternion.identity);
-			print("Swipe diff in time:" + (audioSource.time - beatTime));
+			Debug.Log("Swipe diff in time:" + (audioSource.time - beatTime));
 			Destroy(slicedFruit, 3f);
 			Destroy(this.gameObject);
 		}
@@ -27,11 +27,13 @@ public class Fruit : MonoBehaviour
 
 	public void Initiate(float countDownValue, AudioSource audioSource, float beatTime)
 	{
-		AnimatorClipInfo[] currentClipInfo = ringAnimator.GetCurrentAnimatorClipInfo(0);
-        float currentClipLength = currentClipInfo[0].clip.length;
-		float animatorSpeed = (1 / (countDownValue / currentClipLength));
-		ringAnimator.speed = animatorSpeed;
+
+		float countDown = Mathf.Abs(beatTime - audioSource.time);
+		float animatorSpeed =  1 / (countDown / ringAnimationClip.length);
 		this.audioSource = audioSource;
 		this.beatTime = beatTime;
+		ringAnimator.speed = animatorSpeed;
+		ringAnimator.SetBool("ShrinkCircle", true);
+
 	}
 }
