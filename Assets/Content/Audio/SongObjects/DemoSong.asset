@@ -13,15 +13,15 @@ MonoBehaviour:
   m_Name: DemoSong
   m_EditorClassIdentifier: 
   song: {fileID: 8300000, guid: dc591f19c3a0111458085badbac1528e, type: 3}
-  prefferedMarginTimeBeforeBeat: 0.9
+  prefferedMarginTimeBeforeBeat: 1.2
   beats:
-  - 2.5
-  - 3.5
-  - 4
-  - 4.5
-  - 5
-  - 5.5
-  - 5.8
-  - 6
-  - 7
-  - 7.5
+  - 11.835
+  - 12.54
+  - 13.25
+  - 13.95
+  - 14.65
+  - 15.35
+  - 16.15
+  - 16.85
+  - 17.55
+  - 18.25

@@ -19,17 +19,19 @@ public class Fruit : MonoBehaviour
 			//Quaternion rotation = Quaternion.LookRotation(direction);
 
 			GameObject slicedFruit = Instantiate(fruitSlicedPrefab, transform.position, Quaternion.identity);
+			
 			Debug.Log("Swipe diff in time:" + (audioSource.time - beatTime));
+			
 			Destroy(slicedFruit, 3f);
 			Destroy(this.gameObject);
 		}
 	}
 
-	public void Initiate(float countDownValue, AudioSource audioSource, float beatTime)
+	public void Initiate(AudioSource audioSource, float beatTime)
 	{
-
+		float calibratedAnimationDelay = 0.00f;
 		float countDown = Mathf.Abs(beatTime - audioSource.time);
-		float animatorSpeed =  1 / (countDown / ringAnimationClip.length);
+		float animatorSpeed =  1 / ((countDown + calibratedAnimationDelay) / ringAnimationClip.length);
 		this.audioSource = audioSource;
 		this.beatTime = beatTime;
 		ringAnimator.speed = animatorSpeed;

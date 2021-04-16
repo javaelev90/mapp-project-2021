@@ -6,6 +6,7 @@ public class SongHandler : MonoBehaviour
 {
 
     [SerializeField] private SongObject selectedSong;
+    public float CalibratedAnimationTimeDelay { get; set;}
     private static SongHandler _instance;
     public static SongHandler Instance
     {

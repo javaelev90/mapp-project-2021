@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour
         {
             Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
             GameObject spawnedFruit = Instantiate(fruitPrefab, spawnPoint.position, spawnPoint.rotation);
-            spawnedFruit.GetComponentInChildren<Fruit>().Initiate(Mathf.Abs(beat - audioSource.time), audioSource, beat);
+            spawnedFruit.GetComponentInChildren<Fruit>().Initiate(audioSource, beat);
             spawnedFruit.GetComponentInChildren<Rigidbody2D>().AddForce(transform.up * Random.Range(10f, 15f), ForceMode2D.Impulse);
             spawnedFruit.GetComponentInChildren<Rigidbody2D>().AddForce(transform.right * Random.Range(-5f, 5f), ForceMode2D.Impulse);
             beatIndex++;
