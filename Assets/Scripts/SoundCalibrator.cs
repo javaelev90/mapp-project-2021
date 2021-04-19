@@ -7,7 +7,7 @@ using TMPro;
 
 public class SoundCalibrator : MonoBehaviour
 {
-
+    int MIN_CALIBRATION_CLICKS = 6;
     [SerializeField] SongObject calibrationSong;
     [SerializeField] AudioSource audioSource;
     [SerializeField] GameObject instructionPanel;
@@ -21,6 +21,7 @@ public class SoundCalibrator : MonoBehaviour
     bool startCalibration;
 
     List<float> buttonClicks;
+
 
     void Start()
     {
@@ -46,7 +47,7 @@ public class SoundCalibrator : MonoBehaviour
                     SetResultScreenText("You have a sound latency of " + Mathf.Round(delay * 1000) + " ms.");
                 }
                 ToggleResultsPanel(true);
-                // Change this to be saved on a persistent place
+                // TODO: Change this to be saved on a persistent place
                 // calibrationSong.audioDelay = delay;
                 
                 Debug.Log("Median latency: " + delay);
@@ -100,7 +101,7 @@ public class SoundCalibrator : MonoBehaviour
 
     float CalculateDelay()
     {
-        if(buttonClicks.Count < 3)
+        if(buttonClicks.Count < MIN_CALIBRATION_CLICKS)
         {
             return -1f;
         }
