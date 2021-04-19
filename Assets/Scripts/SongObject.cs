@@ -11,5 +11,6 @@ public class SongObject : ScriptableObject
     public float prefferedMarginTimeBeforeBeat;
     public List<float> beats;
 
+    public float audioDelay;
 
 }
