@@ -46,7 +46,9 @@ public class SoundCalibrator : MonoBehaviour
                     SetResultScreenText("You have a sound latency of " + Mathf.Round(delay * 1000) + " ms.");
                 }
                 ToggleResultsPanel(true);
-                calibrationSong.audioDelay = delay;
+                // Change this to be saved on a persistent place
+                // calibrationSong.audioDelay = delay;
+                
                 Debug.Log("Median latency: " + delay);
             }
         }
