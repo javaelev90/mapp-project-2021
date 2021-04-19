@@ -1,21 +1,29 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    [Header("Gameplay")]
     [SerializeField] GameObject fruitPrefab;
     [SerializeField] Transform[] spawnPoints;
+    [Header("Audio")]
     [SerializeField] AudioSource audioSource;
+    [Header("UI")]
     [SerializeField] Button startGameButton;
 
-    private int beatIndex;
+    public static GameManager Instance { get; private set; } = default;
+
+    private int beatIndex = 0;
     private bool runGame;
 
+    private void Awake()
+    {
+        Instance = this;
+    }
     void Start()
-    {   
-        beatIndex = 0;
+    {
+        InitializeUI();
     }
 
     private void Update() 
@@ -39,11 +47,11 @@ public class GameManager : MonoBehaviour
         float timeDifference = beat - audioSource.time;
         if (timeDifference <= SongHandler.Instance.GetPrefferdMarginTimeBeforeBeat())
         {
-            Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
+            Transform spawnPoint = spawnPoints[UnityEngine.Random.Range(0, spawnPoints.Length)];
             GameObject spawnedFruit = Instantiate(fruitPrefab, spawnPoint.position, spawnPoint.rotation);
             spawnedFruit.GetComponentInChildren<Fruit>().Initiate(audioSource, beat);
-            spawnedFruit.GetComponentInChildren<Rigidbody2D>().AddForce(transform.up * Random.Range(10f, 15f), ForceMode2D.Impulse);
-            spawnedFruit.GetComponentInChildren<Rigidbody2D>().AddForce(transform.right * Random.Range(-5f, 5f), ForceMode2D.Impulse);
+            spawnedFruit.GetComponentInChildren<Rigidbody2D>().AddForce(transform.up * UnityEngine.Random.Range(10f, 15f), ForceMode2D.Impulse);
+            spawnedFruit.GetComponentInChildren<Rigidbody2D>().AddForce(transform.right * UnityEngine.Random.Range(-5f, 5f), ForceMode2D.Impulse);
             beatIndex++;
             Destroy(spawnedFruit, 5f);
         }
@@ -63,4 +71,19 @@ public class GameManager : MonoBehaviour
             runGame = true;
         }
     }
+
+    public void RestartGame()
+    {
+        // Might want to handle this differently in the future
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex, LoadSceneMode.Single);
+    }
+
+    /// <summary>
+    /// Making sure the right UI is shown at start
+    /// </summary>
+    void InitializeUI()
+    {
+        startGameButton.gameObject.SetActive(true);
+    }
+
 }

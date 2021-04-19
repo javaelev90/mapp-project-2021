@@ -3,7 +3,9 @@ using UnityEngine;
 public class Blade : MonoBehaviour
 {
 	[SerializeField] GameObject bladeTrailPrefab;
+	[Tooltip("How fast the player need to move the mouse for it to be registered, 0 = clicking enabled")]
 	[SerializeField] float minMouseCuttingVelocity = .0001f;
+	[Tooltip("How fast the player need to swipe for it to be registered, 0 = tapping enabled")]
 	[SerializeField] float minTouchCuttingVelocity = .01f;
 
 	bool isCutting = false;
@@ -27,33 +29,38 @@ public class Blade : MonoBehaviour
 	{
 
 #if UNITY_EDITOR || UNITY_STANDALONE
-
 		// Use mouse input in editor or computer
-		MouseUpdateCut();
+		if (!InGameMenuController.gameIsPaused)
+		{
+			MouseUpdateCut();
 
-		if (Input.GetMouseButtonDown(0))
-		{
-			MouseStartCutting();
-		}
-		else if (Input.GetMouseButtonUp(0))
-		{
-			MouseStopCutting();
+			if (Input.GetMouseButtonDown(0))
+			{
+				MouseStartCutting();
+			}
+			else if (Input.GetMouseButtonUp(0))
+			{
+				MouseStopCutting();
+			}
 		}
 #else
 		// Use touch input on mobile
-		if (Input.touchCount == 1)
+		if (!InGameMenuController.gameIsPaused)
 		{
-			TouchUpdateCut(Input.GetTouch(0).position);
+			if (Input.touchCount == 1)
+			{
+				TouchUpdateCut(Input.GetTouch(0).position);
 
-			// Input check is AFTER TouchUpdateCut, that way if TouchPhase.Ended happened a single frame after the Began Phase
-			// a swipe can still be registered (otherwise, isCutting will be set to false and the test wouldn't happen for that began-Ended pair)
-			if (Input.GetTouch(0).phase == TouchPhase.Began)
-			{
-				TouchStartCutting();
-			}
-			else if (Input.GetTouch(0).phase == TouchPhase.Ended)
-			{
-				TouchStopCutting();
+				// Input check is AFTER TouchUpdateCut, that way if TouchPhase.Ended happened a single frame after the Began Phase
+				// a swipe can still be registered (otherwise, isCutting will be set to false and the test wouldn't happen for that began-Ended pair)
+				if (Input.GetTouch(0).phase == TouchPhase.Began)
+				{
+					TouchStartCutting();
+				}
+				else if (Input.GetTouch(0).phase == TouchPhase.Ended)
+				{
+					TouchStopCutting();
+				}
 			}
 		}
 #endif
@@ -67,7 +74,7 @@ public class Blade : MonoBehaviour
 
 		if (isCutting)
 		{
-			Vector2 diff = touchPos - startingTouch;
+			Vector2 diff = touchPos - startingTouch; // Could be wrong if the player continuosly swipe the screen without lifting...
 
 			// Put difference in Screen ratio, but using only width, so the ratio is the same on both
 			// axes (otherwise we would have to swipe more vertically...)

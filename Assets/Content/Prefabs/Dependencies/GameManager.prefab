@@ -83,6 +83,7 @@ MonoBehaviour:
   - {fileID: 2488138577927577832}
   - {fileID: 8936478381103441261}
   audioSource: {fileID: 1982526629564437759}
+  startGameButton: {fileID: 0}
 --- !u!82 &1982526629564437759
 AudioSource:
   m_ObjectHideFlags: 0
