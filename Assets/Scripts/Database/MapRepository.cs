@@ -28,6 +28,6 @@ public class SongRepository
     {
         KeyValuePair<string, object> idParam = new KeyValuePair<string, object>("NAME", songName);
         object result = sqliteUtility.SelectOperation(SELECT_FIELD_SQL, idParam);
-        return result != null && !result.Equals(DBNull.Value) ? Convert.ToInt32(result) : 0;
+        return result != null && !result.Equals(DBNull.Value) ? Convert.ToInt32(result) : -1;
     }
 }

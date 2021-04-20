@@ -29,7 +29,7 @@ public class SoundCalibrator : MonoBehaviour
     {
         calibrationButton.interactable = false;
         int latency = Database.playerStatsRepository.GetLatency();
-        if(latency > 0)
+        if(latency > -1)
         {
             soundLatency.text = "Calibrated latency: " + latency + " ms"; 
         }
@@ -39,7 +39,6 @@ public class SoundCalibrator : MonoBehaviour
     {
         if(startCalibration)
         {
-
             if(!audioSource.isPlaying)
             {
                 ToggleCalibrationButton(false);
@@ -57,8 +56,6 @@ public class SoundCalibrator : MonoBehaviour
                     soundLatency.text = "Calibrated latency: " + latency + " ms"; 
                 }
                 ToggleResultsPanel(true);
-                // TODO: Change this to be saved on a persistent place
-                // calibrationSong.audioDelay = delay;
                 
                 Debug.Log("Median latency: " + audioLatency);
             }
@@ -121,14 +118,16 @@ public class SoundCalibrator : MonoBehaviour
         Dictionary<float, float> beatsAndClicks = FindClicksCloseToBeats(clickTimes, beatTimes);
         List<float> timeDifferences = new List<float>();
 
+        // Calculate the time difference between click and beat
         foreach (KeyValuePair<float, float> times in beatsAndClicks)
         {
             float timeDifference = Mathf.Abs(times.Key - times.Value);
             timeDifferences.Add(timeDifference);
         }
-
+        // Sort the values so the median value can be found
         timeDifferences.Sort();
 
+        // Return the median time difference/the median sound latency
         return (timeDifferences.Count/2) > 1 ? timeDifferences[timeDifferences.Count/2] : -1f;
     }
 
@@ -148,6 +147,11 @@ public class SoundCalibrator : MonoBehaviour
                 float clickBeatDifference = Mathf.Abs(beat - click);
                 bool clickBeforeBeat = (beat - click) > 0.1f;
                 
+                // Find the smallest click to beat time difference, the smallest value
+                // should be the click that was used to match the beat.
+
+                // Also clicks that are pressed before the beat should not be counted
+                // if they are outside of a small margin (0.1)
                 if(smallestDifference > clickBeatDifference && !clickBeforeBeat)
                 {
                     closestClick = click;
@@ -167,6 +171,8 @@ public class SoundCalibrator : MonoBehaviour
     List<float> TransFormClickTimeToSongTime()
     {
         List<float> transformedTimes = new List<float>();
+        // Use the audio start time in order to sync the 
+        // click times with audio time
         foreach(float clickTime in buttonClicks)
         {
             float transformedTime = clickTime - audioStartTime;
@@ -201,6 +207,6 @@ public class SoundCalibrator : MonoBehaviour
     public void RemoveCalibrationResult()
     {
         soundLatency.text = "Calibrated latency: ";
-        Database.playerStatsRepository.UpdateLatency(0);
+        Database.playerStatsRepository.UpdateLatency(-1);
     }
 }

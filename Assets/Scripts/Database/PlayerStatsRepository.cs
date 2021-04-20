@@ -33,13 +33,13 @@ public class PlayerStatsRepository
     public int GetLatency()
     {
         object result = SelectField(SELECT_LATENCY_SQL);
-        return result != null && !result.Equals(DBNull.Value) ? Convert.ToInt32(result) : 0;
+        return result != null && !result.Equals(DBNull.Value) ? Convert.ToInt32(result) : -1;
     }
 
     public int GetLevel()
     {
         object result = SelectField(SELECT_LEVEL_SQL);
-        return result != null && !result.Equals(DBNull.Value) ? Convert.ToInt32(result) : 0;
+        return result != null && !result.Equals(DBNull.Value) ? Convert.ToInt32(result) : -1;
     }
 
     void UpdateField(string sql, string name, object value)

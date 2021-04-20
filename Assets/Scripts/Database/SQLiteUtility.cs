@@ -34,7 +34,6 @@ public class SQLiteUtility
             CreateSchema(CREATE_MAPS_SQL);
             initialized = true;
         }
-
     }
 
     private void CreateSchema(string createSchemaString)
@@ -53,22 +52,22 @@ public class SQLiteUtility
     public void UpsertOperation(string sql, params KeyValuePair<string,object>[] values)
     {
         using (var conn = new SqliteConnection(dbPath)) {
-				conn.Open();
-				using (var cmd = conn.CreateCommand()) {
-					cmd.CommandType = CommandType.Text;
-					cmd.CommandText = sql;
-                    foreach(KeyValuePair<string, object> keyValuePair in values)
-                    {
-                        cmd.Parameters.Add(new SqliteParameter {
-                            ParameterName = keyValuePair.Key,
-                            Value = keyValuePair.Value
-					    });
-                    }
+            conn.Open();
+            using (var cmd = conn.CreateCommand()) {
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = sql;
+                foreach(KeyValuePair<string, object> keyValuePair in values)
+                {
+                    cmd.Parameters.Add(new SqliteParameter {
+                        ParameterName = keyValuePair.Key,
+                        Value = keyValuePair.Value
+                    });
+                }
 
-					int result = cmd.ExecuteNonQuery();
-                    Debug.Log("Updated rows: " + result);
-				}
-			}
+                int result = cmd.ExecuteNonQuery();
+                Debug.Log("Updated rows: " + result);
+            }
+        }
     }
 
     public object SelectOperation(string sql, KeyValuePair<string, object> parameter)
