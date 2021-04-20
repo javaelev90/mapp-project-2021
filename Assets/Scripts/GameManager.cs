@@ -45,7 +45,7 @@ public class GameManager : MonoBehaviour
 
         float beat = SongHandler.Instance.GetAudioClipBeats()[beatIndex];
         float timeDifference = beat - audioSource.time;
-        if (timeDifference <= SongHandler.Instance.GetPrefferdMarginTimeBeforeBeat())
+        if (timeDifference <= SongHandler.Instance.GetPreferredMarginTimeBeforeBeat())
         {
             Transform spawnPoint = spawnPoints[UnityEngine.Random.Range(0, spawnPoints.Length)];
             GameObject spawnedFruit = Instantiate(fruitPrefab, spawnPoint.position, spawnPoint.rotation);

@@ -46,9 +46,9 @@ public class SongHandler : MonoBehaviour
         return selectedSong != null ? selectedSong.beats : null;
     }
 
-    public float GetPrefferdMarginTimeBeforeBeat()
+    public float GetPreferredMarginTimeBeforeBeat()
     {
-        return selectedSong != null ? selectedSong.prefferedMarginTimeBeforeBeat : 1f;
+        return selectedSong != null ? selectedSong.preferredMarginTimeBeforeBeat : 1f;
     }
 
     public float GetAudioDelayTime()

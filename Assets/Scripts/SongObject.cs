@@ -8,7 +8,7 @@ public class SongObject : ScriptableObject
 {
 
     public AudioClip song;
-    public float prefferedMarginTimeBeforeBeat;
+    public float preferredMarginTimeBeforeBeat;
     public List<float> beats;
 
     public float audioDelay;

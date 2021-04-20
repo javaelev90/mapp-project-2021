@@ -7,7 +7,7 @@ using TMPro;
 
 public class SoundCalibrator : MonoBehaviour
 {
-    int MIN_CALIBRATION_CLICKS = 6;
+    int MIN_CALIBRATION_CLICKS = 4;
     [SerializeField] SongObject calibrationSong;
     [SerializeField] AudioSource audioSource;
     [SerializeField] GameObject instructionPanel;
@@ -37,20 +37,20 @@ public class SoundCalibrator : MonoBehaviour
             {
                 ToggleCalibrationButton(false);
                 startCalibration = false;
-                float delay = CalculateDelay();
-                if(delay == -1)
+                float audioLatency = CalculateAudioLatency();
+                if(audioLatency == -1)
                 {
                     SetResultScreenText("You clicked too few times during the test.");
                 }
                 else
                 {
-                    SetResultScreenText("You have a sound latency of " + Mathf.Round(delay * 1000) + " ms.");
+                    SetResultScreenText("You have a sound latency of " + Mathf.Round(audioLatency * 1000) + " ms.");
                 }
                 ToggleResultsPanel(true);
                 // TODO: Change this to be saved on a persistent place
                 // calibrationSong.audioDelay = delay;
                 
-                Debug.Log("Median latency: " + delay);
+                Debug.Log("Median latency: " + audioLatency);
             }
         }
     }
@@ -99,32 +99,59 @@ public class SoundCalibrator : MonoBehaviour
 
     }
 
-    float CalculateDelay()
+    float CalculateAudioLatency()
     {
-        if(buttonClicks.Count < MIN_CALIBRATION_CLICKS)
+         if(buttonClicks.Count < MIN_CALIBRATION_CLICKS)
         {
             return -1f;
         }
 
         List<float> clickTimes = TransFormClickTimeToSongTime();
-        clickTimes = clickTimes.GetRange(2, clickTimes.Count - 2);
-        
         List<float> beatTimes = calibrationSong.beats;
-        beatTimes = beatTimes.GetRange(2, beatTimes.Count - 2);
-
+        Dictionary<float, float> beatsAndClicks = FindClicksCloseToBeats(clickTimes, beatTimes);
         List<float> timeDifferences = new List<float>();
 
-        for(int i = 0; i < beatTimes.Count; i++)
+        foreach (KeyValuePair<float, float> times in beatsAndClicks)
         {
-            float beatTime = beatTimes[i];
-            float clickTime = clickTimes[i];
-            float timeDifference = Mathf.Abs(beatTime - clickTime);
+            float timeDifference = Mathf.Abs(times.Key - times.Value);
             timeDifferences.Add(timeDifference);
         }
-        clickTimes.ForEach(t => Debug.Log(t));
+
         timeDifferences.Sort();
-        Debug.Log(timeDifferences.Count);
-        return timeDifferences.Count/2 > 1 ? timeDifferences[timeDifferences.Count/2] : -1f;
+
+        return (timeDifferences.Count/2) > 1 ? timeDifferences[timeDifferences.Count/2] : -1f;
+    }
+
+    Dictionary<float, float> FindClicksCloseToBeats(List<float> clicks, List<float> beats)
+    {
+        Dictionary<float, float> closeClicks = new Dictionary<float, float>();
+        float MAX_DIFFERENCE = 0.45f;
+
+        // Loop through all beats and find clicks that are close in time to them
+        foreach(float beat in beats)
+        {
+            float closestClick = float.MaxValue;
+            float smallestDifference = float.MaxValue;
+            
+            foreach(float click in clicks)
+            {
+                float clickBeatDifference = Mathf.Abs(beat - click);
+                bool clickBeforeBeat = (beat - click) > 0.1f;
+                
+                if(smallestDifference > clickBeatDifference && !clickBeforeBeat)
+                {
+                    closestClick = click;
+                    smallestDifference = clickBeatDifference;
+                }
+            }
+            // If the click is not close to the beat then it is not related
+            if(smallestDifference < MAX_DIFFERENCE)
+            {
+                closeClicks.Add(beat, closestClick);
+            }
+        }
+
+        return closeClicks;
     }
 
     List<float> TransFormClickTimeToSongTime()
@@ -147,6 +174,13 @@ public class SoundCalibrator : MonoBehaviour
         ToggleInstructionScreen(true);
         ToggleCalibrationButton(false);
         ToggleResultsPanel(false);
+        StopCalibration();
+    }
+
+    public void StopCalibration()
+    {
+        audioSource.Stop();
+        startCalibration = false;
     }
 
     public void ToggleStartScreen(bool active)
