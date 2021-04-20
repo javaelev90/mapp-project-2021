@@ -28,6 +28,11 @@ public class SoundCalibrator : MonoBehaviour
     void Start()
     {
         calibrationButton.interactable = false;
+        int latency = Database.playerStatsRepository.GetLatency();
+        if(latency > 0)
+        {
+            soundLatency.text = "Calibrated latency: " + latency + " ms"; 
+        }
     }
 
     void Update()
@@ -46,7 +51,8 @@ public class SoundCalibrator : MonoBehaviour
                 }
                 else
                 {
-                    float latency = Mathf.Round(audioLatency * 1000);
+                    int latency = (int)Mathf.Round(audioLatency * 1000);
+                    Database.playerStatsRepository.UpdateLatency(latency);
                     SetResultScreenText("You have a sound latency of " + latency + " ms.");
                     soundLatency.text = "Calibrated latency: " + latency + " ms"; 
                 }
@@ -195,6 +201,6 @@ public class SoundCalibrator : MonoBehaviour
     public void RemoveCalibrationResult()
     {
         soundLatency.text = "Calibrated latency: ";
-        //TODO: add this functionality
+        Database.playerStatsRepository.UpdateLatency(0);
     }
 }

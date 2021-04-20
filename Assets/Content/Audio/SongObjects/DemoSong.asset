@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb6baf8922a41ce468d4d617a52c2d57, type: 3}
   m_Name: DemoSong
   m_EditorClassIdentifier: 
+  uniqueName: demosong
   song: {fileID: 8300000, guid: dc591f19c3a0111458085badbac1528e, type: 3}
-  prefferedMarginTimeBeforeBeat: 1.2
+  preferredMarginTimeBeforeBeat: 0
   beats:
   - 11.835
   - 12.54
@@ -25,3 +26,4 @@ MonoBehaviour:
   - 16.85
   - 17.55
   - 18.25
+  audioDelay: 0
