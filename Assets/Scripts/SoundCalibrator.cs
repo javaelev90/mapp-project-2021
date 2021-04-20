@@ -15,6 +15,8 @@ public class SoundCalibrator : MonoBehaviour
     [SerializeField] Button calibrationButton;
     [SerializeField] GameObject resultPanel;
     [SerializeField] GameObject startScreen;
+    [SerializeField] TMP_Text soundLatency;
+
 
     float audioStartTime;
 
@@ -44,7 +46,9 @@ public class SoundCalibrator : MonoBehaviour
                 }
                 else
                 {
-                    SetResultScreenText("You have a sound latency of " + Mathf.Round(audioLatency * 1000) + " ms.");
+                    float latency = Mathf.Round(audioLatency * 1000);
+                    SetResultScreenText("You have a sound latency of " + latency + " ms.");
+                    soundLatency.text = "Calibrated latency: " + latency + " ms"; 
                 }
                 ToggleResultsPanel(true);
                 // TODO: Change this to be saved on a persistent place
@@ -190,6 +194,7 @@ public class SoundCalibrator : MonoBehaviour
 
     public void RemoveCalibrationResult()
     {
+        soundLatency.text = "Calibrated latency: ";
         //TODO: add this functionality
     }
 }

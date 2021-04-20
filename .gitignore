@@ -70,5 +70,8 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
+# Local temporary files
+[Ll]ocalTemporaryFiles/*
+
 # User settings
 [Uu]serSettings/EditorUserSettings.asset

@@ -9,9 +9,11 @@ namespace ExampleProject {
 		private string dbPath;
 
 		private void Start() {
-            Debug.Log(Application.persistentDataPath);
+#if UNITY_EDITOR || UNITY_STANDALONE
+			dbPath = "URI=file:"+ Application.dataPath +"/LocalTemporaryFiles/exampleDatabase.db";
+#else
 			dbPath = "URI=file:" + Application.persistentDataPath + "/exampleDatabase.db";
-            // dbPath = "URI=file:C:/Users/Heavy\ Light/Downloads/exampleDatabase.db";
+#endif
 			CreateSchema();
 			InsertScore("GG Meade", 3701);
 			InsertScore("US Grant", 4242);
