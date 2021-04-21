@@ -51,9 +51,9 @@ public class SQLiteUtility
 
     public void UpsertOperation(string sql, params KeyValuePair<string,object>[] values)
     {
-        using (var conn = new SqliteConnection(dbPath)) {
+        using (SqliteConnection conn = new SqliteConnection(dbPath)) {
             conn.Open();
-            using (var cmd = conn.CreateCommand()) {
+            using (SqliteCommand cmd = conn.CreateCommand()) {
                 cmd.CommandType = CommandType.Text;
                 cmd.CommandText = sql;
                 foreach(KeyValuePair<string, object> keyValuePair in values)
@@ -73,9 +73,9 @@ public class SQLiteUtility
     public object SelectOperation(string sql, KeyValuePair<string, object> parameter)
     {
         object result = null;
-        using (var conn = new SqliteConnection(dbPath)) {
+        using (SqliteConnection conn = new SqliteConnection(dbPath)) {
             conn.Open();
-            using (var cmd = conn.CreateCommand()) {
+            using (SqliteCommand cmd = conn.CreateCommand()) {
                 cmd.CommandType = CommandType.Text;
                 cmd.CommandText = sql;
 
@@ -85,6 +85,7 @@ public class SQLiteUtility
                 });
 
                 SqliteDataReader reader = cmd.ExecuteReader();
+                
                 result = reader.GetValue(0);
                 Debug.Log("Select query returned: "+ result.ToString());
             }

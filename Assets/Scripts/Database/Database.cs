@@ -7,7 +7,7 @@ public class Database : MonoBehaviour
 
     private static Database _instance;
     private static SQLiteUtility sqliteUtility;
-    public static SongRepository mapRepository;
+    public static SongRepository songRepository;
     public static PlayerStatsRepository playerStatsRepository;
     private bool initialized;
     public static Database Instance
@@ -43,7 +43,7 @@ public class Database : MonoBehaviour
     {
         sqliteUtility = new SQLiteUtility();
         sqliteUtility.Initialize();
-        mapRepository = new SongRepository(sqliteUtility);
+        songRepository = new SongRepository(sqliteUtility);
         playerStatsRepository = new PlayerStatsRepository(sqliteUtility);
 
         initialized = true;
