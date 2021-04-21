@@ -9,12 +9,14 @@ public class GameManager : MonoBehaviour
     [SerializeField] Transform[] spawnPoints;
     [Header("Audio")]
     [SerializeField] AudioSource audioSource;
+    [SerializeField] AudioSource audioSourceSFX;
     [Header("UI")]
     [SerializeField] Button startGameButton;
 
     public static GameManager Instance { get; private set; } = default;
 
     private int beatIndex = 0;
+    private int spawnPointIndex = 0;
     private bool runGame;
 
     private void Awake()
@@ -47,9 +49,10 @@ public class GameManager : MonoBehaviour
         float timeDifference = beat - audioSource.time;
         if (timeDifference <= SongHandler.Instance.GetPreferredMarginTimeBeforeBeat())
         {
-            Transform spawnPoint = spawnPoints[UnityEngine.Random.Range(0, spawnPoints.Length)];
+            Transform spawnPoint = spawnPoints[spawnPointIndex % spawnPoints.Length];
+            spawnPointIndex++;
             GameObject spawnedFruit = Instantiate(fruitPrefab, spawnPoint.position, spawnPoint.rotation);
-            spawnedFruit.GetComponentInChildren<Fruit>().Initiate(audioSource, beat);
+            spawnedFruit.GetComponentInChildren<Fruit>().Initiate(audioSource, audioSourceSFX, beat);
             spawnedFruit.GetComponentInChildren<Rigidbody2D>().AddForce(transform.up * UnityEngine.Random.Range(10f, 15f), ForceMode2D.Impulse);
             spawnedFruit.GetComponentInChildren<Rigidbody2D>().AddForce(transform.right * UnityEngine.Random.Range(-5f, 5f), ForceMode2D.Impulse);
             beatIndex++;

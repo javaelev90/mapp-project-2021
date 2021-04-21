@@ -8,8 +8,11 @@ public class Fruit : MonoBehaviour
 	
 	[SerializeField] Animator ringAnimator;
 	[SerializeField] AnimationClip ringAnimationClip;
+	[SerializeField] AudioClip soundEffect;
 	float beatTime;
 	AudioSource audioSource;
+	AudioSource audioSourceSFX;
+
 	void OnTriggerEnter2D(Collider2D col)
 	{
 		if (col.tag == "Blade")
@@ -22,19 +25,20 @@ public class Fruit : MonoBehaviour
 			
 			Debug.Log("Swipe diff in time:" + ((audioSource.time - SongHandler.Instance.GetAudioLatency()) - beatTime));
 						// Debug.Log("Swipe diff in time:" + ((audioSource.time ) - beatTime));
-
+			// audioSourceSFX.PlayOneShot(soundEffect);
 			Destroy(slicedFruit, 3f);
 			Destroy(this.gameObject);
 		}
 	}
 
-	public void Initiate(AudioSource audioSource, float beatTime)
+	public void Initiate(AudioSource audioSource, AudioSource audioSourceSFX, float beatTime)
 	{
 		float calibratedAnimationDelay = SongHandler.Instance.GetAudioLatency();
 		float countDown = Mathf.Abs(beatTime - audioSource.time);
 		float animatorSpeed =  1 / ((countDown + calibratedAnimationDelay) / ringAnimationClip.length);
 		this.audioSource = audioSource;
 		this.beatTime = beatTime;
+		this.audioSourceSFX = audioSourceSFX;
 		ringAnimator.speed = animatorSpeed;
 		ringAnimator.SetBool("ShrinkCircle", true);
 

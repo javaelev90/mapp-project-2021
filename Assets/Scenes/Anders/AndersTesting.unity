@@ -181,7 +181,7 @@ PrefabInstance:
     - target: {fileID: 7296353133716330885, guid: 39d72a18dda16d44a8eafbfd496ae167, type: 3}
       propertyPath: selectedSong
       value: 
-      objectReference: {fileID: 11400000, guid: bb1afd0f8925c104a831d64a67c9c5d0, type: 2}
+      objectReference: {fileID: 11400000, guid: a812638a65955ec4a8d676a96f84af8d, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 39d72a18dda16d44a8eafbfd496ae167, type: 3}
 --- !u!1001 &133936875
@@ -401,6 +401,10 @@ PrefabInstance:
       value: GameManager
       objectReference: {fileID: 0}
     - target: {fileID: 5231825053993391410, guid: a4997199fef73a44e8a3f130b50a0457, type: 3}
+      propertyPath: audioSourceSFX
+      value: 
+      objectReference: {fileID: 1136903672}
+    - target: {fileID: 5231825053993391410, guid: a4997199fef73a44e8a3f130b50a0457, type: 3}
       propertyPath: startGameButton
       value: 
       objectReference: {fileID: 1805599872}
@@ -450,6 +454,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a4997199fef73a44e8a3f130b50a0457, type: 3}
+--- !u!82 &1136903672 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 1283634769196179143, guid: a4997199fef73a44e8a3f130b50a0457, type: 3}
+  m_PrefabInstance: {fileID: 1136903671}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1679773482 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5231825053993391410, guid: a4997199fef73a44e8a3f130b50a0457, type: 3}
