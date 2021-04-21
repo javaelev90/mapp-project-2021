@@ -20,7 +20,7 @@ public class Fruit : MonoBehaviour
 
 			GameObject slicedFruit = Instantiate(fruitSlicedPrefab, transform.position, Quaternion.identity);
 			
-			Debug.Log("Swipe diff in time:" + ((audioSource.time - SongHandler.Instance.GetAudioDelayTime()) - beatTime));
+			Debug.Log("Swipe diff in time:" + ((audioSource.time - SongHandler.Instance.GetAudioLatency()) - beatTime));
 						// Debug.Log("Swipe diff in time:" + ((audioSource.time ) - beatTime));
 
 			Destroy(slicedFruit, 3f);
@@ -30,7 +30,7 @@ public class Fruit : MonoBehaviour
 
 	public void Initiate(AudioSource audioSource, float beatTime)
 	{
-		float calibratedAnimationDelay = SongHandler.Instance.GetAudioDelayTime();
+		float calibratedAnimationDelay = SongHandler.Instance.GetAudioLatency();
 		float countDown = Mathf.Abs(beatTime - audioSource.time);
 		float animatorSpeed =  1 / ((countDown + calibratedAnimationDelay) / ringAnimationClip.length);
 		this.audioSource = audioSource;

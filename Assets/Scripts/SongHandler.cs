@@ -6,7 +6,6 @@ public class SongHandler : MonoBehaviour
 {
 
     [SerializeField] private SongObject selectedSong;
-    public float CalibratedAnimationTimeDelay { get; set;}
     private static SongHandler _instance;
     public static SongHandler Instance
     {
@@ -51,8 +50,9 @@ public class SongHandler : MonoBehaviour
         return selectedSong != null ? selectedSong.preferredMarginTimeBeforeBeat : 1f;
     }
 
-    public float GetAudioDelayTime()
+    public float GetAudioLatency()
     {
-        return selectedSong != null ? selectedSong.audioDelay : 0f;
+        //TODO use database here: Database.playerStatsRepository.GetLatency()
+        return 0f;
     }
 }

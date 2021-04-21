@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uniqueName: metronome
   song: {fileID: 8300000, guid: d67fbe9ab58e06043a29513c61f24f64, type: 3}
-  preferredMarginTimeBeforeBeat: 0
+  preferredMarginTimeBeforeBeat: 0.9
   beats:
   - 1.2
   - 1.9

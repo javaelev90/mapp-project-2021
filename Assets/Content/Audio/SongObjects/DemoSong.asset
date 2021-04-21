@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uniqueName: demosong
   song: {fileID: 8300000, guid: dc591f19c3a0111458085badbac1528e, type: 3}
-  preferredMarginTimeBeforeBeat: 0
+  preferredMarginTimeBeforeBeat: 0.9
   beats:
   - 11.835
   - 12.54
