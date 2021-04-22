@@ -25,7 +25,7 @@ public class SQLiteUtility
     {
         if(!initialized) 
         {
-#if UNITY_EDITOR || UNITY_STANDALONE
+#if UNITY_EDITOR
 		    dbPath = "URI=file:"+ Application.dataPath +"/LocalTemporaryFiles/SoulConductorDatabase.db";
 #else
 		    dbPath = "URI=file:" + Application.persistentDataPath + "/SoulConductorDatabase.db";
