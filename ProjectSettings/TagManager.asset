@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Blade
+  - Panels
   layers:
   - Default
   - TransparentFX
