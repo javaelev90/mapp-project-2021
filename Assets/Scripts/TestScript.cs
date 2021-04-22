@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RotateAround : MonoBehaviour
+public class TestScript : MonoBehaviour
 {
 
 
@@ -14,6 +14,7 @@ public class RotateAround : MonoBehaviour
     private float endTime;
     private float swipeTime;
 
+    private float rotationToTime;
     private float setAnimationStartTime;
 
     private Vector3 cylinderScreenPoint;
@@ -30,6 +31,7 @@ public class RotateAround : MonoBehaviour
     }
     void Update()
     {
+        //Få information om panelens position.
         panelRotation = panel.transform.rotation;
 
         animator.SetBool("IsTurningRight", isTurningRight);
@@ -43,6 +45,10 @@ public class RotateAround : MonoBehaviour
             if (startPosition.x < cylinderScreenPoint.x)
             {
                 print("I'm left");
+
+                //Om panelens position inte är 0, så vill vi kolla längden på animationsklippet utifrån objektets position.
+                //Använd sedan längden på klippet, och konvertera det till den andra animationen.
+                //Starta den andra animationen från den positionen.
                 RotateLeft();
 
             }
@@ -68,8 +74,7 @@ public class RotateAround : MonoBehaviour
         AnimatorStateInfo currentAnimationInfo = animator.GetCurrentAnimatorStateInfo(0);
         float playBackTime = currentAnimationInfo.normalizedTime * currentAnimationInfo.length;
 
-        if (playBackTime > 0f)
-        {
+        if (playBackTime > 0f) {
             setAnimationStartTime = playBackTime;
         }
 
@@ -77,46 +82,29 @@ public class RotateAround : MonoBehaviour
 
     public void RotateRight()
     {
+        //animator.speed = 1;
 
-        if (panelRotation.eulerAngles.x == 0)
-        {
-            isTurningRight = true;
-            Invoke("SetBoolFalse", swipeTime);
-        }
-        else { 
-            animator.speed = 1; 
-            animator.Play("TurnAllRight", 0, setAnimationStartTime);
-            Invoke("PauseAnimation", swipeTime);
+        //Play animation from certain time
+        animator.Play("TurnAllRight", 0, setAnimationStartTime);
 
-        }
-
-        
+        //isTurningRight = true;
+        //isTurningLeft = false;
+        Invoke("SetBoolFalse", swipeTime);
     }
 
     public void RotateLeft()
     {
-        if (panelRotation.eulerAngles.x == 0)
-        {
-            isTurningLeft = true;
-            Invoke("SetBoolFalse", swipeTime);
-        }
-        else { 
-            animator.speed = 1;
-            animator.Play("TurnAllRight", 0, setAnimationStartTime);
-            Invoke("PauseAnimation", swipeTime);
-        }
-
+        //animator.speed = 1;
+        isTurningLeft = true;
+        //isTurningRight = false;
+        Invoke("SetBoolFalse", swipeTime);
     }
 
     private void SetBoolFalse()
     {
+        //animator.speed = 0;
         isTurningRight = false;
         isTurningLeft = false;
-    }
-
-    private void PauseAnimation() {
-        print("isUsing");
-        animator.speed = 0;
     }
 
 }
