@@ -73,8 +73,8 @@ public class InGameMenuController : MonoBehaviour
     }
     public void OnExitToMain()
     {
-        //OnResume();
-        //ChangeScene("Start");
+        OnResume();
+        ChangeScene("AndersStart");
     }
     public void OnExitApplication()
     {
