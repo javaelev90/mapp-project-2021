@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class GameManager : MonoBehaviour
+public class GameManager : SingletonPattern<GameManager>
 {
     [Header("Gameplay")]
     [SerializeField] GameObject fruitPrefab;
@@ -13,16 +13,10 @@ public class GameManager : MonoBehaviour
     [Header("UI")]
     [SerializeField] Button startGameButton;
 
-    public static GameManager Instance { get; private set; } = default;
-
     private int beatIndex = 0;
     private int spawnPointIndex = 0;
     private bool runGame;
 
-    private void Awake()
-    {
-        Instance = this;
-    }
     void Start()
     {
         InitializeUI();

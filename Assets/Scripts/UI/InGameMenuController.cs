@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class InGameMenuController : MonoBehaviour
@@ -42,6 +43,14 @@ public class InGameMenuController : MonoBehaviour
         inGameMenu.gameObject.SetActive(false);
     }
 
+    void ChangeScene(string sceneName)
+    {
+        print("activescene: " + SceneManager.GetActiveScene().name);
+        SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
+        SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
+        SceneManager.SetActiveScene(SceneManager.GetSceneByName(sceneName));
+    }
+
     #region OnButtons
     public void OnInGameMenu()
     {
@@ -64,7 +73,8 @@ public class InGameMenuController : MonoBehaviour
     }
     public void OnExitToMain()
     {
-
+        //OnResume();
+        //ChangeScene("Start");
     }
     public void OnExitApplication()
     {
