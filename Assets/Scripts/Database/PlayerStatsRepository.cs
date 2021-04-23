@@ -6,8 +6,6 @@ using UnityEngine;
 public class PlayerStatsRepository 
 {
 
-    SQLiteUtility sqliteUtility;
-    int PLAYER_ID = 0;
     string UPSERT_LATENCY_SQL = "INSERT INTO PLAYER_STATS(ID, SOUND_LATENCY) VALUES(@ID, @SOUND_LATENCY) " +
                                " ON CONFLICT(ID) DO UPDATE SET SOUND_LATENCY=EXCLUDED.SOUND_LATENCY;"; 
     string SELECT_LATENCY_SQL = "SELECT SOUND_LATENCY FROM PLAYER_STATS WHERE ID=@ID;"; 
@@ -15,9 +13,19 @@ public class PlayerStatsRepository
                                " ON CONFLICT(ID) DO UPDATE SET LEVEL=EXCLUDED.LEVEL;"; 
     string SELECT_LEVEL_SQL = "SELECT LEVEL FROM PLAYER_STATS WHERE ID=@ID;"; 
 
+    string CREATE_PLAYER_STATS_SQL = "CREATE TABLE IF NOT EXISTS PLAYER_STATS ( " +
+                                "  ID INTEGER PRIMARY KEY, " +
+                                "  SOUND_LATENCY TEXT, " +
+                                "  LEVEL INTEGER" +
+                                ");";
+
+    SQLiteUtility sqliteUtility;
+    int PLAYER_ID = 0;
+
     public PlayerStatsRepository(SQLiteUtility sqliteUtility)
     {
         this.sqliteUtility = sqliteUtility;
+        this.sqliteUtility.CreateSchema(CREATE_PLAYER_STATS_SQL);
     }
 
     public void UpdateLatency(int latency)

@@ -7,36 +7,29 @@ using Mono.Data.Sqlite;
 public class SQLiteUtility
 {
 
-    private string dbPath;
-    private bool initialized;
-
     private string CREATE_PLAYER_STATS_SQL = "CREATE TABLE IF NOT EXISTS PLAYER_STATS ( " +
-                                    "  ID INTEGER PRIMARY KEY, " +
-                                    "  SOUND_LATENCY TEXT, " +
-                                    "  LEVEL INTEGER" +
-                                    ");";
+                                "  ID INTEGER PRIMARY KEY, " +
+                                "  SOUND_LATENCY TEXT, " +
+                                "  LEVEL INTEGER" +
+                                ");";
 
     private string CREATE_MAPS_SQL = "CREATE TABLE IF NOT EXISTS SONG ( " +
                                 "  NAME TEXT PRIMARY KEY, " +
                                 "  SCORE INTEGER" +
                                 ");";
 
-    public void Initialize()
+    private string dbPath;
+
+    public SQLiteUtility()
     {
-        if(!initialized) 
-        {
 #if UNITY_EDITOR
-		    dbPath = "URI=file:"+ Application.dataPath +"/LocalTemporaryFiles/SoulConductorDatabase.db";
+        dbPath = "URI=file:"+ Application.dataPath +"/LocalTemporaryFiles/SoulConductorDatabase.db";
 #else
-		    dbPath = "URI=file:" + Application.persistentDataPath + "/SoulConductorDatabase.db";
+        dbPath = "URI=file:" + Application.persistentDataPath + "/SoulConductorDatabase.db";
 #endif
-            CreateSchema(CREATE_PLAYER_STATS_SQL);
-            CreateSchema(CREATE_MAPS_SQL);
-            initialized = true;
-        }
     }
 
-    private void CreateSchema(string createSchemaString)
+    public void CreateSchema(string createSchemaString)
     {
         using (var conn = new SqliteConnection(dbPath)) {
             conn.Open();

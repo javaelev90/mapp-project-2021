@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SongHandler : SingletonPatternPersistent<SongHandler>
+public class SongHandler : SingletonPatternPersistent<SongHandler>, IInitializeAble
 {
 
     [SerializeField] private SongObject selectedSong;
@@ -13,6 +13,7 @@ public class SongHandler : SingletonPatternPersistent<SongHandler>
         selectedSong = song;
     }
 
+    public void Initialize(){}
     public AudioClip GetSongAudioClip()
     {
         return selectedSong != null ? selectedSong.song : null;
@@ -31,6 +32,6 @@ public class SongHandler : SingletonPatternPersistent<SongHandler>
     public float GetAudioLatency()
     {
         //TODO use database here: Database.playerStatsRepository.GetLatency()
-        return 0f;
+        return Database.Instance.playerStatsRepository.GetLatency()/1000;
     }
 }

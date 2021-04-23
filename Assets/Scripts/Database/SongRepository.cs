@@ -5,17 +5,23 @@ using UnityEngine;
 
 public class SongRepository
 {
+    
+    string CREATE_SONG_SQL = "CREATE TABLE IF NOT EXISTS SONG ( " +
+                            "  NAME TEXT PRIMARY KEY, " +
+                            "  SCORE INTEGER" +
+                            ");";
+
+    string UPSERT_FIELD_SQL = "INSERT INTO SONG(NAME, SCORE) VALUES(@NAME, @SCORE) " +
+                               " ON CONFLICT(NAME) DO UPDATE SET SCORE=EXCLUDED.SCORE;"; 
+    string SELECT_FIELD_SQL = "SELECT SCORE FROM SONG WHERE NAME=@NAME;"; 
 
     SQLiteUtility sqliteUtility;
 
     public SongRepository(SQLiteUtility sqliteUtility)
     {
         this.sqliteUtility = sqliteUtility;
+        this.sqliteUtility.CreateSchema(CREATE_SONG_SQL);
     }
-
-    string UPSERT_FIELD_SQL = "INSERT INTO SONG(NAME, SCORE) VALUES(@NAME, @SCORE) " +
-                               " ON CONFLICT(NAME) DO UPDATE SET SCORE=EXCLUDED.SCORE;"; 
-    string SELECT_FIELD_SQL = "SELECT SCORE FROM SONG WHERE NAME=@NAME;"; 
 
     public void UpdateSongScore(string songName, int score)
     {

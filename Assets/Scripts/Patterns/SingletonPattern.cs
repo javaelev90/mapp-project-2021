@@ -36,7 +36,7 @@ public class SingletonPattern<T> : MonoBehaviour where T : Component
 /// Singleton that will be saved in the additive scene "Managers" and persist between scene changes.
 /// </summary>
 /// <typeparam name="T">The class to make an instance of</typeparam>
-public class SingletonPatternPersistent<T> : MonoBehaviour where T : Component
+public class SingletonPatternPersistent<T> : MonoBehaviour where T : Component, IInitializeAble
 {
     static T instance;
 
@@ -55,7 +55,7 @@ public class SingletonPatternPersistent<T> : MonoBehaviour where T : Component
                 go.name = typeof(T).Name;
                 go.hideFlags = HideFlags.HideAndDontSave; // Don't see in hierarchy or save to scene
                 instance = go.AddComponent<T>();
-
+                go.GetComponent<T>().Initialize();
                 // Return to active scene
                 SceneManager.SetActiveScene(activeScene);
             }
