@@ -58,7 +58,7 @@ public class SQLiteUtility
                 }
 
                 int result = cmd.ExecuteNonQuery();
-                Debug.Log("Updated rows: " + result);
+                // Debug.Log("Updated rows: " + result);
             }
         }
     }
@@ -80,7 +80,7 @@ public class SQLiteUtility
                 SqliteDataReader reader = cmd.ExecuteReader();
                 
                 result = reader.GetValue(0);
-                Debug.Log("Select query returned: "+ result.ToString());
+                // Debug.Log("Select query returned: "+ result.ToString());
             }
         }
         return result;
