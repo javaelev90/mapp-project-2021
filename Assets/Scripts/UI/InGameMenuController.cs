@@ -17,9 +17,12 @@ public class InGameMenuController : MonoBehaviour
 
     public static bool gameIsPaused = false;
 
+    SceneHandler sceneHandler;
+
     void Start()
     {
         InitializeUI();
+        sceneHandler = SceneHandler.Instance;
     }
 
     void TogglePause()
@@ -45,10 +48,7 @@ public class InGameMenuController : MonoBehaviour
 
     void ChangeScene(string sceneName)
     {
-        print("activescene: " + SceneManager.GetActiveScene().name);
-        SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
-        SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
-        SceneManager.SetActiveScene(SceneManager.GetSceneByName(sceneName));
+        sceneHandler.ChangeScene(sceneName);
     }
 
     #region OnButtons
@@ -71,10 +71,10 @@ public class InGameMenuController : MonoBehaviour
         OnResume();
         GameManager.Instance.RestartGame();
     }
-    public void OnExitToMain()
+    public void OnExitToMain(string sceneName)
     {
         OnResume();
-        ChangeScene("AndersStart");
+        sceneHandler.ChangeScene(sceneName);
     }
     public void OnExitApplication()
     {

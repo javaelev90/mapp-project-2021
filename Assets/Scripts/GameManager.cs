@@ -13,13 +13,15 @@ public class GameManager : SingletonPattern<GameManager>
     [Header("UI")]
     [SerializeField] Button startGameButton;
 
+    SceneHandler sceneHandler;
     private int beatIndex = 0;
     private int spawnPointIndex = 0;
     private bool runGame;
 
-    void Start()
+    void Awake()
     {
         InitializeUI();
+        sceneHandler = SceneHandler.Instance;
     }
 
     private void Update() 
@@ -71,16 +73,24 @@ public class GameManager : SingletonPattern<GameManager>
 
     public void RestartGame()
     {
-        // Might want to handle this differently in the future
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex, LoadSceneMode.Single);
+        // Removing all Fruits in active scene
+        foreach (var go in SceneManager.GetActiveScene().GetRootGameObjects())
+        {
+            if (go.GetComponentInChildren<Fruit>() != null)
+            {
+                Destroy(go);
+            }
+        }
+
+        // Somehow restart
     }
 
     /// <summary>
-    /// Making sure the right UI is shown at start
+    /// Making sure the right UI is shown
     /// </summary>
     void InitializeUI()
     {
-        startGameButton.gameObject.SetActive(true);
+        startGameButton?.gameObject.SetActive(true);
     }
 
 }

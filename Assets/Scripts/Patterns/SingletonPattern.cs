@@ -48,7 +48,12 @@ public class SingletonPatternPersistent<T> : MonoBehaviour where T : Component, 
             {
                 // Making sure to add Persistent Singleton to the Managers scene
                 Scene activeScene = SceneManager.GetActiveScene();
-                SceneManager.SetActiveScene(SceneManager.GetSceneByName("Managers")); 
+                bool sceneChanged = false;
+                if (activeScene.name != "Managers")
+                {
+                    SceneManager.SetActiveScene(SceneManager.GetSceneByName("Managers"));
+                    sceneChanged = true;
+                }
 
                 // Create GameObject with Singleton component
                 GameObject go = new GameObject();
@@ -56,8 +61,10 @@ public class SingletonPatternPersistent<T> : MonoBehaviour where T : Component, 
                 go.hideFlags = HideFlags.HideAndDontSave; // Don't see in hierarchy or save to scene
                 instance = go.AddComponent<T>();
                 go.GetComponent<T>().Initialize();
+
                 // Return to active scene
-                SceneManager.SetActiveScene(activeScene);
+                if(sceneChanged)
+                    SceneManager.SetActiveScene(activeScene);
             }
             return instance;
         }
@@ -66,7 +73,10 @@ public class SingletonPatternPersistent<T> : MonoBehaviour where T : Component, 
     void OnDestroy()
     {
         if (instance == this)
+        {
+            print("Destroying persistent singleton: " + instance.name);
             instance = null;
+        }
     }
 
 }

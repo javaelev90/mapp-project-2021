@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 917921201}
   - component: {fileID: 917921202}
   - component: {fileID: 917921203}
+  - component: {fileID: 917921204}
   m_Layer: 0
   m_Name: Persistent Managers
   m_TagString: Untagged
@@ -180,3 +181,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b69b7b2eec6c33541a003b2293d17042, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &917921204
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 917921200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a571d2ed457e098449e140a17680fb08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  persistentScene: {fileID: 102900000, guid: a4c541e7fa6c9714b8ea9dfe9c771f4c, type: 3}
+  mainMenuScene: {fileID: 102900000, guid: 857e6150e584fc141a922aaf4284089b, type: 3}
