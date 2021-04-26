@@ -6,18 +6,6 @@ using Mono.Data.Sqlite;
 
 public class SQLiteUtility
 {
-
-    private string CREATE_PLAYER_STATS_SQL = "CREATE TABLE IF NOT EXISTS PLAYER_STATS ( " +
-                                "  ID INTEGER PRIMARY KEY, " +
-                                "  SOUND_LATENCY TEXT, " +
-                                "  LEVEL INTEGER" +
-                                ");";
-
-    private string CREATE_MAPS_SQL = "CREATE TABLE IF NOT EXISTS SONG ( " +
-                                "  NAME TEXT PRIMARY KEY, " +
-                                "  SCORE INTEGER" +
-                                ");";
-
     private string dbPath;
 
     public SQLiteUtility()
