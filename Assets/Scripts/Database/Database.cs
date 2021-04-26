@@ -7,6 +7,7 @@ public class Database : SingletonPatternPersistent<Database>, IInitializeAble
     private static SQLiteUtility sqliteUtility;
     public SongRepository songRepository;
     public PlayerStatsRepository playerStatsRepository;
+    public SettingsRepository settingsRepository;
     private bool initialized;
 
     public void Initialize()
@@ -16,6 +17,7 @@ public class Database : SingletonPatternPersistent<Database>, IInitializeAble
             sqliteUtility = new SQLiteUtility();
             songRepository = new SongRepository(sqliteUtility);
             playerStatsRepository = new PlayerStatsRepository(sqliteUtility);
+            settingsRepository = new SettingsRepository(sqliteUtility);
             initialized = true;
         }
     }
