@@ -22,17 +22,28 @@ public class SettingsRepository
         this.sqliteUtility.CreateSchema(CREATE_SETTINGS_SQL);
     }
 
-    public void UpdateSetting(string settingName, string settingValue)
+    public float GetVolumeSetting()
+    {
+        return float.Parse(GetSetting("VOLUME"));
+    }
+
+    public void UpdateVolumeSetting(float volume)
+    {
+        UpdateSetting("VOLUME", ("" + volume));
+    }
+
+    private void UpdateSetting(string settingName, string settingValue)
     {
         KeyValuePair<string, object> idParam = new KeyValuePair<string, object>("NAME", settingName);
         KeyValuePair<string, object> otherParam = new KeyValuePair<string, object>("VALUE", settingValue);
         sqliteUtility.UpsertOperation(UPSERT_FIELD_SQL, idParam, otherParam);
     }
 
-    public object GetSetting(string settingName)
+    private string GetSetting(string settingName)
     {
         KeyValuePair<string, object> idParam = new KeyValuePair<string, object>("NAME", settingName);
-        return sqliteUtility.SelectOperation(SELECT_FIELD_SQL, idParam);
+        object result = sqliteUtility.SelectOperation(SELECT_FIELD_SQL, idParam);
+        return (string) result;
     }
 
 }
