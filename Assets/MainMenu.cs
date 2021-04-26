@@ -11,7 +11,12 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadScene(sceneNumber);
 
         }
+    void Awake()
+    {
+        // Load the Managers scen
+        if (!SceneManager.GetSceneByName("Managers").isLoaded)
+            SceneManager.LoadSceneAsync("Managers", LoadSceneMode.Additive);
+    }
 
 
-   
 }
