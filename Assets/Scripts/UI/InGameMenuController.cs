@@ -15,7 +15,7 @@ public class InGameMenuController : MonoBehaviour
     [SerializeField] Button exitToMainButton;
     [SerializeField] Button exitApplicationButton;
 
-    public static bool gameIsPaused = false;
+    public static bool GameIsPaused = false;
 
     SceneHandler sceneHandler;
 
@@ -27,8 +27,8 @@ public class InGameMenuController : MonoBehaviour
 
     void TogglePause()
     {
-        gameIsPaused = !gameIsPaused;
-        if (gameIsPaused)
+        GameIsPaused = !GameIsPaused;
+        if (GameIsPaused)
         {
             Time.timeScale = 0f;
             AudioListener.pause = true;
