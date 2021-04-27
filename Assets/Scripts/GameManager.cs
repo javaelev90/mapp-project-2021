@@ -1,11 +1,15 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+[DefaultExecutionOrder(-1)]
 public class GameManager : SingletonPattern<GameManager>
 {
     [Header("Gameplay")]
+    [SerializeField][Range(1, 25)] int pointsLostOnMiss = 20;
+    [Header("Game Data")]
     [SerializeField] GameObject fruitPrefab;
     [SerializeField] Transform[] spawnPoints;
     [Header("Audio")]
@@ -15,14 +19,16 @@ public class GameManager : SingletonPattern<GameManager>
     [SerializeField] Button startGameButton;
     [SerializeField] TMP_Text scoreText;
     [SerializeField] GameObject winScreen;
+    [SerializeField] Image hpBar;
 
+    //GameManager gameManager;
     SceneHandler sceneHandler;
     private int beatIndex = 0;
     private int spawnPointIndex = 0;
     private bool runGame = false;
 
-    int hitPoints = 0;
-    float score = 0;
+    float hitPoints = 100;
+    float score = 0f;
     private bool wonGame;
 
     void Awake()
@@ -30,6 +36,15 @@ public class GameManager : SingletonPattern<GameManager>
         InitializeUI();
         sceneHandler = SceneHandler.Instance;
         GameManager.SetInstanceIfNull(this);
+    }
+
+    /// <summary>
+    /// Making sure the right UI is shown
+    /// </summary>
+    void InitializeUI()
+    {
+        startGameButton?.gameObject.SetActive(true);
+
     }
 
     private void Update() 
@@ -143,7 +158,6 @@ public class GameManager : SingletonPattern<GameManager>
         audioSource.Stop();
         OnStartGame();
     }
-
     /// <summary>
     /// Making sure the right UI is shown
     /// </summary>
@@ -177,6 +191,25 @@ public class GameManager : SingletonPattern<GameManager>
             
         }
         
+
+    }
+
+    public void MissedSwipe()
+    {
+        hitPoints -= pointsLostOnMiss;
+        if (hitPoints < 0)
+            GameOver();
+        else
+            SetHPBar(hitPoints);
+    }
+
+    void SetHPBar(float hitPoints)
+    {
+        hpBar.fillAmount = hitPoints / 100;
+    }
+
+    void GameOver()
+    {
 
     }
 }
