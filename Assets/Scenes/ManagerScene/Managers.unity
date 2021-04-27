@@ -194,4 +194,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   persistentScene: {fileID: 102900000, guid: a4c541e7fa6c9714b8ea9dfe9c771f4c, type: 3}
-  mainMenuScene: {fileID: 102900000, guid: 857e6150e584fc141a922aaf4284089b, type: 3}
+  mainMenuScene: {fileID: 102900000, guid: 1ec29afd93beb32469c02100fc6550b2, type: 3}
