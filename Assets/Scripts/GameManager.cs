@@ -58,6 +58,12 @@ public class GameManager : SingletonPattern<GameManager>
            if(!audioSource.isPlaying) 
            {
                winScreen.SetActive(true);
+               int songScore = Database.Instance.songRepository.GetSongScore(SongHandler.Instance.GetSongName());
+               if(songScore == -1 || songScore < score)
+               {
+                   Database.Instance.songRepository.UpdateSongScore(SongHandler.Instance.GetSongName(), (int) score);
+               
+               }
                wonGame = false;
            }
        }
@@ -142,27 +148,29 @@ public class GameManager : SingletonPattern<GameManager>
             }
         }
 
-        // Somehow restart
+        // Reset game properties
         wonGame = false;
         runGame = false;
         beatIndex = 0;
+        score = 0;
+        scoreText.text = "Score: " + score;
         audioSource.Stop();
         OnStartGame();
     }
 
-    public void SetScore(float timing) //(vi får ändra värdena sen )
+    public void SetScore(float timing) //(vi fï¿½r ï¿½ndra vï¿½rdena sen )
     {
         if (timing < .2f && timing > -.2f) { // Perfect
             
             score += 100;
             scoreText.text = "Score: " + score; 
 
-        } else if (timing > .2f && timing < .4f)  //Good, (ändra värdena sen )
+        } else if (timing > .2f && timing < .4f)  //Good, (ï¿½ndra vï¿½rdena sen )
         {   
             score += 50;
             scoreText.text = "Score: " + score; 
 
-        } else if (timing > .4f && timing < .6f) // Bad, (ändra värdena sen)
+        } else if (timing > .4f && timing < .6f) // Bad, (ï¿½ndra vï¿½rdena sen)
         {
             score += 25;
             scoreText.text = "Score: " + score;
