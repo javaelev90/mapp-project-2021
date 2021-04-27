@@ -24,8 +24,12 @@ public class Fruit : MonoBehaviour
 			GameObject slicedFruit = Instantiate(fruitSlicedPrefab, transform.position, Quaternion.identity);
 			
 			Debug.Log("Swipe diff in time:" + ((audioSource.time - SongHandler.Instance.GetAudioLatency()) - beatTime));
-						// Debug.Log("Swipe diff in time:" + ((audioSource.time ) - beatTime));
+			// Debug.Log("Swipe diff in time:" + ((audioSource.time ) - beatTime));
 			// audioSourceSFX.PlayOneShot(soundEffect);
+
+			float timing = (audioSource.time - SongHandler.Instance.GetAudioLatency()) - beatTime;
+			GameManager.Instance.SetScore(timing);
+			
 			Destroy(slicedFruit, 3f);
 			Destroy(this.gameObject);
 		}

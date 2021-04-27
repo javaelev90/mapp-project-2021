@@ -144,12 +144,31 @@ public class GameManager : SingletonPattern<GameManager>
         startGameButton?.gameObject.SetActive(true);
     }
 
-    public void SetScore(float timing)
+    public void SetScore(float timing) //(vi får ändra värdena sen )
     {
         if (timing < .2f && timing > -.2f) { // Perfect
-            score = 100;
+            
+            score += 100;
+            scoreText.text = "Score: " + score; 
+
+        } else if (timing > .2f && timing < .4f)  //Good, (ändra värdena sen )
+        {   
+            score += 50;
+            scoreText.text = "Score: " + score; 
+
+        } else if (timing > .4f && timing < .6f) // Bad, (ändra värdena sen)
+        {
+            score += 25;
             scoreText.text = "Score: " + score;
+
+        } else  // Miss
+        {
+            
+            scoreText.text = "Score: " + score;
+
+            
         }
-        //else if ()
+        
+
     }
 }
