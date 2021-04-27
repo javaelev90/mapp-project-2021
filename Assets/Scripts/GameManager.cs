@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -12,11 +13,15 @@ public class GameManager : SingletonPattern<GameManager>
     [SerializeField] AudioSource audioSourceSFX;
     [Header("UI")]
     [SerializeField] Button startGameButton;
+    [SerializeField] TMP_Text scoreText;
 
     SceneHandler sceneHandler;
     private int beatIndex = 0;
     private int spawnPointIndex = 0;
-    private bool runGame;
+    private bool runGame = false;
+
+    int hitPoints = 0;
+    float score = 0;
 
     void Awake()
     {
@@ -93,4 +98,12 @@ public class GameManager : SingletonPattern<GameManager>
         startGameButton?.gameObject.SetActive(true);
     }
 
+    public void SetScore(float timing)
+    {
+        if (timing < .2f && timing > -.2f) { // Perfect
+            score = 100;
+            scoreText.text = "Score: " + score;
+        }
+        //else if ()
+    }
 }
