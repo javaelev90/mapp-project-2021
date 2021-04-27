@@ -158,13 +158,6 @@ public class GameManager : SingletonPattern<GameManager>
         audioSource.Stop();
         OnStartGame();
     }
-    /// <summary>
-    /// Making sure the right UI is shown
-    /// </summary>
-    void InitializeUI()
-    {
-        startGameButton?.gameObject.SetActive(true);
-    }
 
     public void SetScore(float timing) //(vi f�r �ndra v�rdena sen )
     {
