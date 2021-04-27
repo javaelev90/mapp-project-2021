@@ -44,6 +44,7 @@ public class GameManager : SingletonPattern<GameManager>
            if(!audioSource.isPlaying) 
            {
                winScreen.SetActive(true);
+               wonGame = false;
            }
        }
     }

@@ -29,4 +29,9 @@ public class WinScreenController : MonoBehaviour
     {
         sceneHandler.ChangeScene(sceneName);
     }
+
+    public void ToggleWinScreen(bool active)
+    {
+        gameObject.SetActive(active);
+    }
 }
