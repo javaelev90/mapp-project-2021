@@ -154,35 +154,30 @@ public class GameManager : SingletonPattern<GameManager>
         beatIndex = 0;
         score = 0;
         scoreText.text = "Score: " + score;
+        SetHPBar(1f);
         audioSource.Stop();
         OnStartGame();
     }
 
     public void SetScore(float timing) //(vi f�r �ndra v�rdena sen )
     {
-        if (timing < .2f && timing > -.2f) { // Perfect
-            
+        if (timing < .2f && timing > -.2f) // Perfect
+        { 
             score += 100;
-            scoreText.text = "Score: " + score; 
 
-        } else if (timing > .2f && timing < .4f)  //Good, (�ndra v�rdena sen )
+        } else if (timing >= .2f && timing < .4f)  //Good, (�ndra v�rdena sen )
         {   
             score += 50;
-            scoreText.text = "Score: " + score; 
 
-        } else if (timing > .4f && timing < .6f) // Bad, (�ndra v�rdena sen)
+        } else if (timing >= .4f && timing < .6f) // Bad, (�ndra v�rdena sen)
         {
             score += 25;
-            scoreText.text = "Score: " + score;
 
         } else  // Miss
         {
-            
-            scoreText.text = "Score: " + score;
-
-            
+            //scoreText.text = "Score: " + score;
         }
-        
+        scoreText.text = "Score: " + score;
 
     }
 
@@ -202,6 +197,7 @@ public class GameManager : SingletonPattern<GameManager>
 
     void GameOver()
     {
-
+        // Pausa spel och visa Loser-skärm
+        // Erbjud Restart eller Back To Main Menu
     }
 }
