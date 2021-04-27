@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class InGameMenuController : MonoBehaviour
@@ -16,9 +17,12 @@ public class InGameMenuController : MonoBehaviour
 
     public static bool gameIsPaused = false;
 
+    SceneHandler sceneHandler;
+
     void Start()
     {
         InitializeUI();
+        sceneHandler = SceneHandler.Instance;
     }
 
     void TogglePause()
@@ -42,6 +46,11 @@ public class InGameMenuController : MonoBehaviour
         inGameMenu.gameObject.SetActive(false);
     }
 
+    void ChangeScene(string sceneName)
+    {
+        sceneHandler.ChangeScene(sceneName);
+    }
+
     #region OnButtons
     public void OnInGameMenu()
     {
@@ -62,9 +71,10 @@ public class InGameMenuController : MonoBehaviour
         OnResume();
         GameManager.Instance.RestartGame();
     }
-    public void OnExitToMain()
+    public void OnExitToMain(string sceneName)
     {
-
+        OnResume();
+        sceneHandler.ChangeScene(sceneName);
     }
     public void OnExitApplication()
     {

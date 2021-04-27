@@ -2,32 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SongHandler : MonoBehaviour
+public class SongHandler : SingletonPatternPersistent<SongHandler>, IInitializeAble
 {
 
     [SerializeField] private SongObject selectedSong;
-    private static SongHandler _instance;
-    public static SongHandler Instance
-    {
-        get
-        {
-            return _instance;
-        }
-
-    }
-
-    private void Awake()
-    {
-        if (_instance != null && _instance != this)
-        {
-            GameObject.Destroy(Instance);
-            return;
-        } else
-        {
-            _instance = this;
-        }
-        DontDestroyOnLoad(this);
-    }
 
     // This is used from GUI when choosing a song
     public void SetSongObject(SongObject song)
@@ -35,6 +13,7 @@ public class SongHandler : MonoBehaviour
         selectedSong = song;
     }
 
+    public void Initialize(){}
     public AudioClip GetSongAudioClip()
     {
         return selectedSong != null ? selectedSong.song : null;
@@ -53,6 +32,6 @@ public class SongHandler : MonoBehaviour
     public float GetAudioLatency()
     {
         //TODO use database here: Database.playerStatsRepository.GetLatency()
-        return 0f;
+        return Database.Instance.playerStatsRepository.GetLatency()/1000;
     }
 }
