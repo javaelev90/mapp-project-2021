@@ -44,7 +44,6 @@ public class GameManager : SingletonPattern<GameManager>
     void InitializeUI()
     {
         startGameButton?.gameObject.SetActive(true);
-
     }
 
     private void Update() 
@@ -149,13 +148,6 @@ public class GameManager : SingletonPattern<GameManager>
         beatIndex = 0;
         audioSource.Stop();
         OnStartGame();
-    }
-    /// <summary>
-    /// Making sure the right UI is shown
-    /// </summary>
-    void InitializeUI()
-    {
-        startGameButton?.gameObject.SetActive(true);
     }
 
     public void SetScore(float timing) //(vi får ändra värdena sen )
