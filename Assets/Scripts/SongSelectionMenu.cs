@@ -12,6 +12,13 @@ public class SongSelectionMenu : MonoBehaviour
         
     }
 
+    void Awake()
+    {
+        // Load the Managers scen
+        if (!SceneManager.GetSceneByName("Managers").isLoaded)
+            SceneManager.LoadSceneAsync("Managers", LoadSceneMode.Additive);
+    }
+
     public void GoBack()
     {
         if (panel.activeInHierarchy)

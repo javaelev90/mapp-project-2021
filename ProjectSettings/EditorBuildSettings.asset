@@ -26,4 +26,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Christians/Test1.unity
     guid: 5f719ca7f6dde1b4c943dc7b7c00a158
+  - enabled: 1
+    path: Assets/Scenes/Main Scenes/Game.unity
+    guid: 39a0c123e8c7db442864b78f2735e3b6
+  - enabled: 1
+    path: Assets/Scenes/Vilmas/TestScene - Vilma.unity
+    guid: b906a9c94950b484d8b6df63889c1918
   m_configObjects: {}
