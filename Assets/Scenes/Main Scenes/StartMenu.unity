@@ -1216,7 +1216,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 34398928}
         m_TargetAssemblyTypeName: VolumeMenu, Assembly-CSharp
-        m_MethodName: SetVolume
+        m_MethodName: SetMusicVolume
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3093,7 +3093,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 34398928}
         m_TargetAssemblyTypeName: VolumeMenu, Assembly-CSharp
-        m_MethodName: SetVolume
+        m_MethodName: SetEffectsVolume
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5728,7 +5728,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1316393021}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: CalibrationMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6381,7 +6381,7 @@ GameObject:
   - component: {fileID: 1440548839}
   - component: {fileID: 1440548840}
   - component: {fileID: 1440548841}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: SoundCalibrator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
