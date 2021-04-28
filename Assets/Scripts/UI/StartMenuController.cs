@@ -1,9 +1,6 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
-using System.Collections.Generic;
-using System.Collections;
 
 public class StartMenuController : MonoBehaviour
 {
@@ -12,14 +9,14 @@ public class StartMenuController : MonoBehaviour
     [Tooltip("The songs you have added to the dropdown, NOTE!: their position must match their positions in the dropdown")]
     [SerializeField] SongObject[] songObjects;
 
-    [Header("Loading")]
-    [SerializeField] GameObject loadingInterface;
-    [SerializeField] Image loadingProgressBar;
+    //[Header("Loading")]
+    //[SerializeField] GameObject loadingInterface;
+    //[SerializeField] Image loadingProgressBar;
+    //List<AsyncOperation> scenesToLoad = new List<AsyncOperation>();
 
     SongHandler songHandler;
     SceneHandler sceneHandler;
 
-    //List<AsyncOperation> scenesToLoad = new List<AsyncOperation>();
 
     void Awake()
     {
@@ -41,6 +38,7 @@ public class StartMenuController : MonoBehaviour
     {
         sceneHandler.ChangeScene(sceneName);
 
+        // NOTE(christian): testar lite med loading screen
         //HideMenu();
         //ShowLoadingScreen(true);
         //scenesToLoad.Add(SceneManager.LoadSceneAsync("Test1", LoadSceneMode.Additive));

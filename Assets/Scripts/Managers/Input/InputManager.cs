@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.EnhancedTouch;
 
 [DefaultExecutionOrder(-2)]
-public class InputManager : SingletonPattern<InputManager>
+public class InputManager : SingletonPatternPersistent<InputManager>, IInitializeAble
 {
     #region Events
     public delegate void StartTouchEvent(Vector2 position, float time);
@@ -48,6 +48,8 @@ public class InputManager : SingletonPattern<InputManager>
         playerControls.Touch.PrimaryContact.canceled += ctx => EndTouchPrimary(ctx);
     }
 
+    public void Initialize() { }
+
     public Vector2 PrimaryPosition()
     {
         return mainCamera.ScreenToWorldPoint(playerControls.Touch.PrimaryPosition.ReadValue<Vector2>());
@@ -70,4 +72,5 @@ public class InputManager : SingletonPattern<InputManager>
     {
         OnEndEnhancedTouch?.Invoke(finger.screenPosition, Time.time);
     }
+
 }

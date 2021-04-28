@@ -154,7 +154,7 @@ public class GameManager : SingletonPattern<GameManager>
         beatIndex = 0;
         score = 0;
         scoreText.text = "Score: " + score;
-        SetHPBar(1f);
+        SetHPBar(100f);
         audioSource.Stop();
         OnStartGame();
     }
