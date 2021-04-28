@@ -9,9 +9,13 @@ using UnityEngine.SceneManagement;
 public class SceneHandler : SingletonPatternPersistent<SceneHandler>, IInitializeAble
 {
     [Tooltip("The scene you want to be persistent through scene-transitions")]
-    [SerializeField] SceneAsset persistentScene;
-    [SerializeField] SceneAsset mainMenuScene;
+    [SerializeField] Scene persistentScene;
+    //[SerializeField] Object mainMenuScene;
 
+    void Awake()
+    {
+        persistentScene = SceneManager.GetSceneByName("Managers");
+    }
     void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
@@ -21,7 +25,9 @@ public class SceneHandler : SingletonPatternPersistent<SceneHandler>, IInitializ
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
-    public void Initialize() { }
+    public void Initialize() 
+    {
+    }
 
     /// <summary>
     /// Unloads current active scene and loads the parameterized

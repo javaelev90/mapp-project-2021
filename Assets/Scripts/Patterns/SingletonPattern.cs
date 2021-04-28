@@ -59,7 +59,7 @@ public class SingletonPatternPersistent<T> : MonoBehaviour where T : Component, 
                 bool sceneChanged = false;
                 if (activeScene.name != "Managers")
                 {
-                    SceneManager.SetActiveScene(SceneManager.GetSceneByName("Managers"));
+                    SceneManager.SetActiveScene(SceneManager.GetSceneByName("Managers")); // Obs detta verkar trigga Awake, OnSceneLoaded och kanske mer...
                     sceneChanged = true;
                 }
 

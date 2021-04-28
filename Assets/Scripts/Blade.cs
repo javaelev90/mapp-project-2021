@@ -83,7 +83,7 @@ public class Blade : MonoBehaviour
 		}
 #else
 		// Use touch input on mobile
-		if (!InGameMenuController.gameIsPaused)
+		if (!InGameMenuController.GameIsPaused)
 		{
 			if (UnityEngine.InputSystem.EnhancedTouch.Touch.activeTouches.Count == 1)
 			{

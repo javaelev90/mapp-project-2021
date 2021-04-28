@@ -1,41 +1,38 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEditor;
-using UnityEditor.Animations;
+//using UnityEngine;
+//using UnityEditor.Animations;
 
-public class Record : MonoBehaviour
-{
-    public AnimationClip clip;
+//public class Record : MonoBehaviour
+//{
+//    public AnimationClip clip;
 
-    private GameObjectRecorder m_Recorder;
+//    private GameObjectRecorder m_Recorder;
 
-    void Start()
-    {
+//    void Start()
+//    {
 
-        m_Recorder = new GameObjectRecorder(gameObject);
+//        m_Recorder = new GameObjectRecorder(gameObject);
 
-        m_Recorder.BindComponentsOfType<Transform>(gameObject, true);
-    }
+//        m_Recorder.BindComponentsOfType<Transform>(gameObject, true);
+//    }
 
-    void LateUpdate()
-    {
-        if (clip == null)
-            return;
+//    void LateUpdate()
+//    {
+//        if (clip == null)
+//            return;
 
 
-        m_Recorder.TakeSnapshot(Time.deltaTime);
-    }
+//        m_Recorder.TakeSnapshot(Time.deltaTime);
+//    }
 
-    void OnDisable()
-    {
-        if (clip == null)
-            return;
+//    void OnDisable()
+//    {
+//        if (clip == null)
+//            return;
 
-        if (m_Recorder.isRecording)
-        {
-            m_Recorder.SaveToClip(clip);
-        }
-    }
-}
+//        if (m_Recorder.isRecording)
+//        {
+//            m_Recorder.SaveToClip(clip);
+//        }
+//    }
+//}
 

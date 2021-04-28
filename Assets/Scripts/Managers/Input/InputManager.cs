@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.EnhancedTouch;
 
 [DefaultExecutionOrder(-2)]
-public class InputManager : SingletonPatternPersistent<InputManager>, IInitializeAble
+public class InputManager : SingletonPattern<InputManager>
 {
     #region Events
     public delegate void StartTouchEvent(Vector2 position, float time);
@@ -22,6 +22,7 @@ public class InputManager : SingletonPatternPersistent<InputManager>, IInitializ
 
     void Awake()
     {
+        SetInstanceIfNull(this);
         playerControls = new PlayerControls();
         mainCamera = Camera.main;
     }
@@ -47,8 +48,6 @@ public class InputManager : SingletonPatternPersistent<InputManager>, IInitializ
         playerControls.Touch.PrimaryContact.started += ctx => StartTouchPrimary(ctx);
         playerControls.Touch.PrimaryContact.canceled += ctx => EndTouchPrimary(ctx);
     }
-
-    public void Initialize() { }
 
     public Vector2 PrimaryPosition()
     {

@@ -19,7 +19,7 @@ public class Fruit : MonoBehaviour
 	Camera mainCamera;
 	GameManager gameManager;
 
-	private void Start()
+	void Start()
 	{
 		mainCamera = Camera.main;
 		gameManager = GameManager.Instance;
@@ -38,7 +38,7 @@ public class Fruit : MonoBehaviour
 		{
 			GameObject slicedFruit = Instantiate(fruitSlicedPrefab, transform.position, Quaternion.identity);
 			
-			Debug.Log("Swipe diff in time:" + ((audioSource.time - SongHandler.Instance.GetAudioLatency()) - beatTime));
+			//Debug.Log("Swipe diff in time:" + ((audioSource.time - SongHandler.Instance.GetAudioLatency()) - beatTime));
 
 			float timing = (audioSource.time - SongHandler.Instance.GetAudioLatency()) - beatTime;
 			GameManager.Instance.SetScore(timing);
