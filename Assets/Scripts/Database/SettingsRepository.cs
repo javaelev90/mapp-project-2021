@@ -24,7 +24,8 @@ public class SettingsRepository
 
     public float GetVolumeSetting()
     {
-        return float.Parse(GetSetting("VOLUME"));
+        string volume = GetSetting("VOLUME");
+        return volume == null ? -1 : float.Parse(volume);
     }
 
     public void UpdateVolumeSetting(float volume)
@@ -43,7 +44,7 @@ public class SettingsRepository
     {
         KeyValuePair<string, object> idParam = new KeyValuePair<string, object>("NAME", settingName);
         object result = sqliteUtility.SelectOperation(SELECT_FIELD_SQL, idParam);
-        return (string) result;
+        return result!= DBNull.Value && !result.Equals(DBNull.Value) ? (string) result : null;
     }
 
 }
