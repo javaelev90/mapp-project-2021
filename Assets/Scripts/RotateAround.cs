@@ -1,11 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.InputSystem;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class RotateAround : MonoBehaviour
 {
-    private PlayerControls input;
+
 
     private Animator animator;
 
@@ -14,15 +14,14 @@ public class RotateAround : MonoBehaviour
     private Quaternion panelRotation;
 
     private float movementDirection;
-    Vector2 mouseDeltaMove;
 
-    private void Awake()
-    {
-        input = new PlayerControls();
-        input.Player.MouseDelta.performed += ctx => mouseDeltaMove = ctx.ReadValue<Vector2>();
-    }
+    private Mouse currentMouse;
+
+
     void Start()
     {
+
+        //Songrutorna 
         animator = gameObject.GetComponent<Animator>();
         animator.speed = 1;
         movementDirection = 0;
@@ -31,30 +30,24 @@ public class RotateAround : MonoBehaviour
     {
         panelRotation = panel.transform.rotation;
 
-        if (Mouse.current.leftButton.isPressed)
+        if (Input.GetAxis("Mouse X") != 0)
         {
-            print("Mouse is moving in this X-axis: " + mouseDeltaMove.x);
+            movementDirection = Input.GetAxis("Mouse X");
+        }
+
+        if (currentMouse.leftButton.wasReleasedThisFrame)
+        {
             animator.speed = 1;
-            if (mouseDeltaMove.x < 0)
+            if (movementDirection < 0)
             {
-                //RotateLeft();
+                RotateLeft();
             }
-            else if (mouseDeltaMove.x > 0)
+            else if (movementDirection > 0)
             {
-                //RotateRight();
+                RotateRight();
             }
 
         }
-    }
-
-    private void OnEnable()
-    {
-        input.Enable();
-    }
-
-    private void OnDisable()
-    {
-        input.Disable();
     }
 
     public void RotateRight()

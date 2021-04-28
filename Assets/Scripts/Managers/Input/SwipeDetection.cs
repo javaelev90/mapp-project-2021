@@ -14,6 +14,7 @@ public class SwipeDetection : MonoBehaviour
 
     InputManager inputManager;
 
+    // Variables for calculating swipes
     Vector2 startPosition;
     float startTime;
     Vector2 endPosition;
@@ -24,47 +25,59 @@ public class SwipeDetection : MonoBehaviour
         inputManager = InputManager.Instance;
     }
 
-    private void OnEnable()
+    void OnEnable()
     {
+        // Events
         inputManager.OnStartTouch += SwipeStart;
         inputManager.OnEndTouch += SwipeEnd;
     }
-    private void OnDisable()
+    void OnDisable()
     {
+        // Events
         inputManager.OnStartTouch -= SwipeStart;
         inputManager.OnEndTouch -= SwipeEnd;
     }
 
-    private void SwipeStart(Vector2 position, float time)
+    void SwipeStart(Vector2 position, float time)
     {
         startPosition = position;
         print("touch start pos: " + startPosition);
+
         startTime = time;
     }
-    private void SwipeEnd(Vector2 position, float time)
+    void SwipeEnd(Vector2 position, float time)
     {
         endPosition = position;
         print("touch end pos: " + endPosition);
+
         endTime = time;
         DetectSwipe();
     }
 
+    /// <summary>
+    /// Detects if input could be considered a swipe
+    /// </summary>
     void DetectSwipe()
     {
-        if(Vector3.Distance(startPosition, endPosition) >= minimumDistance &&
-            (endTime - startTime) <= maximumTime)
+        if(Vector3.Distance(startPosition, endPosition) >= minimumDistance && (endTime - startTime) <= maximumTime)
         {
+            // We're in here if the input is considered a swipe!
             Debug.DrawLine(startPosition, endPosition, Color.red, 5f);
+
             Vector2 direction = (endPosition - startPosition).normalized;
             SwipeDirection(direction);
         }
     }
 
+    /// <summary>
+    /// Determine the direction of the already determined swipe
+    /// </summary>
+    /// <param name="direction">Of determined swipe</param>
     void SwipeDirection(Vector2 direction)
     {
         if(Vector2.Dot(Vector2.up, direction) > directionThreshold)
         {
-            print("Swiped UP ");
+            print("Swiped UP "); // Do something on up etc!
         }
         else if (Vector2.Dot(Vector2.down, direction) > directionThreshold)
         {
