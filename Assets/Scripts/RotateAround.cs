@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class RotateAround : MonoBehaviour
 {
@@ -14,8 +15,13 @@ public class RotateAround : MonoBehaviour
 
     private float movementDirection;
 
+    private Mouse currentMouse;
+
+
     void Start()
     {
+
+        //Songrutorna 
         animator = gameObject.GetComponent<Animator>();
         animator.speed = 1;
         movementDirection = 0;
@@ -29,16 +35,16 @@ public class RotateAround : MonoBehaviour
             movementDirection = Input.GetAxis("Mouse X");
         }
 
-        if (Input.GetMouseButtonUp(0))
+        if (currentMouse.leftButton.wasReleasedThisFrame)
         {
             animator.speed = 1;
             if (movementDirection < 0)
             {
-                //RotateLeft();
+                RotateLeft();
             }
             else if (movementDirection > 0)
             {
-                //RotateRight();
+                RotateRight();
             }
 
         }
