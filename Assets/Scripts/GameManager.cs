@@ -1,11 +1,15 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+[DefaultExecutionOrder(-1)]
 public class GameManager : SingletonPattern<GameManager>
 {
     [Header("Gameplay")]
+    [SerializeField][Range(1, 25)] int pointsLostOnMiss = 20;
+    [Header("Game Data")]
     [SerializeField] GameObject fruitPrefab;
     [SerializeField] Transform[] spawnPoints;
     [Header("Audio")]
@@ -15,14 +19,16 @@ public class GameManager : SingletonPattern<GameManager>
     [SerializeField] Button startGameButton;
     [SerializeField] TMP_Text scoreText;
     [SerializeField] GameObject winScreen;
+    [SerializeField] Image hpBar;
 
+    //GameManager gameManager;
     SceneHandler sceneHandler;
     private int beatIndex = 0;
     private int spawnPointIndex = 0;
     private bool runGame = false;
 
-    int hitPoints = 0;
-    float score = 0;
+    float hitPoints = 100;
+    float score = 0f;
     private bool wonGame;
 
     void Awake()
@@ -30,6 +36,14 @@ public class GameManager : SingletonPattern<GameManager>
         InitializeUI();
         sceneHandler = SceneHandler.Instance;
         GameManager.SetInstanceIfNull(this);
+    }
+
+    /// <summary>
+    /// Making sure the right UI is shown
+    /// </summary>
+    void InitializeUI()
+    {
+        startGameButton?.gameObject.SetActive(true);
     }
 
     private void Update() 
@@ -44,6 +58,12 @@ public class GameManager : SingletonPattern<GameManager>
            if(!audioSource.isPlaying) 
            {
                winScreen.SetActive(true);
+               int songScore = Database.Instance.songRepository.GetSongScore(SongHandler.Instance.GetSongName());
+               if(songScore == -1 || songScore < score)
+               {
+                   Database.Instance.songRepository.UpdateSongScore(SongHandler.Instance.GetSongName(), (int) score);
+               
+               }
                wonGame = false;
            }
        }
@@ -128,47 +148,56 @@ public class GameManager : SingletonPattern<GameManager>
             }
         }
 
-        // Somehow restart
+        // Reset game properties
         wonGame = false;
         runGame = false;
         beatIndex = 0;
+        score = 0;
+        scoreText.text = "Score: " + score;
+        SetHPBar(1f);
         audioSource.Stop();
         OnStartGame();
     }
 
-    /// <summary>
-    /// Making sure the right UI is shown
-    /// </summary>
-    void InitializeUI()
+    public void SetScore(float timing) //(vi fï¿½r ï¿½ndra vï¿½rdena sen )
     {
-        startGameButton?.gameObject.SetActive(true);
-    }
-
-    public void SetScore(float timing) //(vi får ändra värdena sen )
-    {
-        if (timing < .2f && timing > -.2f) { // Perfect
-            
+        if (timing < .2f && timing > -.2f) // Perfect
+        { 
             score += 100;
-            scoreText.text = "Score: " + score; 
 
-        } else if (timing > .2f && timing < .4f)  //Good, (ändra värdena sen )
+        } else if (timing >= .2f && timing < .4f)  //Good, (ï¿½ndra vï¿½rdena sen )
         {   
             score += 50;
-            scoreText.text = "Score: " + score; 
 
-        } else if (timing > .4f && timing < .6f) // Bad, (ändra värdena sen)
+        } else if (timing >= .4f && timing < .6f) // Bad, (ï¿½ndra vï¿½rdena sen)
         {
             score += 25;
-            scoreText.text = "Score: " + score;
 
         } else  // Miss
         {
-            
-            scoreText.text = "Score: " + score;
-
-            
+            //scoreText.text = "Score: " + score;
         }
-        
+        scoreText.text = "Score: " + score;
 
+    }
+
+    public void MissedSwipe()
+    {
+        hitPoints -= pointsLostOnMiss;
+        if (hitPoints < 0)
+            GameOver();
+        else
+            SetHPBar(hitPoints);
+    }
+
+    void SetHPBar(float hitPoints)
+    {
+        hpBar.fillAmount = hitPoints / 100;
+    }
+
+    void GameOver()
+    {
+        // Pausa spel och visa Loser-skÃ¤rm
+        // Erbjud Restart eller Back To Main Menu
     }
 }

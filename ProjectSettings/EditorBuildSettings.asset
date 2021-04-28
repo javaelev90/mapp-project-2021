@@ -20,4 +20,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Anders/AndersStart.unity
     guid: d9c4f9597ee0cdd4d87cb080765cb561
+  - enabled: 1
+    path: Assets/Scenes/Christians/Start.unity
+    guid: 857e6150e584fc141a922aaf4284089b
+  - enabled: 1
+    path: Assets/Scenes/Christians/Test1.unity
+    guid: 5f719ca7f6dde1b4c943dc7b7c00a158
   m_configObjects: {}

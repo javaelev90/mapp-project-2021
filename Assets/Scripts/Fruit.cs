@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,26 +10,41 @@ public class Fruit : MonoBehaviour
 	[SerializeField] Animator ringAnimator;
 	[SerializeField] AnimationClip ringAnimationClip;
 	[SerializeField] AudioClip soundEffect;
+
+	float swipeTimer = default;
+	bool hasReducedHP = false;
 	float beatTime;
 	AudioSource audioSource;
 	AudioSource audioSourceSFX;
+	Camera mainCamera;
+	GameManager gameManager;
+
+	private void Start()
+	{
+		mainCamera = Camera.main;
+		gameManager = GameManager.Instance;
+	}
+
+	void Update()
+	{
+		UpdateSwipeTimer();
+		if (swipeTimer > 0f && IsOutsideScreen())
+			ReduceHP();
+	}
 
 	void OnTriggerEnter2D(Collider2D col)
 	{
 		if (col.tag == "Blade")
 		{
-			Vector3 direction = (col.transform.position - transform.position).normalized;
-
-			//Quaternion rotation = Quaternion.LookRotation(direction);
-
 			GameObject slicedFruit = Instantiate(fruitSlicedPrefab, transform.position, Quaternion.identity);
 			
 			Debug.Log("Swipe diff in time:" + ((audioSource.time - SongHandler.Instance.GetAudioLatency()) - beatTime));
-			// Debug.Log("Swipe diff in time:" + ((audioSource.time ) - beatTime));
-			// audioSourceSFX.PlayOneShot(soundEffect);
 
 			float timing = (audioSource.time - SongHandler.Instance.GetAudioLatency()) - beatTime;
 			GameManager.Instance.SetScore(timing);
+
+			// Debug.Log("Swipe diff in time:" + ((audioSource.time ) - beatTime));
+			// audioSourceSFX.PlayOneShot(soundEffect);
 			
 			Destroy(slicedFruit, 3f);
 			Destroy(this.gameObject);
@@ -46,5 +62,23 @@ public class Fruit : MonoBehaviour
 		ringAnimator.speed = animatorSpeed;
 		ringAnimator.SetBool("ShrinkCircle", true);
 
+	}
+
+	void UpdateSwipeTimer() => swipeTimer = (audioSource.time - SongHandler.Instance.GetAudioLatency()) - beatTime;
+
+	void ReduceHP()
+	{
+		if (!this.hasReducedHP)
+		{
+			gameManager.MissedSwipe();
+			this.hasReducedHP = true;
+		}
+	}
+
+	bool IsOutsideScreen()
+	{
+		Vector3 pos = mainCamera.WorldToScreenPoint(this.transform.position);
+		bool outOfBounds = !Screen.safeArea.Contains(pos);
+		return outOfBounds;
 	}
 }

@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.EnhancedTouch;
 
-[DefaultExecutionOrder(-1)]
+[DefaultExecutionOrder(-2)]
 public class InputManager : SingletonPattern<InputManager>
 {
     #region Events
@@ -48,6 +48,11 @@ public class InputManager : SingletonPattern<InputManager>
         playerControls.Touch.PrimaryContact.canceled += ctx => EndTouchPrimary(ctx);
     }
 
+    public Vector2 PrimaryPosition()
+    {
+        return mainCamera.ScreenToWorldPoint(playerControls.Touch.PrimaryPosition.ReadValue<Vector2>());
+    }
+
     void StartTouchPrimary(InputAction.CallbackContext context)
     {
         OnStartTouch?.Invoke(mainCamera.ScreenToWorldPoint(playerControls.Touch.PrimaryPosition.ReadValue<Vector2>()), (float)context.startTime);
@@ -55,11 +60,6 @@ public class InputManager : SingletonPattern<InputManager>
     void EndTouchPrimary(InputAction.CallbackContext context)
     {
         OnEndTouch?.Invoke(mainCamera.ScreenToWorldPoint(playerControls.Touch.PrimaryPosition.ReadValue<Vector2>()), (float)context.time);
-    }
-
-    public Vector2 PrimaryPosition()
-    {
-        return mainCamera.ScreenToWorldPoint(playerControls.Touch.PrimaryPosition.ReadValue<Vector2>());
     }
 
     void FingerDown(Finger finger)

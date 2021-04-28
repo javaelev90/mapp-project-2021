@@ -42,7 +42,7 @@ public class EnhancedBlade : MonoBehaviour
 
 	void Update()
 	{
-		if (!InGameMenuController.gameIsPaused)
+		if (!InGameMenuController.GameIsPaused)
 		{
 			if (UnityEngine.InputSystem.EnhancedTouch.Touch.activeTouches.Count == 1)
 			{

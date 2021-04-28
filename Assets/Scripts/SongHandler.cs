@@ -34,4 +34,9 @@ public class SongHandler : SingletonPatternPersistent<SongHandler>, IInitializeA
         //TODO use database here: Database.playerStatsRepository.GetLatency()
         return Database.Instance.playerStatsRepository.GetLatency()/1000;
     }
+
+    public string GetSongName()
+    {
+        return selectedSong.uniqueName;
+    }
 }

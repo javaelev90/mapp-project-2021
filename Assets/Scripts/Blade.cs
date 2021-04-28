@@ -4,7 +4,6 @@ using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.EnhancedTouch;
 #endif
 
-// TODO: SE över persistent singleton och blade enable vid pause av spel
 public class Blade : MonoBehaviour
 {
 	[SerializeField] GameObject bladeTrailPrefab;
@@ -69,7 +68,7 @@ public class Blade : MonoBehaviour
 	{
 #if UNITY_EDITOR || UNITY_STANDALONE
 		//Use mouse input in editor or computer
-		if (!InGameMenuController.gameIsPaused)
+		if (!InGameMenuController.GameIsPaused)
 		{
 			MouseUpdateCut(currentMouse);
 
@@ -184,7 +183,7 @@ public class Blade : MonoBehaviour
 		isCutting = false;
 		circleCollider.enabled = false;
 
-		currentBladeTrail?.transform.SetParent(null);
+		currentBladeTrail?.transform.SetParent(null); // Denna ger error ibland men jag tror att det har att göra med att man spelar i Editor och för musen utanför spelskärmen osv.
 		Destroy(currentBladeTrail, 2f);
 	}
 #endregion MouseInput
