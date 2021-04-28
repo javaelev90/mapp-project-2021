@@ -19,8 +19,4 @@ public class SongSelectionMenuController : MonoBehaviour
          + "<size=20px>Score: " + (songScore == -1 ? 0 : songScore) + "</size>";
     }
 
-    public void LoadScene(int scene)
-    {
-        SceneManager.LoadScene(scene);
-    }
 }

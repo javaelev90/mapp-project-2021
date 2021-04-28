@@ -10,6 +10,12 @@ public class Database : SingletonPatternPersistent<Database>, IInitializeAble
     public SettingsRepository settingsRepository;
     private bool initialized;
 
+    void Awake()
+    {
+        Initialize();
+        Database.SetInstanceIfNull(this);
+    }
+
     public void Initialize()
     {
         if(!initialized)

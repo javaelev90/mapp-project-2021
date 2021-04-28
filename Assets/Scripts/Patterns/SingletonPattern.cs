@@ -77,7 +77,14 @@ public class SingletonPatternPersistent<T> : MonoBehaviour where T : Component, 
             return instance;
         }
     }
-
+    // Set instance if singleton pattern class has been initialized as a gameobject component
+    public static void SetInstanceIfNull(T existingInstance)
+    {
+        if(instance == null){
+            instance = existingInstance;
+        }
+    }
+    
     void OnDestroy()
     {
         if (instance == this)

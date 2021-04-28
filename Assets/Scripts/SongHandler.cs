@@ -7,6 +7,12 @@ public class SongHandler : SingletonPatternPersistent<SongHandler>, IInitializeA
 
     [SerializeField] private SongObject selectedSong;
 
+    void Awake()
+    {
+        SongHandler.SetInstanceIfNull(this);
+    }
+
+
     // This is used from GUI when choosing a song
     public void SetSongObject(SongObject song)
     {
