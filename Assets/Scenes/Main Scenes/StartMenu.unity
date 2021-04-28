@@ -511,6 +511,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioMixer: {fileID: 24100000, guid: e402d3ca4b03e44a8a6f59810a261723, type: 2}
+  musicSlider: {fileID: 225597535}
+  effectSlider: {fileID: 545657745}
 --- !u!114 &34398929
 MonoBehaviour:
   m_ObjectHideFlags: 0
