@@ -27,7 +27,6 @@ public class Fruit : MonoBehaviour
 	void Start()
 	{
 		calibratedAnimationDelay = SongHandler.Instance.GetAudioLatency();
-		Debug.Log("Calibrated sound latency: "+calibratedAnimationDelay);
 		mainCamera = Camera.main;
 		gameManager = GameManager.Instance;
 		timingCircle.color = initialTimingCircleColor;
@@ -47,7 +46,7 @@ public class Fruit : MonoBehaviour
 		{
 			GameObject slicedFruit = Instantiate(fruitSlicedPrefab, transform.position, Quaternion.identity);
 			
-			Debug.Log("Swipe diff in time:" + ((audioSource.time - SongHandler.Instance.GetAudioLatency()) - beatTime));
+			// Debug.Log("Swipe diff in time:" + ((audioSource.time - SongHandler.Instance.GetAudioLatency()) - beatTime));
 
 			float timing = (audioSource.time - calibratedAnimationDelay) - beatTime;
 			GameManager.Instance.SetScore(timing);
