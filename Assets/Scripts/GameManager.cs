@@ -22,16 +22,17 @@ public class GameManager : SingletonPattern<GameManager>
     [SerializeField] Image hpBar;
 
     public bool GameIsPaused { get; private set; } = false;
+    public bool RunningGame { get; private set; } = false;
 
-    //GameManager gameManager;
     SceneHandler sceneHandler;
-    private int beatIndex = 0;
-    private int spawnPointIndex = 0;
-    private bool runGame = false;
+
+    int beatIndex = 0;
+    int spawnPointIndex = 0;
 
     float hitPoints = 100f;
     float score = 0f;
-    private bool wonGame;
+
+    bool wonGame;
 
     void Awake()
     {
@@ -47,7 +48,7 @@ public class GameManager : SingletonPattern<GameManager>
 
     void Update() 
     {
-       if(runGame)
+       if(RunningGame)
        {
            SpawnSouls();
        }
@@ -58,8 +59,6 @@ public class GameManager : SingletonPattern<GameManager>
         }
     }
 
-
-
     public void OnStartGame()
     {
         if (SongHandler.Instance.GetSongAudioClip() != null)
@@ -68,7 +67,7 @@ public class GameManager : SingletonPattern<GameManager>
             audioSource.clip = SongHandler.Instance.GetSongAudioClip();
             audioSource.Play();
             TogglePause(false);
-            runGame = true;
+            RunningGame = true;
         }
     }
 
@@ -85,7 +84,7 @@ public class GameManager : SingletonPattern<GameManager>
 
         // Reset game properties
         wonGame = false;
-        runGame = false;
+        RunningGame = false;
         beatIndex = 0;
         score = 0f;
         scoreText.text = "Score: " + score;
@@ -197,7 +196,7 @@ public class GameManager : SingletonPattern<GameManager>
         // The last beat has been spawned and the map is over
         if(beatIndex > SongHandler.Instance.GetAudioClipBeats().Count - 1)
         {
-            runGame = false;
+            RunningGame = false;
             wonGame = true;
         }
     }
