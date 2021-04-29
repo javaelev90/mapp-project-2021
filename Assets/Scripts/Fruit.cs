@@ -45,7 +45,7 @@ public class Fruit : MonoBehaviour
 
 			// Debug.Log("Swipe diff in time:" + ((audioSource.time ) - beatTime));
 			// audioSourceSFX.PlayOneShot(soundEffect);
-			if (Mathf.Abs(timing) > 0.35f)
+			if (Mathf.Abs(timing) > 0.5f)
 			{
 				ReduceHP();
 			}
