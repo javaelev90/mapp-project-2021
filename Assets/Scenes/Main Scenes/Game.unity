@@ -329,10 +329,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 764106246, guid: a4ef893afc73ede479b51d474a9545b3, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3266809322150801772, guid: a4ef893afc73ede479b51d474a9545b3, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -463,6 +459,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1153516235 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1119441765067970862, guid: a4ef893afc73ede479b51d474a9545b3, type: 3}
+  m_PrefabInstance: {fileID: 774278937}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9da3458b42a4b534ab1f1012b60e8d1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1267674971
@@ -761,6 +768,10 @@ PrefabInstance:
       propertyPath: pointsLostOnMiss
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 5231825053993391410, guid: a4997199fef73a44e8a3f130b50a0457, type: 3}
+      propertyPath: popupScreenController
+      value: 
+      objectReference: {fileID: 1153516235}
     - target: {fileID: 5231825053993391411, guid: a4997199fef73a44e8a3f130b50a0457, type: 3}
       propertyPath: m_RootOrder
       value: 0

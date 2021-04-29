@@ -18,8 +18,10 @@ public class GameManager : SingletonPattern<GameManager>
     [Header("UI")]
     [SerializeField] Button startGameButton;
     [SerializeField] TMP_Text scoreText;
-    [SerializeField] GameObject winScreen;
+    [SerializeField] PopupScreenController popupScreenController;
     [SerializeField] Image hpBar;
+
+    public bool GameIsPaused { get; private set; } = false;
 
     //GameManager gameManager;
     SceneHandler sceneHandler;
@@ -27,49 +29,123 @@ public class GameManager : SingletonPattern<GameManager>
     private int spawnPointIndex = 0;
     private bool runGame = false;
 
-    float hitPoints = 100;
+    float hitPoints = 100f;
     float score = 0f;
     private bool wonGame;
 
     void Awake()
     {
-        InitializeUI();
+        Initialize();
         sceneHandler = SceneHandler.Instance;
-        GameManager.SetInstanceIfNull(this);
     }
 
-    /// <summary>
-    /// Making sure the right UI is shown
-    /// </summary>
-    void InitializeUI()
+    void Initialize()
     {
+        GameManager.SetInstanceIfNull(this);
         startGameButton?.gameObject.SetActive(true);
     }
 
-    private void Update() 
+    void Update() 
     {
        if(runGame)
        {
            SpawnSouls();
        }
 
-       if(wonGame) 
-       {
-           if(!audioSource.isPlaying) 
-           {
-               winScreen.SetActive(true);
-               int songScore = Database.Instance.songRepository.GetSongScore(SongHandler.Instance.GetSongName());
-               if(songScore == -1 || songScore < score)
-               {
-                   Database.Instance.songRepository.UpdateSongScore(SongHandler.Instance.GetSongName(), (int) score);
-               
-               }
-               wonGame = false;
-           }
-       }
+       if(wonGame)
+        {
+            WinGame();
+        }
     }
 
-    private void SpawnSouls()
+
+
+    public void OnStartGame()
+    {
+        if (SongHandler.Instance.GetSongAudioClip() != null)
+        {
+            startGameButton.gameObject.SetActive(false);
+            audioSource.clip = SongHandler.Instance.GetSongAudioClip();
+            audioSource.Play();
+            TogglePause(false);
+            runGame = true;
+        }
+    }
+
+    public void RestartGame()
+    {
+        // Removing all Fruits in active scene
+        foreach (var go in SceneManager.GetActiveScene().GetRootGameObjects())
+        {
+            if (go.GetComponentInChildren<Fruit>() != null)
+            {
+                Destroy(go);
+            }
+        }
+
+        // Reset game properties
+        wonGame = false;
+        runGame = false;
+        beatIndex = 0;
+        score = 0f;
+        scoreText.text = "Score: " + score;
+        SetHPBar(100f);
+        hitPoints = 100f;
+        audioSource.Stop();
+        OnStartGame();
+    }
+
+    public void SetScore(float timing) //(vi f�r �ndra v�rdena sen )
+    {
+        if (timing < .2f && timing > -.2f) // Perfect
+        {
+            score += 100f;
+        }
+        else if (timing >= .2f && timing < .4f)  //Good, (�ndra v�rdena sen )
+        {
+            score += 50f;
+        }
+        else if (timing >= .4f && timing < .6f) // Bad, (�ndra v�rdena sen)
+        {
+            score += 25f;
+        }
+        else  // Miss
+        {
+            //scoreText.text = "Score: " + score;
+        }
+        scoreText.text = "Score: " + score;
+
+    }
+
+    public void MissedSwipe()
+    {
+        hitPoints -= pointsLostOnMiss;
+        if (hitPoints <= 0f)
+        {
+            SetHPBar(0f);
+            GameOver();
+        }
+        else
+            SetHPBar(hitPoints);
+    }
+
+    public void TogglePause(bool pause)
+    {
+        GameIsPaused = pause;
+
+        if (GameIsPaused)
+        {
+            Time.timeScale = 0f;
+            AudioListener.pause = true;
+        }
+        else
+        {
+            Time.timeScale = 1f;
+            AudioListener.pause = false;
+        }
+    }
+
+    void SpawnSouls()
     {
         //check time difference
         //if difference smaller than num
@@ -125,69 +201,19 @@ public class GameManager : SingletonPattern<GameManager>
             wonGame = true;
         }
     }
-
-    public void OnStartGame()
+    void WinGame()
     {
-        if (SongHandler.Instance.GetSongAudioClip() != null)
+        if (!audioSource.isPlaying)
         {
-            startGameButton.gameObject.SetActive(false);
-            audioSource.clip = SongHandler.Instance.GetSongAudioClip();
-            audioSource.Play();
-            runGame = true;
-        }
-    }
-
-    public void RestartGame()
-    {
-        // Removing all Fruits in active scene
-        foreach (var go in SceneManager.GetActiveScene().GetRootGameObjects())
-        {
-            if (go.GetComponentInChildren<Fruit>() != null)
+            popupScreenController.ToggleWinScreen(true);
+            int songScore = Database.Instance.songRepository.GetSongScore(SongHandler.Instance.GetSongName());
+            if (songScore == -1 || songScore < score)
             {
-                Destroy(go);
+                Database.Instance.songRepository.UpdateSongScore(SongHandler.Instance.GetSongName(), (int)score);
+
             }
+            wonGame = false;
         }
-
-        // Reset game properties
-        wonGame = false;
-        runGame = false;
-        beatIndex = 0;
-        score = 0;
-        scoreText.text = "Score: " + score;
-        SetHPBar(100f);
-        audioSource.Stop();
-        OnStartGame();
-    }
-
-    public void SetScore(float timing) //(vi f�r �ndra v�rdena sen )
-    {
-        if (timing < .2f && timing > -.2f) // Perfect
-        { 
-            score += 100;
-
-        } else if (timing >= .2f && timing < .4f)  //Good, (�ndra v�rdena sen )
-        {   
-            score += 50;
-
-        } else if (timing >= .4f && timing < .6f) // Bad, (�ndra v�rdena sen)
-        {
-            score += 25;
-
-        } else  // Miss
-        {
-            //scoreText.text = "Score: " + score;
-        }
-        scoreText.text = "Score: " + score;
-
-    }
-
-    public void MissedSwipe()
-    {
-        hitPoints -= pointsLostOnMiss;
-        if (hitPoints < 0)
-            GameOver();
-        else
-            SetHPBar(hitPoints);
     }
 
     void SetHPBar(float hitPoints)
@@ -197,7 +223,9 @@ public class GameManager : SingletonPattern<GameManager>
 
     void GameOver()
     {
-        // Pausa spel och visa Loser-skärm
-        // Erbjud Restart eller Back To Main Menu
+        TogglePause(true);
+        popupScreenController.ToggleLooseScreen(true);
     }
+
+
 }

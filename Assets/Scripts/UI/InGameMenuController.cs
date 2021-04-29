@@ -15,7 +15,6 @@ public class InGameMenuController : MonoBehaviour
     [SerializeField] Button exitToMainButton;
     [SerializeField] Button exitApplicationButton;
 
-    public static bool GameIsPaused = false;
 
     SceneHandler sceneHandler;
 
@@ -23,21 +22,6 @@ public class InGameMenuController : MonoBehaviour
     {
         InitializeUI();
         sceneHandler = SceneHandler.Instance;
-    }
-
-    void TogglePause()
-    {
-        GameIsPaused = !GameIsPaused;
-        if (GameIsPaused)
-        {
-            Time.timeScale = 0f;
-            AudioListener.pause = true;
-        }
-        else
-        {
-            Time.timeScale = 1;
-            AudioListener.pause = false;
-        }
     }
 
     void InitializeUI()
@@ -55,7 +39,7 @@ public class InGameMenuController : MonoBehaviour
     public void OnInGameMenu()
     {
         inGameMenu.SetActive(!inGameMenu.activeSelf);
-        TogglePause();
+        GameManager.Instance.TogglePause(true);
     }
     public void OnSettings()
     {
@@ -64,7 +48,7 @@ public class InGameMenuController : MonoBehaviour
     public void OnResume()
     {
         inGameMenu.SetActive(!inGameMenu.activeSelf);
-        TogglePause();
+        GameManager.Instance.TogglePause(false);
     }
     public void OnRestart()
     {

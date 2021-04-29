@@ -1,11 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class WinScreenController : MonoBehaviour
+public class PopupScreenController : MonoBehaviour
 {
-
     [SerializeField] GameObject winScreenPanel;
+    [SerializeField] GameObject looseScreenPanel;
 
     SceneHandler sceneHandler;
 
@@ -18,11 +16,13 @@ public class WinScreenController : MonoBehaviour
     void InitializeUI()
     {
         winScreenPanel.gameObject.SetActive(false);
+        looseScreenPanel.gameObject.SetActive(false);
     }
 
     public void OnRestart()
     {
         winScreenPanel.gameObject.SetActive(false);
+        looseScreenPanel.gameObject.SetActive(false);
         GameManager.Instance.RestartGame();
     }
     public void OnExitToMain(string sceneName)
@@ -32,6 +32,10 @@ public class WinScreenController : MonoBehaviour
 
     public void ToggleWinScreen(bool active)
     {
-        gameObject.SetActive(active);
+        winScreenPanel.gameObject.SetActive(active);
+    }
+    public void ToggleLooseScreen(bool active)
+    {
+        looseScreenPanel.gameObject.SetActive(active);
     }
 }

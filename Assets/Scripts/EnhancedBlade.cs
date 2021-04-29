@@ -1,6 +1,9 @@
 using UnityEngine;
 using UnityEngine.InputSystem.EnhancedTouch;
 
+/// <summary>
+/// This was just a test script....
+/// </summary>
 public class EnhancedBlade : MonoBehaviour
 {
 	[SerializeField] GameObject bladeTrailPrefab;
@@ -42,7 +45,7 @@ public class EnhancedBlade : MonoBehaviour
 
 	void Update()
 	{
-		if (!InGameMenuController.GameIsPaused)
+		if (!GameManager.Instance.GameIsPaused)
 		{
 			if (UnityEngine.InputSystem.EnhancedTouch.Touch.activeTouches.Count == 1)
 			{
