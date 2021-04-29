@@ -68,7 +68,7 @@ public class Blade : MonoBehaviour
 	{
 #if UNITY_EDITOR || UNITY_STANDALONE
 		//Use mouse input in editor or computer
-		if (!GameManager.Instance.GameIsPaused && GameManager.Instance.RunningGame)
+		if (!GameManager.Instance.GameIsPaused)
 		{
 			MouseUpdateCut(currentMouse);
 
@@ -83,7 +83,7 @@ public class Blade : MonoBehaviour
 		}
 #else
 		// Use touch input on mobile
-		if (!GameManager.Instance.GameIsPaused && GameManager.Instance.RunningGame)
+		if (!GameManager.Instance.GameIsPaused)
 		{
 			if (UnityEngine.InputSystem.EnhancedTouch.Touch.activeTouches.Count == 1)
 			{
