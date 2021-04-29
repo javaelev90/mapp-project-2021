@@ -38,7 +38,7 @@ public class SongHandler : SingletonPatternPersistent<SongHandler>, IInitializeA
     public float GetAudioLatency()
     {
         //TODO use database here: Database.playerStatsRepository.GetLatency()
-        return Database.Instance.playerStatsRepository.GetLatency()/1000;
+        return Database.Instance.playerStatsRepository.GetLatency()/1000f;
     }
 
     public string GetSongName()

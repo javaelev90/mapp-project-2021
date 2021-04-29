@@ -7,6 +7,9 @@ public class Fruit : MonoBehaviour
 {
 	[SerializeField] GameObject fruitSlicedPrefab;
 	
+	[SerializeField] SpriteRenderer timingCircle;
+	[SerializeField] Color initialTimingCircleColor;
+	[SerializeField] Color finalTimingCircleColor;
 	[SerializeField] Animator ringAnimator;
 	[SerializeField] AnimationClip ringAnimationClip;
 	[SerializeField] AudioClip soundEffect;
@@ -19,14 +22,20 @@ public class Fruit : MonoBehaviour
 	Camera mainCamera;
 	GameManager gameManager;
 
+	float calibratedAnimationDelay = 0f;
+
 	void Start()
 	{
+		calibratedAnimationDelay = SongHandler.Instance.GetAudioLatency();
+		Debug.Log("Calibrated sound latency: "+calibratedAnimationDelay);
 		mainCamera = Camera.main;
 		gameManager = GameManager.Instance;
+		timingCircle.color = initialTimingCircleColor;
 	}
 
 	void Update()
 	{
+		UpdateTimingCircleGraphics();
 		UpdateSwipeTimer();
 		if (swipeTimer > 0f && IsOutsideScreen())
 			ReduceHP();
@@ -38,14 +47,14 @@ public class Fruit : MonoBehaviour
 		{
 			GameObject slicedFruit = Instantiate(fruitSlicedPrefab, transform.position, Quaternion.identity);
 			
-			//Debug.Log("Swipe diff in time:" + ((audioSource.time - SongHandler.Instance.GetAudioLatency()) - beatTime));
+			Debug.Log("Swipe diff in time:" + ((audioSource.time - SongHandler.Instance.GetAudioLatency()) - beatTime));
 
-			float timing = (audioSource.time - SongHandler.Instance.GetAudioLatency()) - beatTime;
+			float timing = (audioSource.time - calibratedAnimationDelay) - beatTime;
 			GameManager.Instance.SetScore(timing);
 
 			// Debug.Log("Swipe diff in time:" + ((audioSource.time ) - beatTime));
 			// audioSourceSFX.PlayOneShot(soundEffect);
-			if (Mathf.Abs(timing) > 0.5f)
+			if (Mathf.Abs(timing) > GameManager.MAX_SWIPE_TIMING)
 			{
 				ReduceHP();
 			}
@@ -56,7 +65,6 @@ public class Fruit : MonoBehaviour
 
 	public void Initiate(AudioSource audioSource, AudioSource audioSourceSFX, float beatTime)
 	{
-		float calibratedAnimationDelay = SongHandler.Instance.GetAudioLatency();
 		float countDown = Mathf.Abs(beatTime - audioSource.time);
 		float animatorSpeed =  1 / ((countDown + calibratedAnimationDelay) / ringAnimationClip.length);
 		this.audioSource = audioSource;
@@ -64,7 +72,19 @@ public class Fruit : MonoBehaviour
 		this.audioSourceSFX = audioSourceSFX;
 		ringAnimator.speed = animatorSpeed;
 		ringAnimator.SetBool("ShrinkCircle", true);
+	}
 
+	void UpdateTimingCircleGraphics()
+	{
+		float timing = (audioSource.time - calibratedAnimationDelay) - beatTime;
+		if(Mathf.Abs(timing) < GameManager.BAD_SWIPE_TIMING_INTERVAL.max)
+		{
+			timingCircle.color = finalTimingCircleColor;
+		}
+		if(timing > GameManager.PERFECT_SWIPE_TIMING_INTERVAL.max)
+		{
+			timingCircle.enabled = false;
+		}
 	}
 
 	void UpdateSwipeTimer() => swipeTimer = (audioSource.time - SongHandler.Instance.GetAudioLatency()) - beatTime;

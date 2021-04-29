@@ -248,6 +248,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fruitSlicedPrefab: {fileID: 7624220443380890488, guid: aa1055f694647bd4587061ff3cb9294f, type: 3}
+  timingCircle: {fileID: 562907150041462893}
+  initialTimingCircleColor: {r: 1, g: 0.08627451, b: 0, a: 1}
+  finalTimingCircleColor: {r: 0, g: 0.98039216, b: 0.2, a: 1}
   ringAnimator: {fileID: 2396861401666926532}
   ringAnimationClip: {fileID: 7400000, guid: fb7c99b05ba3cb94389f413023b91b72, type: 2}
   soundEffect: {fileID: 8300000, guid: 59533ffdf3437634898602ff825f49f1, type: 3}

@@ -21,6 +21,12 @@ public class GameManager : SingletonPattern<GameManager>
     [SerializeField] PopupScreenController popupScreenController;
     [SerializeField] Image hpBar;
 
+    public static SwipeTimingInterval PERFECT_SWIPE_TIMING_INTERVAL = new SwipeTimingInterval(-0.2f, 0.2f);
+    public static SwipeTimingInterval GOOD_SWIPE_TIMING_INTERVAL = new SwipeTimingInterval(0.2f, 0.4f);
+    public static SwipeTimingInterval BAD_SWIPE_TIMING_INTERVAL = new SwipeTimingInterval(0.4f, 0.6f);
+
+
+    public static float MAX_SWIPE_TIMING = 0.6f;
     public bool GameIsPaused { get; private set; } = false;
 
     //GameManager gameManager;
@@ -32,6 +38,7 @@ public class GameManager : SingletonPattern<GameManager>
     float hitPoints = 100f;
     float score = 0f;
     private bool wonGame;
+
 
     void Awake()
     {
@@ -97,15 +104,15 @@ public class GameManager : SingletonPattern<GameManager>
 
     public void SetScore(float timing) //(vi f�r �ndra v�rdena sen )
     {
-        if (timing < .2f && timing > -.2f) // Perfect
+        if (timing > -.2f && timing < .2f) // Perfect
         {
             score += 100f;
         }
-        else if (timing >= .2f && timing < .4f)  //Good, (�ndra v�rdena sen )
+        else if (timing <= -.2f && timing > -.35f)  //Good, (�ndra v�rdena sen )
         {
             score += 50f;
         }
-        else if (timing >= .4f && timing < .6f) // Bad, (�ndra v�rdena sen)
+        else if (timing <= -.35f && timing > -.45f) // Bad, (�ndra v�rdena sen)
         {
             score += 25f;
         }
@@ -228,4 +235,16 @@ public class GameManager : SingletonPattern<GameManager>
     }
 
 
+}
+
+public class SwipeTimingInterval
+{
+    public SwipeTimingInterval(float min, float max)
+    {
+        this.min = min;
+        this.max = max;
+    }
+    public float min;
+    public float max;
+ 
 }
