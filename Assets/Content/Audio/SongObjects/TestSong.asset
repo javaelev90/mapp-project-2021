@@ -15,5 +15,13 @@ MonoBehaviour:
   uniqueName: testsong
   song: {fileID: 8300000, guid: f58f2a6f12bfc8842a2b8402d1602675, type: 3}
   sfx: {fileID: 8300000, guid: 59533ffdf3437634898602ff825f49f1, type: 3}
-  preferredMarginTimeBeforeBeat: 0.7
-  beats: []
+  preferredMarginTimeBeforeBeat: 0.1
+  beats:
+  - 1.220521
+  - 2.6879818
+  - 3.6101747
+  - 4.663678
+  - 6.102609
+  - 6.9762454
+  - 8.055443
+  - 11.627075

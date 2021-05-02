@@ -114,7 +114,7 @@ public class SoundCalibrator : MonoBehaviour
         }
 
         List<float> clickTimes = TransFormClickTimeToSongTime();
-        List<float> beatTimes = calibrationSong.beats;
+        List<float> beatTimes = calibrationSong.GetBeats();
         Dictionary<float, float> beatsAndClicks = FindClicksCloseToBeats(clickTimes, beatTimes);
         List<float> timeDifferences = new List<float>();
 

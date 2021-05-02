@@ -32,7 +32,7 @@ public class GameManager : SingletonPattern<GameManager>
 
     SceneHandler sceneHandler;
 
-    int beatIndex = 0;
+    [System.NonSerialized] public int beatIndex = 0;
     int spawnPointIndex = 0;
 
     float hitPoints = 100f;
@@ -80,6 +80,8 @@ public class GameManager : SingletonPattern<GameManager>
 
     public void RestartGame()
     {
+        audioSource.time = 0;
+        audioSource.Stop();
         // Removing all Fruits in active scene
         foreach (var go in SceneManager.GetActiveScene().GetRootGameObjects())
         {
@@ -97,8 +99,12 @@ public class GameManager : SingletonPattern<GameManager>
         scoreText.text = "Score: " + score;
         SetHPBar(100f);
         hitPoints = 100f;
-        audioSource.Stop();
         OnStartGame();
+        
+        // PlayerPrefs are used for song editing functionality
+#if UNITY_EDITOR
+        PlayerPrefs.SetInt("RestartedGame",1);
+#endif
     }
 
     public void SetScore(float timing) //(vi f�r �ndra v�rdena sen )

@@ -13,14 +13,13 @@ public class BeatMarker : MonoBehaviour, IComparable<BeatMarker>, IPointerDownHa
     public float beatTime;
     bool clickedOnMarker = false;
     bool playedSoundEffect = false;
-    // Start is called before the first frame update
+
+    bool changedPosition = false;
     void Start()
     {
-        parent = GetComponentInParent<RectTransform>();
-        transform.position = parent.position;
+        parent = transform.parent.GetComponentInParent<RectTransform>();
     }
 
-    // Update is called once per frame
     void Update()
     {  
         if(clickedOnMarker)
@@ -30,6 +29,16 @@ public class BeatMarker : MonoBehaviour, IComparable<BeatMarker>, IPointerDownHa
             
             transform.position = newPosition;
 
+            if(transform.localPosition.x <= 0f)
+            {
+                transform.localPosition = new Vector2(0f, transform.localPosition.y);
+            } 
+            else if(transform.localPosition.x >= parent.rect.width)
+            {
+                transform.localPosition = new Vector2(parent.rect.width, transform.localPosition.y);
+            }
+
+            changedPosition = true;
         }
 
         // Time interval for the SFX to be played, can't use equals since the exact time might be missed
@@ -60,6 +69,17 @@ public class BeatMarker : MonoBehaviour, IComparable<BeatMarker>, IPointerDownHa
     {
         clickedOnMarker = false;
     }
+
+    public bool HasChanged()
+    {
+        return changedPosition || !gameObject.activeSelf;
+    }
+
+    public void AcknowledgeChange()
+    {
+        changedPosition = false;
+    }
+
     public int CompareTo(BeatMarker other)
     {
 

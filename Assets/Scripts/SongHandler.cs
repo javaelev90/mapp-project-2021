@@ -27,7 +27,7 @@ public class SongHandler : SingletonPatternPersistent<SongHandler>, IInitializeA
 
     public List<float> GetAudioClipBeats()
     {
-        return selectedSong != null ? selectedSong.beats : null;
+        return selectedSong != null ? selectedSong.GetBeats() : null;
     }
 
     public float GetPreferredMarginTimeBeforeBeat()
