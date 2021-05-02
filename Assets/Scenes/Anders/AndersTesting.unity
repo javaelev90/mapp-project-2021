@@ -418,6 +418,10 @@ PrefabInstance:
       value: GameManager
       objectReference: {fileID: 0}
     - target: {fileID: 5231825053993391410, guid: a4997199fef73a44e8a3f130b50a0457, type: 3}
+      propertyPath: hpBar
+      value: 
+      objectReference: {fileID: 1910827349}
+    - target: {fileID: 5231825053993391410, guid: a4997199fef73a44e8a3f130b50a0457, type: 3}
       propertyPath: scoreText
       value: 
       objectReference: {fileID: 1910827348}
@@ -433,6 +437,10 @@ PrefabInstance:
       propertyPath: startGameButton
       value: 
       objectReference: {fileID: 1805599872}
+    - target: {fileID: 5231825053993391410, guid: a4997199fef73a44e8a3f130b50a0457, type: 3}
+      propertyPath: popupScreenController
+      value: 
+      objectReference: {fileID: 1910827350}
     - target: {fileID: 5231825053993391411, guid: a4997199fef73a44e8a3f130b50a0457, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -652,6 +660,28 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1910827349 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 194932911, guid: a4ef893afc73ede479b51d474a9545b3, type: 3}
+  m_PrefabInstance: {fileID: 1910827347}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1910827350 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1119441765067970862, guid: a4ef893afc73ede479b51d474a9545b3, type: 3}
+  m_PrefabInstance: {fileID: 1910827347}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9da3458b42a4b534ab1f1012b60e8d1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1926231050
