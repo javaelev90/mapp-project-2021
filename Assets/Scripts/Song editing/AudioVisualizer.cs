@@ -29,7 +29,7 @@ public class AudioVisualizer : MonoBehaviour, IPointerDownHandler, IPointerUpHan
     Vector2 initialClickedWaveFormPosition;
     bool clickHoldingOnWaveForm = false;
     bool addedMarkerOnClick = false;
-    public bool isPaused = false;
+    [System.NonSerialized] public bool isPaused = false;
 
     List<BeatMarker> markers = new List<BeatMarker>();
     SceneHandler sceneHandler;
@@ -109,7 +109,7 @@ public class AudioVisualizer : MonoBehaviour, IPointerDownHandler, IPointerUpHan
     {
         if(Keyboard.current.spaceKey.wasPressedThisFrame)
         {
-            AddBeatMaker(audioSourceMusic.time, originalWaveFormPosition);
+            AddBeatMarker(audioSourceMusic.time, originalWaveFormPosition);
         } 
         else if(Keyboard.current.altKey.isPressed && clickHoldingOnWaveForm && !addedMarkerOnClick)
         {
@@ -117,7 +117,7 @@ public class AudioVisualizer : MonoBehaviour, IPointerDownHandler, IPointerUpHan
             float xPercentageOfWaveFormWidth = Mathf.Abs(xValue) / waveFormTransform.rect.width;
             float newTime = songObject.song.length * xPercentageOfWaveFormWidth;
 
-            AddBeatMaker(newTime, initialMousePosition);
+            AddBeatMarker(newTime, initialMousePosition);
             addedMarkerOnClick = true;
         }
     }
@@ -184,7 +184,7 @@ public class AudioVisualizer : MonoBehaviour, IPointerDownHandler, IPointerUpHan
             }
         }
     }
-    private void AddBeatMaker(float newBeatTime, Vector2 startPosition)
+    private void AddBeatMarker(float newBeatTime, Vector2 startPosition)
     {
         BeatMarker marker = Instantiate<BeatMarker>(beatMarker, new Vector3(startPosition.x, waveFormTransform.position.y, 0f), Quaternion.identity, transform);
         marker.audioSourceSFX = audioSourceSFX;
@@ -199,7 +199,7 @@ public class AudioVisualizer : MonoBehaviour, IPointerDownHandler, IPointerUpHan
         {
             float timePercentageOfClip = beat / songObject.song.length;
             float xPos = timePercentageOfClip * waveFormTransform.rect.width;
-            AddBeatMaker(beat, new Vector2(originalWaveFormPosition.x + xPos, originalWaveFormPosition.y));
+            AddBeatMarker(beat, new Vector2(originalWaveFormPosition.x + xPos, originalWaveFormPosition.y));
         }  
     }
 
