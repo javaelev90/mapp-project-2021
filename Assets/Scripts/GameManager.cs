@@ -22,9 +22,9 @@ public class GameManager : SingletonPattern<GameManager>
     [SerializeField] PopupScreenController popupScreenController;
     [SerializeField] Image hpBar;
 
-    public static SwipeTimingInterval PERFECT_SWIPE_TIMING_INTERVAL = new SwipeTimingInterval(-0.2f, 0.2f);
-    public static SwipeTimingInterval GOOD_SWIPE_TIMING_INTERVAL = new SwipeTimingInterval(0.2f, 0.4f);
-    public static SwipeTimingInterval BAD_SWIPE_TIMING_INTERVAL = new SwipeTimingInterval(0.4f, 0.6f);
+    public static SwipeTimingInterval PERFECT_SWIPE_TIMING_INTERVAL = new SwipeTimingInterval(-.2f, .2f);
+    public static SwipeTimingInterval GOOD_SWIPE_TIMING_INTERVAL = new SwipeTimingInterval(-.4f, -.2f);
+    public static SwipeTimingInterval BAD_SWIPE_TIMING_INTERVAL = new SwipeTimingInterval(-.6f, -.4f);
 
 
     public static float MAX_SWIPE_TIMING = 0.6f;

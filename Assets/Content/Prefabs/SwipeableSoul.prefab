@@ -254,6 +254,10 @@ MonoBehaviour:
   ringAnimator: {fileID: 2396861401666926532}
   ringAnimationClip: {fileID: 7400000, guid: fb7c99b05ba3cb94389f413023b91b72, type: 2}
   soundEffect: {fileID: 8300000, guid: 59533ffdf3437634898602ff825f49f1, type: 3}
+  particleEffectsPerfect: {fileID: 7482993346858384593, guid: f6c11faa015618844bad6ec519e3d79c, type: 3}
+  particleEffectsGood: {fileID: 2580198200822094754, guid: 8193805887cb02847ad89211f1fc5fc4, type: 3}
+  particleEffectsBad: {fileID: 7920718481824764678, guid: b2dca2e8d6a8adb428b951b695273aa0, type: 3}
+  particleEffectsMissed: {fileID: 0}
 --- !u!50 &2826808281394409770
 Rigidbody2D:
   serializedVersion: 4

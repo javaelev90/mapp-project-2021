@@ -91,16 +91,16 @@ public class Blade : MonoBehaviour
 
 				// Input check is AFTER TouchUpdateCut, that way if TouchPhase.Ended happened a single frame after the Began Phase
 				// a swipe can still be registered (otherwise, isCutting will be set to false and the test wouldn't happen for that began-Ended pair)
-				if (UnityEngine.InputSystem.EnhancedTouch.Touch.activeTouches[0].phase == UnityEngine.InputSystem.TouchPhase.Began)
-				{
-					TouchStartCutting(UnityEngine.InputSystem.EnhancedTouch.Touch.activeTouches[0].screenPosition, 
-						(float)UnityEngine.InputSystem.EnhancedTouch.Touch.activeTouches[0].startTime);
-				}
-				else if (UnityEngine.InputSystem.EnhancedTouch.Touch.activeTouches[0].phase == UnityEngine.InputSystem.TouchPhase.Ended)
-				{
-					TouchStopCutting(UnityEngine.InputSystem.EnhancedTouch.Touch.activeTouches[0].screenPosition, 
-						(float)UnityEngine.InputSystem.EnhancedTouch.Touch.activeTouches[0].time);
-				}
+				//if (UnityEngine.InputSystem.EnhancedTouch.Touch.activeTouches[0].phase == UnityEngine.InputSystem.TouchPhase.Began)
+				//{
+				//	TouchStartCutting(UnityEngine.InputSystem.EnhancedTouch.Touch.activeTouches[0].screenPosition, 
+				//		(float)UnityEngine.InputSystem.EnhancedTouch.Touch.activeTouches[0].startTime);
+				//}
+				//else if (UnityEngine.InputSystem.EnhancedTouch.Touch.activeTouches[0].phase == UnityEngine.InputSystem.TouchPhase.Ended)
+				//{
+				//	TouchStopCutting(UnityEngine.InputSystem.EnhancedTouch.Touch.activeTouches[0].screenPosition, 
+				//		(float)UnityEngine.InputSystem.EnhancedTouch.Touch.activeTouches[0].time);
+				//}
 			}
 		}
 #endif
