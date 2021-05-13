@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class WaveFormUtil
 {
-    public static float[] GetWaveform (AudioClip audio, int size, float sat) 
+    public static float[] GetWaveformFromAudio (AudioClip audio, int size, float sat) 
     {
         float[] samples = new float[audio.channels * audio.samples];
         float[] waveform = new float[size];

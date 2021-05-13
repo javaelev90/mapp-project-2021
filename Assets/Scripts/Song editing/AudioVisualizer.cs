@@ -20,7 +20,12 @@ public class AudioVisualizer : MonoBehaviour, IPointerDownHandler, IPointerUpHan
     [SerializeField] Color waveFormColor;
     [SerializeField] AudioSource audioSourceMusic;
     [SerializeField] AudioSource audioSourceSFX;
-
+    [Header("Spawn pattern objects")]
+    [SerializeField] SpawnPatternMarker spawnPatternMarker;
+    [SerializeField] Toggle placeSpawnMarker;
+    [SerializeField] TMP_Dropdown spawnMarkerDropdown;
+    SoulSpawner.SpawnPattern chosenSpawnPattern;
+    Color spawnPatternColor;
     RawImage audioRenderer;
     RectTransform waveFormTransform;
     Vector2 originalWaveFormPosition;
@@ -31,7 +36,20 @@ public class AudioVisualizer : MonoBehaviour, IPointerDownHandler, IPointerUpHan
     bool addedMarkerOnClick = false;
     [System.NonSerialized] public bool isPaused = false;
 
-    List<BeatMarker> markers = new List<BeatMarker>();
+    List<SpawnPatternMarker> spawnPatternMarkers = new List<SpawnPatternMarker>();
+    Dictionary<string, SoulSpawner.SpawnPattern> spawnPatternTypeMapping = new Dictionary<string, SoulSpawner.SpawnPattern>
+    {
+        {SoulSpawner.SpawnPattern.TRIANGLE.ToString(), SoulSpawner.SpawnPattern.TRIANGLE},
+        {SoulSpawner.SpawnPattern.SQUARE.ToString(), SoulSpawner.SpawnPattern.SQUARE},
+        {SoulSpawner.SpawnPattern.CANNONBALLS.ToString(), SoulSpawner.SpawnPattern.CANNONBALLS}
+    };
+    Dictionary<string, Color> spawnPatternColorMapping = new Dictionary<string, Color>
+    {
+        {SoulSpawner.SpawnPattern.TRIANGLE.ToString(), Color.green},
+        {SoulSpawner.SpawnPattern.SQUARE.ToString(), Color.blue},
+        {SoulSpawner.SpawnPattern.CANNONBALLS.ToString(), Color.black}
+    };
+    List<BeatMarker> beatMarkers = new List<BeatMarker>();
     SceneHandler sceneHandler;
 
     void Awake() {
@@ -41,13 +59,14 @@ public class AudioVisualizer : MonoBehaviour, IPointerDownHandler, IPointerUpHan
     }
     void Start()
     {
+        songObject.Initialize();
         audioSourceMusic.clip = songObject.song;
         SongHandler.Instance.SetSongObject(songObject);
         audioRenderer = GetComponent<RawImage>();
         waveFormTransform = audioRenderer.GetComponent<RectTransform>();
 
         RectTransform parentRect = GetComponentInParent<RectTransform>();
-        Texture2D texture = WaveFormUtil.PaintWaveformSpectrum(WaveFormUtil.GetWaveform(songObject.song, 16384, 1f), 500, waveFormColor);
+        Texture2D texture = WaveFormUtil.PaintWaveformSpectrum(WaveFormUtil.GetWaveformFromAudio(songObject.song, 16384, 1f), 500, waveFormColor);
 
         waveFormTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, texture.width);
         waveFormTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, texture.height);
@@ -63,13 +82,15 @@ public class AudioVisualizer : MonoBehaviour, IPointerDownHandler, IPointerUpHan
         ResumeEditWork();
         audioSourceMusic.Play();
         Pause();
+
     }
     void Update()
     {   
         UpdateWaveFormPosition();
-        AddNewBeatMarker();
+        AddNewMarker();
         UpdateMarkers();
         UpdateMusicTimePanel();
+        UpdateChosenSpawnPattern();
     }
 
     private void ResumeEditWork()
@@ -88,39 +109,76 @@ public class AudioVisualizer : MonoBehaviour, IPointerDownHandler, IPointerUpHan
         }
     }
 
+    private void UpdateChosenSpawnPattern()
+    {
+        string optionValue = spawnMarkerDropdown.options[spawnMarkerDropdown.value].text;
+        chosenSpawnPattern = spawnPatternTypeMapping[optionValue];
+        spawnPatternColor = spawnPatternColorMapping[optionValue];
+    }
+
+
+
     private void DisplaySongObjectName()
     {
+#if UNITY_EDITOR
         string assetPath = AssetDatabase.GetAssetPath(songObject.GetInstanceID());
         string fileName = System.IO.Path.GetFileNameWithoutExtension(assetPath);
         songObjectName.text = "<color=#000000>Song Object:</color> <color=#772fde>" + fileName + "</color>";
+#endif
     }
 
     public void ExportMappingToSongObject()
     {
         songObject.ClearBeats();
-        markers.Sort();
-        foreach(BeatMarker marker in markers)
+        beatMarkers.Sort();
+        foreach(BeatMarker marker in beatMarkers)
         {
             songObject.AddBeat(marker.beatTime);
         }
+        ExportSpawnPatternChangesToSongObject();
     }
 
-    private void AddNewBeatMarker()
+    private void ExportSpawnPatternChangesToSongObject()
+    {
+        songObject.ClearSpawnPatternChanges();
+        spawnPatternMarkers.Sort();
+        foreach(SpawnPatternMarker marker in spawnPatternMarkers)
+        {
+            songObject.AddChangePattern(marker.spawnPatternChange);
+        }
+    }
+
+    private void AddNewMarker()
     {
         if(Keyboard.current.spaceKey.wasPressedThisFrame)
         {
-            AddBeatMarker(audioSourceMusic.time, originalWaveFormPosition);
+            if(placeSpawnMarker.isOn)
+            {
+                AddSpawnPatternMarker(audioSourceMusic.time, originalWaveFormPosition, chosenSpawnPattern);
+            } 
+            else
+            {
+                AddBeatMarker(audioSourceMusic.time, originalWaveFormPosition);
+            }
         } 
         else if(Keyboard.current.altKey.isPressed && clickHoldingOnWaveForm && !addedMarkerOnClick)
         {
             float xValue = waveFormTransform.transform.InverseTransformPoint(initialMousePosition).x;
             float xPercentageOfWaveFormWidth = Mathf.Abs(xValue) / waveFormTransform.rect.width;
             float newTime = songObject.song.length * xPercentageOfWaveFormWidth;
-
-            AddBeatMarker(newTime, initialMousePosition);
+            
+            if(placeSpawnMarker.isOn)
+            {
+                AddSpawnPatternMarker(newTime, initialMousePosition, chosenSpawnPattern);
+            } 
+            else
+            {
+                AddBeatMarker(newTime, initialMousePosition);
+            }
             addedMarkerOnClick = true;
         }
     }
+
     private void UpdateMusicTimePanel()
     {
         // Round text to 3 decimal places
@@ -158,9 +216,9 @@ public class AudioVisualizer : MonoBehaviour, IPointerDownHandler, IPointerUpHan
     }
     private void UpdateMarkers()
     {
-        for(int i = 0; i < markers.Count; i++)
+        for(int i = 0; i < beatMarkers.Count; i++)
         {
-            BeatMarker marker = markers[i];
+            BeatMarker marker = beatMarkers[i];
             
             // For performance only update markers if they have changed
             if(!marker.HasChanged()){
@@ -170,7 +228,7 @@ public class AudioVisualizer : MonoBehaviour, IPointerDownHandler, IPointerUpHan
             // Destory markers that have been inactivated
             if(!marker.gameObject.activeSelf)
             {
-                markers.Remove(marker);
+                beatMarkers.Remove(marker);
                 Destroy(marker);
                 i--;
             }
@@ -183,6 +241,31 @@ public class AudioVisualizer : MonoBehaviour, IPointerDownHandler, IPointerUpHan
                 marker.AcknowledgeChange();
             }
         }
+        for(int i = 0; i < spawnPatternMarkers.Count; i++)
+        {
+            SpawnPatternMarker marker = spawnPatternMarkers[i];
+            
+            // For performance only update markers if they have changed
+            if(!marker.HasChanged()){
+                continue;
+            }
+
+            // Destory markers that have been inactivated
+            if(!marker.gameObject.activeSelf)
+            {
+                spawnPatternMarkers.Remove(marker);
+                Destroy(marker);
+                i--;
+            }
+            // Update position of moved markers
+            else
+            {
+                Vector2 localPosition = marker.transform.localPosition;
+                float beatTime = (localPosition.x / waveFormTransform.rect.width) * songObject.song.length;
+                marker.spawnPatternChange.activationTime = beatTime;
+                marker.AcknowledgeChange();
+            }
+        }
     }
     private void AddBeatMarker(float newBeatTime, Vector2 startPosition)
     {
@@ -191,7 +274,17 @@ public class AudioVisualizer : MonoBehaviour, IPointerDownHandler, IPointerUpHan
         marker.audioSourceMusic = audioSourceMusic;
         marker.soundEffect = songObject.sfx;
         marker.beatTime = newBeatTime;
-        markers.Add(marker);
+        beatMarkers.Add(marker);
+    }
+
+    private void AddSpawnPatternMarker(float newBeatTime, Vector2 startPosition, SoulSpawner.SpawnPattern spawnPattern)
+    {
+        SpawnPatternMarker marker = Instantiate<SpawnPatternMarker>(spawnPatternMarker, new Vector3(startPosition.x, waveFormTransform.position.y, 0f), Quaternion.identity, transform);
+        marker.Initialize();
+        marker.spawnPatternChange.activationTime = newBeatTime;
+        marker.spawnPatternChange.spawnPattern = spawnPatternTypeMapping[spawnPattern.ToString()];
+        marker.ChangeColor(spawnPatternColorMapping[spawnPattern.ToString()]);
+        spawnPatternMarkers.Add(marker);
     }
     private void LoadSongObjectMapping()
     {
@@ -201,6 +294,12 @@ public class AudioVisualizer : MonoBehaviour, IPointerDownHandler, IPointerUpHan
             float xPos = timePercentageOfClip * waveFormTransform.rect.width;
             AddBeatMarker(beat, new Vector2(originalWaveFormPosition.x + xPos, originalWaveFormPosition.y));
         }  
+        foreach(SpawnPatternChange change in songObject.GetChangePatterns())
+        {
+            float timePercentageOfClip = change.activationTime / songObject.song.length;
+            float xPos = timePercentageOfClip * waveFormTransform.rect.width;
+            AddSpawnPatternMarker(change.activationTime, new Vector2(originalWaveFormPosition.x + xPos, originalWaveFormPosition.y), change.spawnPattern);
+        } 
     }
 
     public void Pause()

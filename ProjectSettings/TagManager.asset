@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Blade
   - Panels
+  - Soul
   layers:
   - Default
   - TransparentFX

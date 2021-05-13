@@ -19,7 +19,7 @@ public class InitAudioSource : MonoBehaviour
                     float beat = SongHandler.Instance.GetAudioClipBeats()[i];
                     if(beat > audioSourceMusic.time)
                     {
-                        GameManager.Instance.beatIndex = i;
+                        GameManager.Instance.SetBeatIndex(i);
                         break;
                     }
                 }

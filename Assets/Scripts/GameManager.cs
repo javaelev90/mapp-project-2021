@@ -1,8 +1,9 @@
-using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
+using System;
 
 [DefaultExecutionOrder(-1)]
 public class GameManager : SingletonPattern<GameManager>
@@ -39,18 +40,21 @@ public class GameManager : SingletonPattern<GameManager>
     float score = 0f;
 
     bool wonGame;
-
+    SoulSpawner spawner;
 
     void Awake()
     {
         Initialize();
-        sceneHandler = SceneHandler.Instance;
     }
 
     void Initialize()
     {
+        sceneHandler = SceneHandler.Instance;
+        UnityEngine.Random.InitState(42);
         GameManager.SetInstanceIfNull(this);
         startGameButton?.gameObject.SetActive(true);
+        spawner = SoulSpawner.Instance;
+        spawner.Initialize(spawnPoints, beatIndex, fruitPrefab, audioSource, audioSourceSFX);
     }
 
     void Update() 
@@ -64,6 +68,7 @@ public class GameManager : SingletonPattern<GameManager>
         {
             WinGame();
         }
+        // Debug.Log("Current location "+Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue()));
     }
 
     public void OnStartGame()
@@ -95,6 +100,7 @@ public class GameManager : SingletonPattern<GameManager>
         wonGame = false;
         RunningGame = false;
         beatIndex = 0;
+        spawner.SetBeatIndex(beatIndex);
         score = 0f;
         scoreText.text = "Score: " + score;
         SetHPBar(100f);
@@ -156,6 +162,12 @@ public class GameManager : SingletonPattern<GameManager>
             AudioListener.pause = false;
         }
     }
+    
+    public void SetBeatIndex(int beatIndex)
+    {   
+        this.beatIndex = beatIndex;
+        this.spawner.SetBeatIndex(beatIndex);
+    }
 
     void SpawnSouls()
     {
@@ -166,45 +178,21 @@ public class GameManager : SingletonPattern<GameManager>
         //launch fruit
         //sleep for max prelaunch time value - current time in song
 
+
         float beat = SongHandler.Instance.GetAudioClipBeats()[beatIndex];
+        spawner.SetSpawnPattern(GetSpawnPattern(beat));
+
         float timeDifference = beat - audioSource.time;
 
         // Adding some randomness to spawn time
-        float random = UnityEngine.Random.Range(-0.3f, 0.2f);
+        float random = UnityEngine.Random.Range(-0.1f, 0.3f);
 
         // Spawn fruit if it is close enough to the next beat position in the music
-        if (timeDifference <= SongHandler.Instance.GetPreferredMarginTimeBeforeBeat() + random)
-        {
-            // Rotate spawn position
-            Transform spawnPoint = spawnPoints[spawnPointIndex % spawnPoints.Length];
-            spawnPointIndex++;
+        float spawnThresholdTime = SongHandler.Instance.GetPreferredMarginTimeBeforeBeat() + random;
 
-            GameObject spawnedFruit = Instantiate(fruitPrefab, spawnPoint.position, spawnPoint.rotation);
-            spawnedFruit.GetComponentInChildren<Fruit>().Initiate(audioSource, audioSourceSFX, beat);
-            
-            float verticalSpeed = UnityEngine.Random.Range(10f, 15f);
-            float horizontalSpeed = 1f;
-            
-            // Setting horizontal speed depending on spawn point position
-            // Left spawn
-            if (spawnPointIndex % spawnPoints.Length == 0) {
-                horizontalSpeed = UnityEngine.Random.Range(-4f, 1f);
-            } 
-            // Center spawn
-            else if (spawnPointIndex % spawnPoints.Length == 1) {
-                horizontalSpeed = UnityEngine.Random.Range(-1.5f, 1.5f);
-            } 
-            // Right spawn
-            else {
-                horizontalSpeed = UnityEngine.Random.Range(-1f, 4f);
-            }
-            
-            // Adds upwards force to the fruit
-            spawnedFruit.GetComponentInChildren<Rigidbody2D>().AddForce(transform.up * verticalSpeed, ForceMode2D.Impulse);
-            spawnedFruit.GetComponentInChildren<Rigidbody2D>().AddForce(transform.right * horizontalSpeed, ForceMode2D.Impulse);
-            
-            beatIndex++;
-            Destroy(spawnedFruit, 5f);
+        if (timeDifference <= spawnThresholdTime)
+        {
+            beatIndex = spawner.SpawnSoul(spawnThresholdTime);
         }
         // The last beat has been spawned and the map is over
         if(beatIndex > SongHandler.Instance.GetAudioClipBeats().Count - 1)
@@ -213,6 +201,19 @@ public class GameManager : SingletonPattern<GameManager>
             wonGame = true;
         }
     }
+
+    SoulSpawner.SpawnPattern GetSpawnPattern(float currentMusicTime)
+    {
+        foreach(SpawnPatternChange spawnPatternChange in SongHandler.Instance.GetSpawnChangePatterns())
+        {
+            if(currentMusicTime >= spawnPatternChange.activationTime)
+            {
+                return spawnPatternChange.spawnPattern;
+            }
+        }
+        return SoulSpawner.SpawnPattern.CANNONBALLS;
+    }
+
     void WinGame()
     {
         if (!audioSource.isPlaying)
@@ -238,7 +239,6 @@ public class GameManager : SingletonPattern<GameManager>
         TogglePause(true);
         popupScreenController.ToggleLooseScreen(true);
     }
-
 
 }
 

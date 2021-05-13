@@ -3,21 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
-public class BeatMarker : MonoBehaviour, IComparable<BeatMarker>, IPointerDownHandler, IPointerUpHandler
+public class SpawnPatternMarker : MonoBehaviour, IComparable<SpawnPatternMarker>, IPointerDownHandler, IPointerUpHandler
 {
-    public AudioClip soundEffect;
-    public AudioSource audioSourceSFX;
-    public AudioSource audioSourceMusic;
     RectTransform parent;
-    public float beatTime;
+    // public float changeTime;
+    public SpawnPatternChange spawnPatternChange;
+    [SerializeField] RawImage pinImage;
+    [SerializeField] RawImage pinHeadImage;
+    [SerializeField] RawImage pinFootImage;
     bool clickedOnMarker = false;
-    bool playedSoundEffect = false;
-
     bool changedPosition = false;
     void Start()
     {
         parent = transform.parent.GetComponentInParent<RectTransform>();
+    }
+
+    public void Initialize()
+    {
+        spawnPatternChange = new SpawnPatternChange();
     }
 
     void Update()
@@ -40,21 +45,14 @@ public class BeatMarker : MonoBehaviour, IComparable<BeatMarker>, IPointerDownHa
 
             changedPosition = true;
         }
-
-        // If music time has passed beat time it should play SFX once, can be music time == beat time because it might be missed
-        if(!playedSoundEffect && audioSourceMusic.time > beatTime)
-        {
-            audioSourceSFX.PlayOneShot(soundEffect);
-            playedSoundEffect = true;
-        }
-
-        // If the track has been rewinded the SFX should be played again
-        if(audioSourceMusic.time < beatTime)
-        {
-            playedSoundEffect = false;
-        }
     }
 
+    public void ChangeColor(Color color)
+    {
+        pinHeadImage.color = color;
+        pinFootImage.color = color;
+        pinImage.color = color;
+    }
     public void OnPointerDown(PointerEventData eventData)
     {
         if(Keyboard.current.ctrlKey.isPressed){
@@ -80,14 +78,14 @@ public class BeatMarker : MonoBehaviour, IComparable<BeatMarker>, IPointerDownHa
         changedPosition = false;
     }
 
-    public int CompareTo(BeatMarker other)
+    public int CompareTo(SpawnPatternMarker other)
     {
 
-        if(beatTime > other.beatTime) 
+        if(spawnPatternChange.activationTime > other.spawnPatternChange.activationTime) 
         {
             return 1;
         } 
-        else if (beatTime < other.beatTime)
+        else if (spawnPatternChange.activationTime < other.spawnPatternChange.activationTime)
         {
             return -1;
         } 

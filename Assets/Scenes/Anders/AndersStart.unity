@@ -778,7 +778,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   songSelection: {fileID: 1206040166}
   songObjects:
-  - {fileID: 11400000, guid: 0bfa78761072c314d8f9bbc011707b86, type: 2}
+  - {fileID: 11400000, guid: a812638a65955ec4a8d676a96f84af8d, type: 2}
   - {fileID: 11400000, guid: bb1afd0f8925c104a831d64a67c9c5d0, type: 2}
 --- !u!1 &430929300
 GameObject:

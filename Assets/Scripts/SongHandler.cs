@@ -30,6 +30,11 @@ public class SongHandler : SingletonPatternPersistent<SongHandler>, IInitializeA
         return selectedSong != null ? selectedSong.GetBeats() : null;
     }
 
+    public List<SpawnPatternChange> GetSpawnChangePatterns()
+    {
+        return selectedSong != null ? selectedSong.GetChangePatterns() : null;
+    }
+
     public float GetPreferredMarginTimeBeforeBeat()
     {
         return selectedSong != null ? selectedSong.preferredMarginTimeBeforeBeat : 1f;
@@ -37,7 +42,6 @@ public class SongHandler : SingletonPatternPersistent<SongHandler>, IInitializeA
 
     public float GetAudioLatency()
     {
-        //TODO use database here: Database.playerStatsRepository.GetLatency()
         return Database.Instance.playerStatsRepository.GetLatency()/1000f;
     }
 
