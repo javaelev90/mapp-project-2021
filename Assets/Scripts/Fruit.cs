@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Fruit : MonoBehaviour
@@ -29,13 +26,9 @@ public class Fruit : MonoBehaviour
 	AudioSource audioSource;
 	AudioSource audioSourceSFX;
 	Camera mainCamera;
-<<<<<<< Updated upstream
-	GameManager gameManager;
 	Vector3 target;
 	float timeElapsed = 0f;
-=======
 
->>>>>>> Stashed changes
 	float calibratedAnimationDelay = 0f;
 	Vector2 startPosition;
 	float timeToTargetPosition;
@@ -45,12 +38,7 @@ public class Fruit : MonoBehaviour
 	{
 		calibratedAnimationDelay = SongHandler.Instance.GetAudioLatency();
 		mainCamera = Camera.main;
-<<<<<<< Updated upstream
-		gameManager = GameManager.Instance;
 		timingCircle.color = new Color(initialTimingCircleColor.r,initialTimingCircleColor.b,initialTimingCircleColor.g,0.2f);//initialTimingCircleColor;
-=======
-		timingCircle.color = initialTimingCircleColor;
->>>>>>> Stashed changes
 	}
 
 	void Update()
@@ -109,9 +97,6 @@ public class Fruit : MonoBehaviour
 		}
 	}
 
-<<<<<<< Updated upstream
-	public void Initiate(AudioSource audioSource, AudioSource audioSourceSFX, float beatTime, Vector3 target, Vector3 velocity, SoulSpawner.SpawnPattern spawnPattern)
-=======
 	void HandleSliceEffects(float sliceTiming)
 	{
 		// TODO: Skapa object pooling
@@ -129,8 +114,7 @@ public class Fruit : MonoBehaviour
 		}
 	}
 
-	public void Initiate(AudioSource audioSource, AudioSource audioSourceSFX, float beatTime)
->>>>>>> Stashed changes
+	public void Initiate(AudioSource audioSource, AudioSource audioSourceSFX, float beatTime, Vector3 target, Vector3 velocity, SoulSpawner.SpawnPattern spawnPattern)
 	{
 		this.target = target;
 		float countDown = Mathf.Abs(beatTime - audioSource.time);
