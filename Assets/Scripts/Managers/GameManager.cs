@@ -20,7 +20,7 @@ public class GameManager : SingletonPattern<GameManager>
     [SerializeField] Button startGameButton;
     [SerializeField] TMP_Text scoreText;
     [SerializeField] PopupScreenController popupScreenController;
-    [SerializeField] Image hpBar;
+    [SerializeField] GameObject hpBarFiller;
 
     public static SwipeTimingInterval PERFECT_SWIPE_TIMING_INTERVAL = new SwipeTimingInterval(-.2f, .2f);
     public static SwipeTimingInterval GOOD_SWIPE_TIMING_INTERVAL = new SwipeTimingInterval(-.4f, -.2f);
@@ -31,11 +31,11 @@ public class GameManager : SingletonPattern<GameManager>
     public bool GameIsPaused { get; private set; } = false;
     public bool RunningGame { get; private set; } = false;
 
-    SceneHandler sceneHandler;
-
     [System.NonSerialized] public int beatIndex = 0;
     int spawnPointIndex = 0;
 
+    Image hpBarImage;
+    Animator hpBarAnimator;
     float hitPoints = 100f;
     float score = 0f;
 
@@ -49,12 +49,14 @@ public class GameManager : SingletonPattern<GameManager>
 
     void Initialize()
     {
-        sceneHandler = SceneHandler.Instance;
         UnityEngine.Random.InitState(42);
         GameManager.SetInstanceIfNull(this);
         startGameButton?.gameObject.SetActive(true);
         spawner = SoulSpawner.Instance;
         spawner.Initialize(spawnPoints, beatIndex, fruitPrefab, audioSource, audioSourceSFX);
+
+        hpBarImage = hpBarFiller?.GetComponentInChildren<Image>();
+        hpBarAnimator = hpBarFiller?.GetComponentInChildren<Animator>();
     }
 
     void Update() 
@@ -113,23 +115,23 @@ public class GameManager : SingletonPattern<GameManager>
 #endif
     }
 
-    public void SetScore(float timing) //(vi f�r �ndra v�rdena sen )
+    public void SetScore(float timing)
     {
-        if (timing > -.2f && timing < .2f) // Perfect
+        if (timing > PERFECT_SWIPE_TIMING_INTERVAL.min && timing < PERFECT_SWIPE_TIMING_INTERVAL.max)
         {
             score += 100f;
         }
-        else if (timing <= -.2f && timing > -.35f)  //Good, (�ndra v�rdena sen )
+        else if (timing <= GOOD_SWIPE_TIMING_INTERVAL.max && timing > GOOD_SWIPE_TIMING_INTERVAL.min)
         {
             score += 50f;
         }
-        else if (timing <= -.35f && timing > -.45f) // Bad, (�ndra v�rdena sen)
+        else if (timing <= BAD_SWIPE_TIMING_INTERVAL.max && timing > BAD_SWIPE_TIMING_INTERVAL.min)
         {
             score += 25f;
         }
         else  // Miss
         {
-            //scoreText.text = "Score: " + score;
+            // Play miss effect?
         }
         scoreText.text = "Score: " + score;
 
@@ -231,7 +233,8 @@ public class GameManager : SingletonPattern<GameManager>
 
     void SetHPBar(float hitPoints)
     {
-        hpBar.fillAmount = hitPoints / 100;
+        hpBarImage.fillAmount = hitPoints / 100;
+        hpBarAnimator.Play("ChangeEffect");
     }
 
     void GameOver()

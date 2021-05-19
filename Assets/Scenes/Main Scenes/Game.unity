@@ -439,20 +439,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a4ef893afc73ede479b51d474a9545b3, type: 3}
---- !u!114 &774278938 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 194932911, guid: a4ef893afc73ede479b51d474a9545b3, type: 3}
-  m_PrefabInstance: {fileID: 774278937}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!1 &774278939 stripped
+--- !u!1 &774278938 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 981767035826361903, guid: a4ef893afc73ede479b51d474a9545b3, type: 3}
+  m_CorrespondingSourceObject: {fileID: 194932909, guid: a4ef893afc73ede479b51d474a9545b3, type: 3}
   m_PrefabInstance: {fileID: 774278937}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &774278940 stripped
@@ -765,25 +754,17 @@ PrefabInstance:
       value: GameManager
       objectReference: {fileID: 0}
     - target: {fileID: 5231825053993391410, guid: a4997199fef73a44e8a3f130b50a0457, type: 3}
-      propertyPath: hpBar
-      value: 
-      objectReference: {fileID: 774278938}
-    - target: {fileID: 5231825053993391410, guid: a4997199fef73a44e8a3f130b50a0457, type: 3}
       propertyPath: scoreText
       value: 
       objectReference: {fileID: 774278940}
     - target: {fileID: 5231825053993391410, guid: a4997199fef73a44e8a3f130b50a0457, type: 3}
-      propertyPath: winScreen
+      propertyPath: hpBarFiller
       value: 
-      objectReference: {fileID: 774278939}
+      objectReference: {fileID: 774278938}
     - target: {fileID: 5231825053993391410, guid: a4997199fef73a44e8a3f130b50a0457, type: 3}
       propertyPath: startGameButton
       value: 
       objectReference: {fileID: 774278941}
-    - target: {fileID: 5231825053993391410, guid: a4997199fef73a44e8a3f130b50a0457, type: 3}
-      propertyPath: pointsLostOnMiss
-      value: 10
-      objectReference: {fileID: 0}
     - target: {fileID: 5231825053993391410, guid: a4997199fef73a44e8a3f130b50a0457, type: 3}
       propertyPath: popupScreenController
       value: 

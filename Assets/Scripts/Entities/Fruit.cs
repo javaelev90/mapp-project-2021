@@ -88,7 +88,7 @@ public class Fruit : MonoBehaviour
 			// Debug.Log("Swipe diff in time:" + ((audioSource.time ) - beatTime));
 			// audioSourceSFX.PlayOneShot(soundEffect);
 
-			if (Mathf.Abs(sliceTiming) > GameManager.MAX_SWIPE_TIMING) // Christian: Man skall förlora liv om man är väldigt sen med swipen också?
+			if (Mathf.Abs(sliceTiming) > GameManager.MAX_SWIPE_TIMING)
 			{
 				ReduceHP();
 			}
@@ -111,6 +111,10 @@ public class Fruit : MonoBehaviour
 		if (sliceTiming < GameManager.BAD_SWIPE_TIMING_INTERVAL.max && sliceTiming >= GameManager.BAD_SWIPE_TIMING_INTERVAL.min)
 		{
 			Destroy(Instantiate(particleEffectsBad, this.transform.position, Quaternion.identity), 4);
+		}
+		if (Mathf.Abs(sliceTiming) > GameManager.MAX_SWIPE_TIMING)
+		{
+			Destroy(Instantiate(particleEffectsMissed, this.transform.position, Quaternion.identity), 4);
 		}
 	}
 
