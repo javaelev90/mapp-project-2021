@@ -2,8 +2,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using UnityEngine.InputSystem;
-using System;
 
 [DefaultExecutionOrder(-1)]
 public class GameManager : SingletonPattern<GameManager>
@@ -12,6 +10,7 @@ public class GameManager : SingletonPattern<GameManager>
     [SerializeField][Range(1, 25)] int pointsLostOnMiss = 20;
     [Header("Game Data")]
     [SerializeField] GameObject fruitPrefab;
+    [SerializeField] GameObject spiritsMoveTarget;
     [SerializeField] Transform[] spawnPoints;
     [Header("Audio")]
     [SerializeField] AudioSource audioSource;
@@ -26,10 +25,10 @@ public class GameManager : SingletonPattern<GameManager>
     public static SwipeTimingInterval GOOD_SWIPE_TIMING_INTERVAL = new SwipeTimingInterval(-.4f, -.2f);
     public static SwipeTimingInterval BAD_SWIPE_TIMING_INTERVAL = new SwipeTimingInterval(-.6f, -.4f);
 
-
     public static float MAX_SWIPE_TIMING = 0.6f;
     public bool GameIsPaused { get; private set; } = false;
     public bool RunningGame { get; private set; } = false;
+    public GameObject SpiritsMoveTarget => spiritsMoveTarget;
 
     [System.NonSerialized] public int beatIndex = 0;
     int spawnPointIndex = 0;
@@ -129,12 +128,8 @@ public class GameManager : SingletonPattern<GameManager>
         {
             score += 25f;
         }
-        else  // Miss
-        {
-            // Play miss effect?
-        }
-        scoreText.text = "Score: " + score;
 
+        scoreText.text = "Score: " + score;
     }
 
     public void MissedSwipe()
@@ -225,7 +220,6 @@ public class GameManager : SingletonPattern<GameManager>
             if (songScore == -1 || songScore < score)
             {
                 Database.Instance.songRepository.UpdateSongScore(SongHandler.Instance.GetSongName(), (int)score);
-
             }
             wonGame = false;
         }

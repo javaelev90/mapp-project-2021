@@ -1,9 +1,11 @@
 using UnityEngine;
 
+// TODO: Skapa object pooling för flygande objekt och partiklar
 public class Fruit : MonoBehaviour
 {
 	[Tooltip("The prefab spawned after slicing")]
 	[SerializeField] GameObject fruitSlicedPrefab;
+	[SerializeField] GameObject fruitMissedSlicePrefab;
 
 	[Header("Timing properties")]
 	[SerializeField] SpriteRenderer timingCircle;
@@ -46,7 +48,9 @@ public class Fruit : MonoBehaviour
 		UpdateTimingCircleGraphics();
 		UpdateSwipeTimer();
 		if (swipeTimer > GameManager.PERFECT_SWIPE_TIMING_INTERVAL.max && IsOutsideScreen())
+		{
 			ReduceHP();
+		}
 		float timing = (audioSource.time - calibratedAnimationDelay) - beatTime;
 
 		if(spawnPattern == SoulSpawner.SpawnPattern.LINEAR && !hasReachedTarget)
@@ -73,48 +77,16 @@ public class Fruit : MonoBehaviour
 
 	void OnTriggerEnter2D(Collider2D other)
 	{
-		if (other.tag == "Blade")
+		if (other.tag == "Blade" && !this.hasReducedHP)
 		{
-			// TODO: Skapa object pooling
-			GameObject slicedFruit = Instantiate(fruitSlicedPrefab, this.transform.position, Quaternion.identity);
-			Destroy(slicedFruit, 3f);
-
-			// Debug.Log("Swipe diff in time:" + ((audioSource.time - SongHandler.Instance.GetAudioLatency()) - beatTime));
-
 			float sliceTiming = (audioSource.time - calibratedAnimationDelay) - beatTime;
 			GameManager.Instance.SetScore(sliceTiming);
 			HandleSliceEffects(sliceTiming);
 
-			// Debug.Log("Swipe diff in time:" + ((audioSource.time ) - beatTime));
 			// audioSourceSFX.PlayOneShot(soundEffect);
 
-			if (Mathf.Abs(sliceTiming) > GameManager.MAX_SWIPE_TIMING)
-			{
-				ReduceHP();
-			}
-
 			Destroy(this.gameObject);
-		}
-	}
 
-	void HandleSliceEffects(float sliceTiming)
-	{
-		// TODO: Skapa object pooling
-		if (sliceTiming <= GameManager.PERFECT_SWIPE_TIMING_INTERVAL.max && sliceTiming >= GameManager.PERFECT_SWIPE_TIMING_INTERVAL.min)
-		{
-			Destroy(Instantiate(particleEffectsPerfect, this.transform.position, Quaternion.identity), 4);
-		}
-		if (sliceTiming < GameManager.GOOD_SWIPE_TIMING_INTERVAL.max && sliceTiming >= GameManager.GOOD_SWIPE_TIMING_INTERVAL.min)
-		{
-			Destroy(Instantiate(particleEffectsGood, this.transform.position, Quaternion.identity), 4);
-		}
-		if (sliceTiming < GameManager.BAD_SWIPE_TIMING_INTERVAL.max && sliceTiming >= GameManager.BAD_SWIPE_TIMING_INTERVAL.min)
-		{
-			Destroy(Instantiate(particleEffectsBad, this.transform.position, Quaternion.identity), 4);
-		}
-		if (Mathf.Abs(sliceTiming) > GameManager.MAX_SWIPE_TIMING)
-		{
-			Destroy(Instantiate(particleEffectsMissed, this.transform.position, Quaternion.identity), 4);
 		}
 	}
 
@@ -139,6 +111,44 @@ public class Fruit : MonoBehaviour
 		ringAnimator.speed = animatorSpeed;
 		ringAnimator.SetBool("ShrinkCircle", true);
 		GetComponent<Rigidbody2D>().velocity = velocity;
+	}
+
+	void HandleSliceEffects(float sliceTiming)
+	{
+		if (sliceTiming <= GameManager.PERFECT_SWIPE_TIMING_INTERVAL.max && sliceTiming >= GameManager.PERFECT_SWIPE_TIMING_INTERVAL.min)
+		{
+			Destroy(Instantiate(particleEffectsPerfect, this.transform.position, Quaternion.identity), 3f);
+			Destroy(Instantiate(fruitSlicedPrefab, this.transform.position, Quaternion.identity), 3f);
+		}
+		else if (sliceTiming < GameManager.GOOD_SWIPE_TIMING_INTERVAL.max && sliceTiming >= GameManager.GOOD_SWIPE_TIMING_INTERVAL.min)
+		{
+			Destroy(Instantiate(particleEffectsGood, this.transform.position, Quaternion.identity), 3f);
+			Destroy(Instantiate(fruitSlicedPrefab, this.transform.position, Quaternion.identity), 3f);
+		}
+		else if (sliceTiming < GameManager.BAD_SWIPE_TIMING_INTERVAL.max && sliceTiming >= GameManager.BAD_SWIPE_TIMING_INTERVAL.min)
+		{
+			Destroy(Instantiate(particleEffectsBad, this.transform.position, Quaternion.identity), 3f);
+			Destroy(Instantiate(fruitSlicedPrefab, this.transform.position, Quaternion.identity), 3f);
+		}
+		else if (sliceTiming > GameManager.PERFECT_SWIPE_TIMING_INTERVAL.max)
+		{
+
+			Destroy(Instantiate(particleEffectsBad, this.transform.position, Quaternion.identity), 3f);
+			Destroy(Instantiate(fruitMissedSlicePrefab, this.transform.position, Quaternion.identity), 3f);
+		}
+		else if(sliceTiming < GameManager.BAD_SWIPE_TIMING_INTERVAL.max)
+		{
+			HandleSwipeMiss(sliceTiming);
+			Destroy(Instantiate(particleEffectsMissed, this.transform.position, Quaternion.identity), 3f);
+			Destroy(Instantiate(fruitMissedSlicePrefab, this.transform.position, Quaternion.identity), 3f);
+		}
+
+		//audioSourceSFX.PlayOneShot(soundEffect);
+	}
+
+	void HandleSwipeMiss(float sliceTiming)
+	{
+			ReduceHP();
 	}
 
 	void UpdateTimingCircleGraphics()
@@ -171,4 +181,14 @@ public class Fruit : MonoBehaviour
 		bool outOfBounds = !Screen.safeArea.Contains(pos);
 		return outOfBounds;
 	}
+
+	/* 360/8 = 45 grader
+	 * 
+	 * Om cylindern inte rör på sig kollar man swipe-input.
+	 * När man swipear ett håll Slerpar cylindern m.h.a. https://docs.unity3d.com/ScriptReference/Quaternion.Slerp.html
+	 * Så medan cylindern rör sig så är kanske en bool false. bool checkInput = false;
+	 * 
+	 * 
+	 */
+
 }

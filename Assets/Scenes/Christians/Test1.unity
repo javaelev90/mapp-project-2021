@@ -911,14 +911,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: BadSliceParticles
       objectReference: {fileID: 0}
-    - target: {fileID: 8165512327611479265, guid: b2dca2e8d6a8adb428b951b695273aa0, type: 3}
-      propertyPath: looping
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8165512327611479265, guid: b2dca2e8d6a8adb428b951b695273aa0, type: 3}
-      propertyPath: InitialModule.startColor.maxColor.g
-      value: 0.40851706
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b2dca2e8d6a8adb428b951b695273aa0, type: 3}
 --- !u!1001 &8325044230680854887
