@@ -12,7 +12,6 @@ public class SongHandler : SingletonPatternPersistent<SongHandler>, IInitializeA
         SongHandler.SetInstanceIfNull(this);
     }
 
-
     // This is used from GUI when choosing a song
     public void SetSongObject(SongObject song)
     {
@@ -23,6 +22,11 @@ public class SongHandler : SingletonPatternPersistent<SongHandler>, IInitializeA
     public AudioClip GetSongAudioClip()
     {
         return selectedSong != null ? selectedSong.song : null;
+    }
+
+    public AudioClip GetSongBeatSFX()
+    {
+        return selectedSong != null ? selectedSong.sfx : null;
     }
 
     public List<float> GetAudioClipBeats()

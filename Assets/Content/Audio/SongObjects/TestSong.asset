@@ -16,16 +16,22 @@ MonoBehaviour:
   song: {fileID: 8300000, guid: f58f2a6f12bfc8842a2b8402d1602675, type: 3}
   sfx: {fileID: 8300000, guid: 59533ffdf3437634898602ff825f49f1, type: 3}
   preferredMarginTimeBeforeBeat: 0.8
+  spawnPatternChanges:
+  - spawnPattern: 1
+    activationTime: 12.5786
   beats:
   - 1.220521
   - 2.6879818
   - 3.6101747
-  - 5.3472795
-  - 6.338657
-  - 7.613688
-  - 8.891547
-  - 10.3866415
+  - 5.4566507
+  - 6.3269124
+  - 6.9598303
+  - 7.592748
+  - 8.014692
+  - 8.884954
+  - 9.438758
+  - 10.361762
   - 12.286057
-  spawnPatternChanges:
-  - spawnPattern: 2
-    activationTime: 8.228084
+  - 12.921287
+  - 13.0796585
+  - 13.26426

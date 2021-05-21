@@ -41,12 +41,16 @@ public class AudioVisualizer : MonoBehaviour, IPointerDownHandler, IPointerUpHan
     {
         {SoulSpawner.SpawnPattern.TRIANGLE.ToString(), SoulSpawner.SpawnPattern.TRIANGLE},
         {SoulSpawner.SpawnPattern.SQUARE.ToString(), SoulSpawner.SpawnPattern.SQUARE},
+        {SoulSpawner.SpawnPattern.PAIR.ToString(), SoulSpawner.SpawnPattern.PAIR},
+        {SoulSpawner.SpawnPattern.LINEAR.ToString(), SoulSpawner.SpawnPattern.LINEAR},
         {SoulSpawner.SpawnPattern.CANNONBALLS.ToString(), SoulSpawner.SpawnPattern.CANNONBALLS}
     };
     Dictionary<string, Color> spawnPatternColorMapping = new Dictionary<string, Color>
     {
         {SoulSpawner.SpawnPattern.TRIANGLE.ToString(), Color.green},
         {SoulSpawner.SpawnPattern.SQUARE.ToString(), Color.blue},
+        {SoulSpawner.SpawnPattern.PAIR.ToString(), Color.yellow},
+        {SoulSpawner.SpawnPattern.LINEAR.ToString(), Color.cyan},
         {SoulSpawner.SpawnPattern.CANNONBALLS.ToString(), Color.black}
     };
     List<BeatMarker> beatMarkers = new List<BeatMarker>();
@@ -116,8 +120,6 @@ public class AudioVisualizer : MonoBehaviour, IPointerDownHandler, IPointerUpHan
         spawnPatternColor = spawnPatternColorMapping[optionValue];
     }
 
-
-
     private void DisplaySongObjectName()
     {
 #if UNITY_EDITOR
@@ -150,6 +152,7 @@ public class AudioVisualizer : MonoBehaviour, IPointerDownHandler, IPointerUpHan
 
     private void AddNewMarker()
     {
+        // Place marker with keyboard space key
         if(Keyboard.current.spaceKey.wasPressedThisFrame)
         {
             if(placeSpawnMarker.isOn)
@@ -161,6 +164,7 @@ public class AudioVisualizer : MonoBehaviour, IPointerDownHandler, IPointerUpHan
                 AddBeatMarker(audioSourceMusic.time, originalWaveFormPosition);
             }
         } 
+        // Place marker with mouse left-click
         else if(Keyboard.current.altKey.isPressed && clickHoldingOnWaveForm && !addedMarkerOnClick)
         {
             float xValue = waveFormTransform.transform.InverseTransformPoint(initialMousePosition).x;
@@ -193,6 +197,7 @@ public class AudioVisualizer : MonoBehaviour, IPointerDownHandler, IPointerUpHan
             Vector2 newPosition = new Vector2(initialClickedWaveFormPosition.x - (initialMousePosition.x - mousePosition.x), waveFormTransform.position.y);
             waveFormTransform.position = newPosition;
             
+            // Stops waveform from getting moved past the TIME arrow
             if(waveFormTransform.localPosition.x> 0)
             {
                 waveFormTransform.position = new Vector2(originalWaveFormPosition.x, originalWaveFormPosition.y);

@@ -10,9 +10,10 @@ public class SongObject : ScriptableObject
     public AudioClip song;
     public AudioClip sfx;
     public float preferredMarginTimeBeforeBeat = 0.7f;
+    [SerializeField] List<SpawnPatternChange> spawnPatternChanges;
     [SerializeField] List<float> beats;
 
-    [SerializeField] List<SpawnPatternChange> spawnPatternChanges;
+
 
     public void Initialize()
     {

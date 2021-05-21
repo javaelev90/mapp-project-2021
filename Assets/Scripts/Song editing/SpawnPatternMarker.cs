@@ -12,7 +12,6 @@ public class SpawnPatternMarker : MonoBehaviour, IComparable<SpawnPatternMarker>
     public SpawnPatternChange spawnPatternChange;
     [SerializeField] RawImage pinImage;
     [SerializeField] RawImage pinHeadImage;
-    [SerializeField] RawImage pinFootImage;
     bool clickedOnMarker = false;
     bool changedPosition = false;
     void Start()
@@ -50,7 +49,6 @@ public class SpawnPatternMarker : MonoBehaviour, IComparable<SpawnPatternMarker>
     public void ChangeColor(Color color)
     {
         pinHeadImage.color = color;
-        pinFootImage.color = color;
         pinImage.color = color;
     }
     public void OnPointerDown(PointerEventData eventData)
