@@ -1,6 +1,6 @@
 using UnityEngine;
 
-// TODO: Skapa object pooling för flygande objekt och partiklar
+// TODO: Skapa object pooling fï¿½r flygande objekt och partiklar
 public class Fruit : MonoBehaviour
 {
 	[Tooltip("The prefab spawned after slicing")]
@@ -41,7 +41,7 @@ public class Fruit : MonoBehaviour
 		soundEffect = soundEffect == null ? SongHandler.Instance.GetSongBeatSFX() : soundEffect;
 		calibratedAnimationDelay = SongHandler.Instance.GetAudioLatency();
 		mainCamera = Camera.main;
-		timingCircle.color = new Color(initialTimingCircleColor.r,initialTimingCircleColor.b,initialTimingCircleColor.g,0.2f);//initialTimingCircleColor;
+		timingCircle.color = new Color(initialTimingCircleColor.r,initialTimingCircleColor.b,initialTimingCircleColor.g,0.2f);
 	}
 
 	void Update()
@@ -52,7 +52,7 @@ public class Fruit : MonoBehaviour
 		{
 			ReduceHP();
 		}
-		float timing = (audioSource.time - calibratedAnimationDelay) - beatTime;
+		float timing = audioSource.time - beatTime;
 
 		if(spawnPattern == SoulSpawner.SpawnPattern.LINEAR && !hasReachedTarget)
 		{
@@ -81,10 +81,10 @@ public class Fruit : MonoBehaviour
 	{
 		if (other.tag == "Blade" && !this.hasReducedHP)
 		{
-			float sliceTiming = (audioSource.time - calibratedAnimationDelay) - beatTime;
+			float sliceTiming = audioSource.time - beatTime;
 			GameManager.Instance.SetScore(sliceTiming);
 			HandleSliceEffects(sliceTiming);
-
+			Debug.Log(sliceTiming);
 			// audioSourceSFX.PlayOneShot(soundEffect);
 
 			Destroy(this.gameObject);
@@ -95,21 +95,17 @@ public class Fruit : MonoBehaviour
 	public void Initiate(AudioSource audioSource, AudioSource audioSourceSFX, float beatTime, Vector3 target, Vector3 velocity, SoulSpawner.SpawnPattern spawnPattern)
 	{
 		this.target = target;
+		this.timeToTargetPosition = beatTime - (audioSource.time - calibratedAnimationDelay);
+		// this.timeToTargetPosition = beatTime - audioSource.time;
+
 		float countDown = Mathf.Abs(beatTime - audioSource.time);
 		float animatorSpeed =  1 / ((countDown + calibratedAnimationDelay) / ringAnimationClip.length);
 		this.audioSource = audioSource;
 		this.beatTime = beatTime;
 		this.audioSourceSFX = audioSourceSFX;
 		this.spawnPattern = spawnPattern;
-		this.timeToTargetPosition = beatTime - (audioSource.time - calibratedAnimationDelay);
 		this.startPosition = transform.position;
-		// if(Vector2.Distance(this.startPosition, this.target) > 4){
-		// 	this.timeToTargetPosition += 0.7f;
-		// 	// Debug.Log("long distance");
-		// } else if(Vector2.Distance(this.startPosition, this.target) < 2){
-		// 	this.timeToTargetPosition -= 0.2f;
-		// 	// Debug.Log("short distance");
-		// }
+
 		ringAnimator.speed = animatorSpeed;
 		ringAnimator.SetBool("ShrinkCircle", true);
 		GetComponent<Rigidbody2D>().velocity = velocity;
@@ -155,7 +151,7 @@ public class Fruit : MonoBehaviour
 
 	void UpdateTimingCircleGraphics()
 	{
-		float timing = (audioSource.time - calibratedAnimationDelay) - beatTime;
+		float timing = audioSource.time - beatTime;
 		if(timing >= GameManager.BAD_SWIPE_TIMING_INTERVAL.min)
 		{
 			timingCircle.color = finalTimingCircleColor;
@@ -166,7 +162,7 @@ public class Fruit : MonoBehaviour
 		}
 	}
 
-	void UpdateSwipeTimer() => swipeTimer = (audioSource.time - SongHandler.Instance.GetAudioLatency()) - beatTime;
+	void UpdateSwipeTimer() => swipeTimer = audioSource.time - beatTime;
 
 	void ReduceHP()
 	{
@@ -186,9 +182,9 @@ public class Fruit : MonoBehaviour
 
 	/* 360/8 = 45 grader
 	 * 
-	 * Om cylindern inte rör på sig kollar man swipe-input.
-	 * När man swipear ett håll Slerpar cylindern m.h.a. https://docs.unity3d.com/ScriptReference/Quaternion.Slerp.html
-	 * Så medan cylindern rör sig så är kanske en bool false. bool checkInput = false;
+	 * Om cylindern inte rï¿½r pï¿½ sig kollar man swipe-input.
+	 * Nï¿½r man swipear ett hï¿½ll Slerpar cylindern m.h.a. https://docs.unity3d.com/ScriptReference/Quaternion.Slerp.html
+	 * Sï¿½ medan cylindern rï¿½r sig sï¿½ ï¿½r kanske en bool false. bool checkInput = false;
 	 * 
 	 * 
 	 */

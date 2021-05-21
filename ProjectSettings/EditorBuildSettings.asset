@@ -17,10 +17,10 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Main Scenes/CalibrationScreen.unity
     guid: b3cfc708144977842bf4f0d0edf04924
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Anders/AndersTesting.unity
     guid: 3396a3b64a090304eacbb91a2abe1fce
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Anders/AndersStart.unity
     guid: d9c4f9597ee0cdd4d87cb080765cb561
   - enabled: 0

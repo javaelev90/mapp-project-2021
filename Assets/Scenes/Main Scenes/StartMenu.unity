@@ -4879,7 +4879,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8b69a9ce4d396540be402130f2fa648, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  songObject: {fileID: 11400000, guid: a812638a65955ec4a8d676a96f84af8d, type: 2}
+  songObject: {fileID: 11400000, guid: 30721f3e296355f4a956b0d57903ffa0, type: 2}
   songInformationPanel: {fileID: 761341898}
 --- !u!114 &691501483
 MonoBehaviour:
