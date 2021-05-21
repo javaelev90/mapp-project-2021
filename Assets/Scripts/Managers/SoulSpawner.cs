@@ -6,7 +6,7 @@ using System.Linq;
 public class SoulSpawner : SingletonPattern<SoulSpawner>
 {
 
-    public enum SpawnPattern {CANNONBALLS, LINEAR, TRIANGLE, SQUARE};
+    public enum SpawnPattern {CANNONBALLS, LINEAR, PAIR, TRIANGLE, SQUARE};
     GameObject objectToSpawn;
     SpawnPattern currentSpawnPhase;
     Vector2 lastTargetPosition;
@@ -79,13 +79,16 @@ public class SoulSpawner : SingletonPattern<SoulSpawner>
         {
             SpawnInTriangle(spawnThresholdTime);
         }
+        else if (currentSpawnPhase == SpawnPattern.PAIR) 
+        {
+            SpawnInPair(spawnThresholdTime);
+        }
         return beatIndex;
     }
 
     void SpawnCannonBalls(float spawnThresholdTime)
     {
         SpawnSingle(spawnThresholdTime, null, SpawnPattern.CANNONBALLS);
-     
     }
 
     void SpawnLinear(float spawnThresholdTime)
@@ -118,26 +121,50 @@ public class SoulSpawner : SingletonPattern<SoulSpawner>
         SpawnInPattern(triangleTargets, spawnThresholdTime, SpawnPattern.TRIANGLE);
     }
 
+    void SpawnInPair(float spawnThresholdTime)
+    {
+        Transform spawnPoint = GetSpawnLocation();
+        Vector2[] pairTargets = GetSafePairTargets();
+        SpawnInPattern(spawnPoint, pairTargets, spawnThresholdTime, SpawnPattern.PAIR);
+    }
+
     void SpawnInPattern(Vector2[] targets, float spawnThresholdTime, SpawnPattern spawnPattern)
     {
         Transform spawnPoint = GetSpawnLocation();
         foreach(Vector2 target in targets)
-        {
-            GameObject spawnedFruit = Instantiate(objectToSpawn, spawnPoint.position, spawnPoint.rotation);
-            float beat = SongHandler.Instance.GetAudioClipBeats()[beatIndex];
-            float timeDifference = beat - audioSourceMusic.time;
-            Vector2 velocity = CalculateVelocity(target, spawnedFruit.transform.position, spawnThresholdTime - 0.2f);
-            spawnedFruit.GetComponentInChildren<Fruit>().Initiate(audioSourceMusic, audioSourceSFX, beat, target, velocity, spawnPattern);
+        { 
+            SpawnPatternObject(spawnPoint, target, spawnThresholdTime, spawnPattern);
             
             beatIndex++;
-            Destroy(spawnedFruit, timeDifference + 5f);
-
             spawnPoint = GetSpawnLocation();
             if(beatIndex > SongHandler.Instance.GetAudioClipBeats().Count - 1)
             {
                 break;
             }
         }
+    }
+
+    void SpawnInPattern(Transform spawnPoint, Vector2[] targets, float spawnThresholdTime, SpawnPattern spawnPattern)
+    {
+        foreach(Vector2 target in targets)
+        {
+            SpawnPatternObject(spawnPoint, target, spawnThresholdTime, spawnPattern);
+            
+            beatIndex++;
+            if(beatIndex > SongHandler.Instance.GetAudioClipBeats().Count - 1)
+            {
+                break;
+            }
+        }
+    }
+
+    void SpawnPatternObject(Transform spawnPoint, Vector2 target, float spawnThresholdTime, SpawnPattern spawnPattern){
+        GameObject spawnedFruit = Instantiate(objectToSpawn, spawnPoint.position, spawnPoint.rotation);
+        float beat = SongHandler.Instance.GetAudioClipBeats()[beatIndex];
+        float timeDifference = beat - audioSourceMusic.time;
+        Vector2 velocity = CalculateVelocity(target, spawnedFruit.transform.position, spawnThresholdTime - 0.2f);
+        spawnedFruit.GetComponentInChildren<Fruit>().Initiate(audioSourceMusic, audioSourceSFX, beat, target, velocity, spawnPattern);
+        Destroy(spawnedFruit, timeDifference + 5f);
     }
 
     MapSection GetMapSection()
@@ -160,6 +187,7 @@ public class SoulSpawner : SingletonPattern<SoulSpawner>
     {
         spawnPointIndex = UnityEngine.Random.Range(0, spawnPoints.Length);
         Transform spawnPoint = spawnPoints[spawnPointIndex];
+
         while(lastSpawnPoint.position == spawnPoint.position)
         {
             spawnPointIndex = UnityEngine.Random.Range(0, spawnPoints.Length);
@@ -170,23 +198,52 @@ public class SoulSpawner : SingletonPattern<SoulSpawner>
         return spawnPoint;
     }
 
-    Bounds GetSafeBounds()
+    Bounds GetSafeBounds(Vector2? size)
     {
+        Vector2 boundsSize = size.HasValue ? size.Value : new Vector2(4f, 3f);
         float randomX = UnityEngine.Random.Range(-3, 7);
         float randomY = UnityEngine.Random.Range(0, -2);
-        Bounds squareBounds = new Bounds(new Vector2(randomX, randomY), new Vector2(4f, 3f));
+        Bounds squareBounds = new Bounds(new Vector2(randomX, randomY), boundsSize);
+        
         while(squareBounds.Intersects(lastSquareBounds))
         {
             randomX = UnityEngine.Random.Range(-3, 7);
             randomY = UnityEngine.Random.Range(0, -2);
-            squareBounds = new Bounds(new Vector2(randomX, randomY), new Vector2(4f, 3f));
+            squareBounds = new Bounds(new Vector2(randomX, randomY), boundsSize);
         }
         lastSquareBounds = squareBounds;
         return squareBounds;
     }
+
+    Bounds GetSafeBoundsInMapSection(Vector2? size, MapSection mapSection)
+    {
+        Vector2 boundsSize = size.HasValue ? size.Value : new Vector2(4f, 3f);
+        Vector2 position = GetSafeTargetPoint(mapSection);
+        Bounds squareBounds = new Bounds(position, boundsSize);
+
+        while(squareBounds.Intersects(lastSquareBounds))
+        {
+            position = GetSafeTargetPoint(mapSection);
+            squareBounds = new Bounds(position, boundsSize);
+        }
+        lastSquareBounds = squareBounds;
+        return squareBounds;
+    }
+
+    Vector2[] GetSafePairTargets()
+    {
+        Bounds squareBounds = GetSafeBoundsInMapSection(new Vector2(1f, 2f), GetMapSection());
+        float middleX = squareBounds.min.x + ((squareBounds.max.x - squareBounds.min.x) / 2f);
+        return new Vector2[2] 
+        {
+            new Vector2(squareBounds.max.x, squareBounds.max.y),
+            new Vector2(squareBounds.min.x, squareBounds.min.y)
+        };
+    }
+
     Vector2[] GetSafeSquareTargets()
     {
-        Bounds squareBounds = GetSafeBounds();
+        Bounds squareBounds = GetSafeBounds(null);
         return new Vector2[4] 
         {
             new Vector2(squareBounds.min.x, squareBounds.min.y),
@@ -198,7 +255,7 @@ public class SoulSpawner : SingletonPattern<SoulSpawner>
 
     Vector2[] GetSafeTriangleTargets()
     {
-        Bounds squareBounds = GetSafeBounds();
+        Bounds squareBounds = GetSafeBounds(null);
         float middleX = squareBounds.min.x + ((squareBounds.max.x - squareBounds.min.x) / 2f);
         return new Vector2[3] 
         {
@@ -207,6 +264,7 @@ public class SoulSpawner : SingletonPattern<SoulSpawner>
             new Vector2(squareBounds.max.x, squareBounds.min.y)
         };
     }
+    
     Vector2 GetTargetPoint(MapSection mapSection){
         
         float stepSize = 0.5f;

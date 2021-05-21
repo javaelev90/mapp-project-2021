@@ -40,19 +40,22 @@ public class BeatMarker : MonoBehaviour, IComparable<BeatMarker>, IPointerDownHa
 
             changedPosition = true;
         }
+        
+        if(soundEffect != null){
+            // If music time has passed beat time it should play SFX once, can be music time == beat time because it might be missed
+            if(!playedSoundEffect && audioSourceMusic.time > beatTime && audioSourceMusic.isPlaying)
+            {
+                audioSourceSFX.PlayOneShot(soundEffect);
+                playedSoundEffect = true;
+            }
 
-        // If music time has passed beat time it should play SFX once, can be music time == beat time because it might be missed
-        if(!playedSoundEffect && audioSourceMusic.time > beatTime)
-        {
-            audioSourceSFX.PlayOneShot(soundEffect);
-            playedSoundEffect = true;
+            // If the track has been rewinded the SFX should be played again
+            if(audioSourceMusic.time < beatTime)
+            {
+                playedSoundEffect = false;
+            }
         }
-
-        // If the track has been rewinded the SFX should be played again
-        if(audioSourceMusic.time < beatTime)
-        {
-            playedSoundEffect = false;
-        }
+        
     }
 
     public void OnPointerDown(PointerEventData eventData)

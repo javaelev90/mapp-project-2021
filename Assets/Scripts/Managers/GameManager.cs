@@ -206,14 +206,16 @@ public class GameManager : SingletonPattern<GameManager>
 
     SoulSpawner.SpawnPattern GetSpawnPattern(float currentMusicTime)
     {
+        SoulSpawner.SpawnPattern spawnPattern = SoulSpawner.SpawnPattern.CANNONBALLS;
+        
         foreach(SpawnPatternChange spawnPatternChange in SongHandler.Instance.GetSpawnChangePatterns())
         {
             if(currentMusicTime >= spawnPatternChange.activationTime)
             {
-                return spawnPatternChange.spawnPattern;
+                spawnPattern = spawnPatternChange.spawnPattern;
             }
         }
-        return SoulSpawner.SpawnPattern.CANNONBALLS;
+        return spawnPattern;
     }
 
     void WinGame()

@@ -36,6 +36,7 @@ public class Fruit : MonoBehaviour
 	SoulSpawner.SpawnPattern spawnPattern;
 	void Start()
 	{
+		soundEffect = soundEffect == null ? SongHandler.Instance.GetSongBeatSFX() : soundEffect;
 		calibratedAnimationDelay = SongHandler.Instance.GetAudioLatency();
 		mainCamera = Camera.main;
 		timingCircle.color = new Color(initialTimingCircleColor.r,initialTimingCircleColor.b,initialTimingCircleColor.g,0.2f);//initialTimingCircleColor;
@@ -59,7 +60,8 @@ public class Fruit : MonoBehaviour
 				GetComponent<Rigidbody2D>().velocity = Vector2.zero;
 			} 
 		}
-		if(spawnPattern == SoulSpawner.SpawnPattern.TRIANGLE ||
+		if( spawnPattern == SoulSpawner.SpawnPattern.TRIANGLE ||
+			spawnPattern == SoulSpawner.SpawnPattern.PAIR     ||
 			spawnPattern == SoulSpawner.SpawnPattern.SQUARE)
 		{
 			if(Vector3.Distance(transform.position, target) <= 0.3f && timing <= 0){
@@ -86,7 +88,7 @@ public class Fruit : MonoBehaviour
 			HandleSliceEffects(sliceTiming);
 
 			// Debug.Log("Swipe diff in time:" + ((audioSource.time ) - beatTime));
-			// audioSourceSFX.PlayOneShot(soundEffect);
+			audioSourceSFX.PlayOneShot(soundEffect);
 
 			if (Mathf.Abs(sliceTiming) > GameManager.MAX_SWIPE_TIMING)
 			{
