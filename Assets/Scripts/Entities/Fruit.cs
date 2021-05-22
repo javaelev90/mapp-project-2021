@@ -15,7 +15,7 @@ public class Fruit : MonoBehaviour
 	[SerializeField] Animator ringAnimator;
 	[SerializeField] AnimationClip ringAnimationClip;
 	[Header("SFX")]
-	[SerializeField] AudioClip soundEffect;
+	[SerializeField] AudioClip[] breakGlassSFX;
 	[Header("VFX")]
 	[SerializeField] GameObject particleEffectsPerfect;
 	[SerializeField] GameObject particleEffectsGood;
@@ -38,7 +38,7 @@ public class Fruit : MonoBehaviour
 	SoulSpawner.SpawnPattern spawnPattern;
 	void Start()
 	{
-		soundEffect = soundEffect == null ? SongHandler.Instance.GetSongBeatSFX() : soundEffect;
+		//soundEffect = soundEffect == null ? SongHandler.Instance.GetSongBeatSFX() : soundEffect;
 		calibratedAnimationDelay = SongHandler.Instance.GetAudioLatency();
 		mainCamera = Camera.main;
 		timingCircle.color = new Color(initialTimingCircleColor.r,initialTimingCircleColor.b,initialTimingCircleColor.g,0.2f);//initialTimingCircleColor;
@@ -85,10 +85,7 @@ public class Fruit : MonoBehaviour
 			GameManager.Instance.SetScore(sliceTiming);
 			HandleSliceEffects(sliceTiming);
 
-			// audioSourceSFX.PlayOneShot(soundEffect);
-
 			Destroy(this.gameObject);
-
 		}
 	}
 
@@ -121,31 +118,39 @@ public class Fruit : MonoBehaviour
 		{
 			Destroy(Instantiate(particleEffectsPerfect, this.transform.position, Quaternion.identity), 3f);
 			Destroy(Instantiate(fruitSlicedPrefab, this.transform.position, Quaternion.identity), 3f);
+			PlayBrokenGlassEffect();
 		}
 		else if (sliceTiming < GameManager.GOOD_SWIPE_TIMING_INTERVAL.max && sliceTiming >= GameManager.GOOD_SWIPE_TIMING_INTERVAL.min)
 		{
 			Destroy(Instantiate(particleEffectsGood, this.transform.position, Quaternion.identity), 3f);
 			Destroy(Instantiate(fruitSlicedPrefab, this.transform.position, Quaternion.identity), 3f);
+			PlayBrokenGlassEffect();
 		}
 		else if (sliceTiming < GameManager.BAD_SWIPE_TIMING_INTERVAL.max && sliceTiming >= GameManager.BAD_SWIPE_TIMING_INTERVAL.min)
 		{
 			Destroy(Instantiate(particleEffectsBad, this.transform.position, Quaternion.identity), 3f);
 			Destroy(Instantiate(fruitSlicedPrefab, this.transform.position, Quaternion.identity), 3f);
+			PlayBrokenGlassEffect();
 		}
-		else if (sliceTiming > GameManager.PERFECT_SWIPE_TIMING_INTERVAL.max)
+		else if (sliceTiming > GameManager.PERFECT_SWIPE_TIMING_INTERVAL.max) // Bad post perfect
 		{
-
 			Destroy(Instantiate(particleEffectsBad, this.transform.position, Quaternion.identity), 3f);
-			Destroy(Instantiate(fruitMissedSlicePrefab, this.transform.position, Quaternion.identity), 3f);
+			Destroy(Instantiate(fruitSlicedPrefab, this.transform.position, Quaternion.identity), 3f);
+			PlayBrokenGlassEffect();
 		}
-		else if(sliceTiming < GameManager.BAD_SWIPE_TIMING_INTERVAL.max)
+		else if(sliceTiming < GameManager.BAD_SWIPE_TIMING_INTERVAL.max) // Miss
 		{
 			HandleSwipeMiss(sliceTiming);
 			Destroy(Instantiate(particleEffectsMissed, this.transform.position, Quaternion.identity), 3f);
 			Destroy(Instantiate(fruitMissedSlicePrefab, this.transform.position, Quaternion.identity), 3f);
 		}
 
-		//audioSourceSFX.PlayOneShot(soundEffect);
+	}
+
+	void PlayBrokenGlassEffect()
+	{
+		int randomValue = (int)Random.Range(0f, breakGlassSFX.Length);
+		audioSourceSFX.PlayOneShot(breakGlassSFX[randomValue]);
 	}
 
 	void HandleSwipeMiss(float sliceTiming)
