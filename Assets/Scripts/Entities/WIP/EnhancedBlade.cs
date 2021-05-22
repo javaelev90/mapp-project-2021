@@ -52,7 +52,7 @@ public class EnhancedBlade : MonoBehaviour
 				TouchUpdateCut(UnityEngine.InputSystem.EnhancedTouch.Touch.activeTouches[0].screenPosition);
 
 				// Input check is AFTER TouchUpdateCut, that way if TouchPhase.Ended happened a single frame after the Began Phase
-				// a swipe can still be registered (otherwise, isCutting will be set to false and the test wouldn't happen for that began-Ended pair)
+				// a swipe can still be registered (otherwise, cuttingInitiated will be set to false and the test wouldn't happen for that began-Ended pair)
 				if (UnityEngine.InputSystem.EnhancedTouch.Touch.activeTouches[0].phase == UnityEngine.InputSystem.TouchPhase.Began)
 				{
 					TouchStartCutting(UnityEngine.InputSystem.EnhancedTouch.Touch.activeTouches[0].screenPosition);
@@ -115,7 +115,7 @@ public class EnhancedBlade : MonoBehaviour
 	//	Vector2 newPosition = cam.ScreenToWorldPoint(new Vector3(currentMouse.position.x.ReadValue(), currentMouse.position.y.ReadValue(), 0f));
 	//	rb.position = newPosition;
 
-	//	if (isCutting)
+	//	if (cuttingInitiated)
 	//	{
 	//		float velocity = (newPosition - previousPosition).magnitude * Time.deltaTime;
 
@@ -131,7 +131,7 @@ public class EnhancedBlade : MonoBehaviour
 
 	//public void MouseStartCutting(Mouse currentMouse)
 	//{
-	//	isCutting = true;
+	//	cuttingInitiated = true;
 
 	//	Vector2 newPosition = cam.ScreenToWorldPoint(new Vector3(currentMouse.position.x.ReadValue(), currentMouse.position.y.ReadValue(), 0f));
 
@@ -146,7 +146,7 @@ public class EnhancedBlade : MonoBehaviour
 
 	//public void MouseStopCutting()
 	//{
-	//	isCutting = false;
+	//	cuttingInitiated = false;
 	//	circleCollider.enabled = false;
 
 	//	currentBladeTrail?.transform.SetParent(null);

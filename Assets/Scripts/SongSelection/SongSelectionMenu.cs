@@ -34,6 +34,7 @@ public class SongSelectionMenu : MonoBehaviour
                 if (hitColliders[i] == selectionArea || hitColliders[i] == null) // Hoppar över dessa
                     continue;
                 displayText += hitColliders[i].gameObject.name; // Här hämtar man allt man vill från objektet, just nu är det bara namnet för GameObjectet
+
             }
 
             selectionText.text = displayText;

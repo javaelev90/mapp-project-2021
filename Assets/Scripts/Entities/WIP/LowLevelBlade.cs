@@ -18,7 +18,7 @@
 //	#region Input
 //	Vector2 previousPosition;
 //	Vector2 startingTouch;
-//	bool isCutting = false;
+//	bool cuttingInitiated = false;
 
 //	//InputManager inputManager;
 //	InputDevice touchscreen;
@@ -65,7 +65,7 @@
 //				TouchUpdateCut(UnityEngine.InputSystem.EnhancedTouch.Touch.activeTouches[0].screenPosition);
 
 //				// Input check is AFTER TouchUpdateCut, that way if TouchPhase.Ended happened a single frame after the Began Phase
-//				// a swipe can still be registered (otherwise, isCutting will be set to false and the test wouldn't happen for that began-Ended pair)
+//				// a swipe can still be registered (otherwise, cuttingInitiated will be set to false and the test wouldn't happen for that began-Ended pair)
 //				if (UnityEngine.InputSystem.EnhancedTouch.Touch.activeTouches[0].phase == UnityEngine.InputSystem.TouchPhase.Began)
 //				{
 //					TouchStartCutting(UnityEngine.InputSystem.EnhancedTouch.Touch.activeTouches[0].screenPosition, 
@@ -85,7 +85,7 @@
 //		Vector2 newPosition = cam.ScreenToWorldPoint(touchPos);
 //		rb.position = newPosition;
 
-//		if (isCutting)
+//		if (cuttingInitiated)
 //		{
 //			Vector2 diff = touchPos - startingTouch; // TODO: Could be wrong if the player continuosly swipe the screen without lifting...
 
@@ -104,7 +104,7 @@
 
 //	public void TouchStartCutting(Vector2 touchPos, float time)
 //	{
-//		isCutting = true;
+//		cuttingInitiated = true;
 //		startingTouch = touchPos;
 //		Vector2 newPosition = cam.ScreenToWorldPoint(touchPos);
 //		this.gameObject.transform.position = newPosition;
@@ -115,7 +115,7 @@
 
 //	public void TouchStopCutting(Vector2 position, float time)
 //	{
-//		isCutting = false;
+//		cuttingInitiated = false;
 //		circleCollider.enabled = false;
 
 //		currentBladeTrail.transform.SetParent(null);
@@ -128,7 +128,7 @@
 //		Vector2 newPosition = cam.ScreenToWorldPoint(new Vector3(currentMouse.position.x.ReadValue(), currentMouse.position.y.ReadValue(), 0f));
 //		rb.position = newPosition;
 
-//		if (isCutting)
+//		if (cuttingInitiated)
 //		{
 //			float velocity = (newPosition - previousPosition).magnitude * Time.deltaTime;
 
@@ -143,7 +143,7 @@
 
 //	public void MouseStartCutting(Mouse currentMouse)
 //	{
-//		isCutting = true;
+//		cuttingInitiated = true;
 
 //		Vector2 newPosition = cam.ScreenToWorldPoint(new Vector3(currentMouse.position.x.ReadValue(), currentMouse.position.y.ReadValue(), 0f));
 //		this.gameObject.transform.position = newPosition;
@@ -154,7 +154,7 @@
 
 //	public void MouseStopCutting()
 //	{
-//		isCutting = false;
+//		cuttingInitiated = false;
 //		circleCollider.enabled = false;
 
 //		currentBladeTrail?.transform.SetParent(null); // Denna ger error ibland men jag tror att det har att göra med att man spelar i Editor och för musen utanför spelskärmen osv.

@@ -81,6 +81,7 @@ MonoBehaviour:
   pointsLostOnMiss: 10
   fruitPrefab: {fileID: 4600915889894013459, guid: 7ae7f7d3da3f0be4bbd26881aa314538, type: 3}
   spiritsMoveTarget: {fileID: 0}
+  blade: {fileID: 0}
   spawnPoints:
   - {fileID: 5231825054225336345}
   - {fileID: 2488138577927577832}

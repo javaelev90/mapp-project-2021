@@ -657,6 +657,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d885ea7cc781ab2458a9fce1a557fb67, type: 3}
+--- !u!114 &1515221818 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3027562143059769367, guid: d885ea7cc781ab2458a9fce1a557fb67, type: 3}
+  m_PrefabInstance: {fileID: 1515221817}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4adee7cf76eeb00428dfa55f9e33c4d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1821233181
 GameObject:
   m_ObjectHideFlags: 0
@@ -783,6 +794,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameManager
       objectReference: {fileID: 0}
+    - target: {fileID: 5231825053993391410, guid: a4997199fef73a44e8a3f130b50a0457, type: 3}
+      propertyPath: blade
+      value: 
+      objectReference: {fileID: 1515221818}
     - target: {fileID: 5231825053993391410, guid: a4997199fef73a44e8a3f130b50a0457, type: 3}
       propertyPath: scoreText
       value: 

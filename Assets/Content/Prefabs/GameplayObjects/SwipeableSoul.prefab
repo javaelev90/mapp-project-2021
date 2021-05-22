@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6119435247851020441}
   - component: {fileID: 5236493425057642340}
   - component: {fileID: 4190079978475807295}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: SwipeableSoul
   m_TagString: Soul
   m_Icon: {fileID: 0}
@@ -48,6 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fruitSlicedPrefab: {fileID: 7624220443380890488, guid: aa1055f694647bd4587061ff3cb9294f, type: 3}
   fruitMissedSlicePrefab: {fileID: 4600915889894013459, guid: 285f2b4b41330c7499334f4fb8fe7f5a, type: 3}
+  blade: {fileID: 3027562143059769367, guid: d885ea7cc781ab2458a9fce1a557fb67, type: 3}
   timingCircle: {fileID: 562907150041462893}
   initialTimingCircleColor: {r: 1, g: 0.08627451, b: 0, a: 1}
   finalTimingCircleColor: {r: 0, g: 0.98039216, b: 0.2, a: 1}
@@ -108,7 +109,7 @@ GameObject:
   - component: {fileID: 6922603009662104371}
   - component: {fileID: 562907150041462893}
   - component: {fileID: 2396861401666926532}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: TimingCircle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -209,7 +210,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4236826005712681995}
   - component: {fileID: 2412470458546547705}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BubbleSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -291,7 +292,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9000179868159860646}
   - component: {fileID: 5977861179641369412}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: SpiritSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}

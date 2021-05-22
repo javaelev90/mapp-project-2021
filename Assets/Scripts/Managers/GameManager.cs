@@ -11,6 +11,8 @@ public class GameManager : SingletonPattern<GameManager>
     [Header("Game Data")]
     [SerializeField] GameObject fruitPrefab;
     [SerializeField] GameObject spiritsMoveTarget;
+    [Tooltip("The touchBlade prefab in the game scene")]
+    [SerializeField] Blade blade;
     [SerializeField] Transform[] spawnPoints;
     [Header("Audio")]
     [SerializeField] AudioSource audioSource;
@@ -29,6 +31,7 @@ public class GameManager : SingletonPattern<GameManager>
     public bool GameIsPaused { get; private set; } = false;
     public bool RunningGame { get; private set; } = false;
     public GameObject SpiritsMoveTarget => spiritsMoveTarget;
+    public Blade Blade => blade;
 
     [System.NonSerialized] public int beatIndex = 0;
     int spawnPointIndex = 0;
@@ -55,9 +58,8 @@ public class GameManager : SingletonPattern<GameManager>
         spawner = SoulSpawner.Instance;
         spawner.Initialize(spawnPoints, beatIndex, fruitPrefab, audioSource, audioSourceSFX);
         calibratedAnimationDelay = SongHandler.Instance.GetAudioLatency();
+
         hpBarImage = hpBarFiller?.GetComponentInChildren<Image>();
-
-
         hpBarAnimator = hpBarFiller?.GetComponentInChildren<Animator>();
     }
 
@@ -72,7 +74,6 @@ public class GameManager : SingletonPattern<GameManager>
         {
             WinGame();
         }
-        // Debug.Log("Current location "+Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue()));
     }
 
     public void OnStartGame()
@@ -91,10 +92,10 @@ public class GameManager : SingletonPattern<GameManager>
     {
         audioSource.time = 0;
         audioSource.Stop();
-        // Removing all Fruits in active scene
-        foreach (var go in SceneManager.GetActiveScene().GetRootGameObjects())
+        // Removing objects in active scene
+        foreach (GameObject go in SceneManager.GetActiveScene().GetRootGameObjects())
         {
-            if (go.GetComponentInChildren<Fruit>() != null)
+            if (go.GetComponentInChildren<Fruit>() != null || go.GetComponentInChildren<SlicedFruit>() != null)
             {
                 Destroy(go);
             }
@@ -106,7 +107,7 @@ public class GameManager : SingletonPattern<GameManager>
         beatIndex = 0;
         spawner.SetBeatIndex(beatIndex);
         score = 0f;
-        scoreText.text = "Score: " + score;
+        scoreText.text = "Score: " + 0;
         SetHPBar(100f);
         hitPoints = 100f;
         OnStartGame();
@@ -150,7 +151,6 @@ public class GameManager : SingletonPattern<GameManager>
     public void TogglePause(bool pause)
     {
         GameIsPaused = pause;
-
         if (GameIsPaused)
         {
             Time.timeScale = 0f;
