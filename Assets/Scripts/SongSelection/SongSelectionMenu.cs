@@ -4,16 +4,22 @@ using TMPro;
 
 public class SongSelectionMenu : MonoBehaviour
 {
-    [SerializeField] BoxCollider selectionArea;
-    [SerializeField] TMP_Text selectionText;
+    [SerializeField] BoxCollider selectionArea = default;
+    [SerializeField] TMP_Text selectionText = default;
 
     public GameObject panel;
     public int mainMenu;
 
-
+    void Awake()
+    {
+        // Load the Managers scen
+        if (!SceneManager.GetSceneByName("Managers").isLoaded)
+            SceneManager.LoadSceneAsync("Managers", LoadSceneMode.Additive);
+    }
     void Update()
     {
-        CheckSelection();
+        if (selectionArea != default)
+            CheckSelection();
     }
 
     private void CheckSelection()
@@ -36,22 +42,22 @@ public class SongSelectionMenu : MonoBehaviour
 
     public void GoBack()
     {
-        //if (panel.activeInHierarchy)
-        //{
-        //    panel.SetActive(false);
-        //}
-        //else
-        //{
-        //    SceneManager.LoadScene(mainMenu);
-        //}
+        if (panel.activeInHierarchy)
+        {
+            panel.SetActive(false);
+        }
+        else
+        {
+            SceneManager.LoadScene(mainMenu);
+        }
     }
 
     public void SelectSong()
     {
-        //if (panel != null)
-        //{
-        //    panel.SetActive(true);
-        //}
+        if (panel != null)
+        {
+            panel.SetActive(true);
+        }
 
     }
 
