@@ -41,14 +41,14 @@ public class SwipeDetection : MonoBehaviour
     void SwipeStart(Vector2 position, float time)
     {
         startPosition = position;
-        print("touch start pos: " + startPosition);
+        //print("touch start pos: " + startPosition);
 
         startTime = time;
     }
     void SwipeEnd(Vector2 position, float time)
     {
         endPosition = position;
-        print("touch end pos: " + endPosition);
+        //print("touch end pos: " + endPosition);
 
         endTime = time;
         DetectSwipe();

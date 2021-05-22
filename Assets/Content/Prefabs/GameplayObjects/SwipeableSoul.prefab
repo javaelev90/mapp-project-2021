@@ -48,7 +48,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fruitSlicedPrefab: {fileID: 7624220443380890488, guid: aa1055f694647bd4587061ff3cb9294f, type: 3}
   fruitMissedSlicePrefab: {fileID: 4600915889894013459, guid: 285f2b4b41330c7499334f4fb8fe7f5a, type: 3}
-  blade: {fileID: 3027562143059769367, guid: d885ea7cc781ab2458a9fce1a557fb67, type: 3}
   timingCircle: {fileID: 562907150041462893}
   initialTimingCircleColor: {r: 1, g: 0.08627451, b: 0, a: 1}
   finalTimingCircleColor: {r: 0, g: 0.98039216, b: 0.2, a: 1}
@@ -61,6 +60,7 @@ MonoBehaviour:
   particleEffectsGood: {fileID: 2580198200822094754, guid: 8193805887cb02847ad89211f1fc5fc4, type: 3}
   particleEffectsBad: {fileID: 7920718481824764678, guid: b2dca2e8d6a8adb428b951b695273aa0, type: 3}
   particleEffectsMissed: {fileID: 5950682425082441539, guid: 94814c10962def84da1e89de83a39f3f, type: 3}
+  particleDestroyFlash: {fileID: 4745397785637657469, guid: c0bde5f8a7ab9f8429957048536e4cd1, type: 3}
 --- !u!58 &5236493425057642340
 CircleCollider2D:
   m_ObjectHideFlags: 0

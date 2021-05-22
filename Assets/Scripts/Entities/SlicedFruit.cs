@@ -5,6 +5,8 @@ public class SlicedFruit : MonoBehaviour
     [SerializeField] float speed = 1f;
     [SerializeField][Range(.95f, .99f)] float zSpeed = .98f;
     [SerializeField] Rigidbody2D[] bubblePieces = default;
+    [SerializeField] GameObject particleDestroyFlash;
+
 
     Transform moveTarget;
     Rigidbody2D rb;
@@ -23,10 +25,16 @@ public class SlicedFruit : MonoBehaviour
         }
     }
 
-    private void FixedUpdate()
+    void FixedUpdate()
     {
         Vector3 moveDir = moveTarget.position - this.transform.position;
         rb.velocity = moveDir * speed;
         this.transform.localScale *= zSpeed;
+    }
+    
+    void OnDestroy()
+    {
+        print("OnDestroy fruit");
+        Instantiate(particleDestroyFlash, this.transform.position, Quaternion.identity);
     }
 }

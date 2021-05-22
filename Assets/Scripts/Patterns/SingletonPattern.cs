@@ -89,7 +89,7 @@ public class SingletonPatternPersistent<T> : MonoBehaviour where T : Component, 
     {
         if (instance == this)
         {
-            print("Destroying persistent singleton: " + instance.name);
+            Debug.LogWarning("Destroying persistent singleton: " + instance.name + ". This may be on purpose.");
             instance = null;
         }
     }

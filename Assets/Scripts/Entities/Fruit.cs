@@ -25,6 +25,7 @@ public class Fruit : MonoBehaviour
 	[SerializeField] GameObject particleEffectsGood;
 	[SerializeField] GameObject particleEffectsBad;
 	[SerializeField] GameObject particleEffectsMissed;
+	[SerializeField] GameObject particleDestroyFlash;
 
 	bool hasReducedHP = false;
 	float beatTime = 0f;
@@ -155,9 +156,9 @@ public class Fruit : MonoBehaviour
 		}
 		else if(sliceTiming < GameManager.BAD_SWIPE_TIMING_INTERVAL.max) // Miss
 		{
-			HandleSwipeMiss();
 			Destroy(Instantiate(particleEffectsMissed, this.transform.position, Quaternion.identity), 3f);
 			Destroy(Instantiate(fruitMissedSlicePrefab, this.transform.position, Quaternion.identity), 3f);
+			HandleSwipeMiss();
 		}
 
 	}

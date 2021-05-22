@@ -694,6 +694,7 @@ MonoBehaviour:
   - {fileID: 4053393816685502797}
   - {fileID: 5288080385746336360}
   - {fileID: 2057634568784067589}
+  particleDestroyFlash: {fileID: 4745397785637657469, guid: c0bde5f8a7ab9f8429957048536e4cd1, type: 3}
 --- !u!50 &5129865399574289089
 Rigidbody2D:
   serializedVersion: 4

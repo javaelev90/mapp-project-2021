@@ -52,6 +52,9 @@ public class GameManager : SingletonPattern<GameManager>
 
     void Initialize()
     {
+        //if(QualitySettings.vSyncCount == 0 && Application.platform == RuntimePlatform.Android)
+        //    Application.targetFrameRate = 60;
+
         UnityEngine.Random.InitState(42);
         GameManager.SetInstanceIfNull(this);
         startGameButton?.gameObject.SetActive(true);
