@@ -20,7 +20,7 @@ MonoBehaviour:
   - spawnPattern: 0
     activationTime: 7.0752993
   - spawnPattern: 2
-    activationTime: 29.853153
+    activationTime: 30.082727
   - spawnPattern: 0
     activationTime: 58.644493
   - spawnPattern: 1
@@ -101,7 +101,7 @@ MonoBehaviour:
   - 23.799706
   - 24.205034
   - 24.88771
-  - 25.613039
+  - 25.616755
   - 26.082357
   - 26.786371
   - 27.44771

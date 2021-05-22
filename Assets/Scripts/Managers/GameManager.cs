@@ -36,6 +36,7 @@ public class GameManager : SingletonPattern<GameManager>
     Image hpBarImage;
     Animator hpBarAnimator;
     float hitPoints = 100f;
+    float calibratedAnimationDelay = 0f;
     float score = 0f;
 
     bool wonGame;
@@ -53,8 +54,10 @@ public class GameManager : SingletonPattern<GameManager>
         startGameButton?.gameObject.SetActive(true);
         spawner = SoulSpawner.Instance;
         spawner.Initialize(spawnPoints, beatIndex, fruitPrefab, audioSource, audioSourceSFX);
-
+        calibratedAnimationDelay = SongHandler.Instance.GetAudioLatency();
         hpBarImage = hpBarFiller?.GetComponentInChildren<Image>();
+
+
         hpBarAnimator = hpBarFiller?.GetComponentInChildren<Animator>();
     }
 

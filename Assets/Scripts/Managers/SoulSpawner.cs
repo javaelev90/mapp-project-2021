@@ -8,28 +8,28 @@ public class SoulSpawner : SingletonPattern<SoulSpawner>
 
     public enum SpawnPattern {CANNONBALLS, LINEAR, PAIR, TRIANGLE, SQUARE};
     GameObject objectToSpawn;
-    SpawnPattern currentSpawnPhase;
+    SpawnPattern currentSpawnPattern;
     Vector2 lastTargetPosition;
     Bounds lastSquareBounds;
     MapSection fullMap = new MapSection 
     {
-        upperLeftCorner = new Vector2(-8.0f, 3f),
-        bottomRightCorner = new Vector2(8.0f, -2f)
+        upperLeftCorner = new Vector2(-7.5f, 2f),
+        bottomRightCorner = new Vector2(7.5f, -2f)
     };
     MapSection leftMapSection = new MapSection
     {
-        upperLeftCorner = new Vector2(-8f, 3f),
+        upperLeftCorner = new Vector2(-7.5f, 2f),
         bottomRightCorner = new Vector2(-2.5f, -2f)
     };
     MapSection middleMapSection = new MapSection 
     {
-        upperLeftCorner = new Vector2(-2.5f, 3f),
+        upperLeftCorner = new Vector2(-2.5f, 2f),
         bottomRightCorner = new Vector2(2.5f, -2f)
     };
     MapSection rightMapSection = new MapSection 
     {
-        upperLeftCorner = new Vector2(2.5f, 3f),
-        bottomRightCorner = new Vector2(8f, -2f)
+        upperLeftCorner = new Vector2(2.5f, 2f),
+        bottomRightCorner = new Vector2(7.5f, -2f)
     };
     Transform[] spawnPoints;
     Transform lastSpawnPoint;
@@ -46,7 +46,7 @@ public class SoulSpawner : SingletonPattern<SoulSpawner>
         this.audioSourceSFX = sfx;
         this.objectToSpawn = objectToSpawn;
         this.beatIndex = beatIndex;
-        currentSpawnPhase = SpawnPattern.CANNONBALLS;
+        currentSpawnPattern = SpawnPattern.CANNONBALLS;
         this.spawnPoints = spawnPoints.OrderBy(spawnPoint => spawnPoint.position.x).ToArray();
         lastSpawnPoint = this.spawnPoints[0];
     }
@@ -58,28 +58,28 @@ public class SoulSpawner : SingletonPattern<SoulSpawner>
 
     public void SetSpawnPattern(SpawnPattern spawnPattern)
     {
-        this.currentSpawnPhase = spawnPattern;
+        this.currentSpawnPattern = spawnPattern;
     }
 
     public int SpawnSoul(float spawnThresholdTime)
     {
-        if(currentSpawnPhase == SpawnPattern.CANNONBALLS)
+        if(currentSpawnPattern == SpawnPattern.CANNONBALLS)
         {
             SpawnCannonBalls(spawnThresholdTime);
         } 
-        else if(currentSpawnPhase == SpawnPattern.LINEAR)
+        else if(currentSpawnPattern == SpawnPattern.LINEAR)
         {
             SpawnLinear(spawnThresholdTime);
         } 
-        else if (currentSpawnPhase == SpawnPattern.SQUARE) 
+        else if (currentSpawnPattern == SpawnPattern.SQUARE) 
         {
             SpawnInSquare(spawnThresholdTime);
         } 
-        else if (currentSpawnPhase == SpawnPattern.TRIANGLE) 
+        else if (currentSpawnPattern == SpawnPattern.TRIANGLE) 
         {
             SpawnInTriangle(spawnThresholdTime);
         }
-        else if (currentSpawnPhase == SpawnPattern.PAIR) 
+        else if (currentSpawnPattern == SpawnPattern.PAIR) 
         {
             SpawnInPair(spawnThresholdTime);
         }
@@ -117,8 +117,11 @@ public class SoulSpawner : SingletonPattern<SoulSpawner>
 
     void SpawnInTriangle(float spawnThresholdTime)
     {
+        // Vector2[] triangleTargets = GetSafeTriangleTargets();
+        // SpawnInPattern(triangleTargets, spawnThresholdTime, SpawnPattern.TRIANGLE);
+        Transform spawnPoint = GetSpawnLocation();
         Vector2[] triangleTargets = GetSafeTriangleTargets();
-        SpawnInPattern(triangleTargets, spawnThresholdTime, SpawnPattern.TRIANGLE);
+        SpawnInPattern(spawnPoint, triangleTargets, spawnThresholdTime, SpawnPattern.TRIANGLE);
     }
 
     void SpawnInPair(float spawnThresholdTime)
@@ -200,15 +203,15 @@ public class SoulSpawner : SingletonPattern<SoulSpawner>
 
     Bounds GetSafeBounds(Vector2? size)
     {
-        Vector2 boundsSize = size.HasValue ? size.Value : new Vector2(4f, 3f);
-        float randomX = UnityEngine.Random.Range(-3, 7);
-        float randomY = UnityEngine.Random.Range(0, -2);
+        Vector2 boundsSize = size.HasValue ? size.Value : new Vector2(3f, 2f);
+        float randomX = UnityEngine.Random.Range(-7f, 7f);
+        float randomY = UnityEngine.Random.Range(0.5f, -1.5f);
         Bounds squareBounds = new Bounds(new Vector2(randomX, randomY), boundsSize);
         
         while(squareBounds.Intersects(lastSquareBounds))
         {
-            randomX = UnityEngine.Random.Range(-3, 7);
-            randomY = UnityEngine.Random.Range(0, -2);
+            randomX = UnityEngine.Random.Range(-7f, 7f);
+            randomY = UnityEngine.Random.Range(0.5f, -1.5f);
             squareBounds = new Bounds(new Vector2(randomX, randomY), boundsSize);
         }
         lastSquareBounds = squareBounds;
@@ -217,8 +220,8 @@ public class SoulSpawner : SingletonPattern<SoulSpawner>
 
     Bounds GetSafeBoundsInMapSection(Vector2? size, MapSection mapSection)
     {
-        Vector2 boundsSize = size.HasValue ? size.Value : new Vector2(4f, 3f);
-        Vector2 position = GetSafeTargetPoint(mapSection);
+        Vector2 boundsSize = size.HasValue ? size.Value : new Vector2(3f, 2f);
+        Vector2 position = AdjustPositionForPattern(GetSafeTargetPoint(mapSection));
         Bounds squareBounds = new Bounds(position, boundsSize);
 
         while(squareBounds.Intersects(lastSquareBounds))
@@ -228,6 +231,32 @@ public class SoulSpawner : SingletonPattern<SoulSpawner>
         }
         lastSquareBounds = squareBounds;
         return squareBounds;
+    }
+
+    // To prevent the patterns from partly going off screen
+    // their center position is adjusted if they are on the map edges
+    Vector2 AdjustPositionForPattern(Vector2 position){
+        float newX = position.x;
+        float newY = position.y;
+        float xAdjustment = 0.5f;
+        float yAdjustment = 0.5f;
+
+        // Adjust x position
+        if(fullMap.bottomRightCorner.x == position.x){
+            newX -= xAdjustment;
+        }
+        else if(fullMap.upperLeftCorner.x == position.x){
+            newX += xAdjustment;
+        }
+
+        // Adjust y position
+        if(fullMap.bottomRightCorner.y == position.y){
+            newY += yAdjustment;
+        }
+        else if(fullMap.upperLeftCorner.y == position.y){
+            newY -= yAdjustment;
+        }
+        return new Vector2(newX, newY);
     }
 
     Vector2[] GetSafePairTargets()
@@ -255,7 +284,9 @@ public class SoulSpawner : SingletonPattern<SoulSpawner>
 
     Vector2[] GetSafeTriangleTargets()
     {
-        Bounds squareBounds = GetSafeBounds(null);
+        
+        // Bounds squareBounds = GetSafeBounds(null);
+        Bounds squareBounds = GetSafeBoundsInMapSection(null, GetMapSection());
         float middleX = squareBounds.min.x + ((squareBounds.max.x - squareBounds.min.x) / 2f);
         return new Vector2[3] 
         {

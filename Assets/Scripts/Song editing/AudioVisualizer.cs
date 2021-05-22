@@ -48,10 +48,10 @@ public class AudioVisualizer : MonoBehaviour, IPointerDownHandler, IPointerUpHan
     Dictionary<string, Color> spawnPatternColorMapping = new Dictionary<string, Color>
     {
         {SoulSpawner.SpawnPattern.TRIANGLE.ToString(), Color.green},
-        {SoulSpawner.SpawnPattern.SQUARE.ToString(), Color.blue},
+        {SoulSpawner.SpawnPattern.SQUARE.ToString(), Color.white},
         {SoulSpawner.SpawnPattern.PAIR.ToString(), Color.yellow},
         {SoulSpawner.SpawnPattern.LINEAR.ToString(), Color.cyan},
-        {SoulSpawner.SpawnPattern.CANNONBALLS.ToString(), Color.black}
+        {SoulSpawner.SpawnPattern.CANNONBALLS.ToString(), Color.grey}
     };
     List<BeatMarker> beatMarkers = new List<BeatMarker>();
     SceneHandler sceneHandler;
