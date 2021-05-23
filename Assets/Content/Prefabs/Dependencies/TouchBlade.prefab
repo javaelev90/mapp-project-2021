@@ -46,8 +46,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bladeTrailPrefab: {fileID: 1945049117440188, guid: bc320d1a0a6387445800524e9e9ff2b6, type: 3}
-  minMouseCuttingVelocity: 0.005
-  minTouchCuttingVelocity: 0.01
+  minMouseCuttingVelocity: 0.001
+  minTouchCuttingVelocity: 0.001
   sliceLayer:
     serializedVersion: 2
     m_Bits: 1024

@@ -55,8 +55,11 @@ public class GameManager : SingletonPattern<GameManager>
         // This is in StartmenuController also. To avoid extreme FPS.
         //if(QualitySettings.vSyncCount == 0 && Application.platform == RuntimePlatform.Android)
         //    Application.targetFrameRate = 60;
+        QualitySettings.vSyncCount = 0;
         if (QualitySettings.vSyncCount == 0 && SystemInfo.deviceType == DeviceType.Desktop)
             Application.targetFrameRate = 120;
+        if (QualitySettings.vSyncCount == 0 && SystemInfo.deviceType == DeviceType.Handheld)
+            Application.targetFrameRate = 60;
         
         UnityEngine.Random.InitState(42); // The answer to everything?
         GameManager.SetInstanceIfNull(this);

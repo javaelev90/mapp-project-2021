@@ -129,10 +129,10 @@ public class Blade : MonoBehaviour
 		cuttingInitiated = true;
 		startingTouch = touchPos;
 		Vector2 newPosition = cam.ScreenToWorldPoint(touchPos);
-		this.gameObject.transform.position = newPosition;
+		this.transform.position = newPosition;
 		previousPosition = newPosition;
 
-		currentBladeTrail = Instantiate(bladeTrailPrefab, this.transform); // Creating new instances to stop sudden removal of trails, TODO: make object pool
+		currentBladeTrail = Instantiate(bladeTrailPrefab, this.transform.position, Quaternion.identity, this.transform); // Creating new instances to stop sudden removal of trails, TODO: make object pool
 	}
 
 	public void TouchStopCutting(Vector2 position, float time)
@@ -140,7 +140,7 @@ public class Blade : MonoBehaviour
 		cuttingInitiated = false;
 
 		currentBladeTrail.transform.SetParent(null);
-		Destroy(currentBladeTrail, 2f);
+		Destroy(currentBladeTrail, .5f);
 	}
 #endregion Touch Input
 
@@ -164,10 +164,10 @@ public class Blade : MonoBehaviour
 		cuttingInitiated = true;
 
 		Vector2 newPosition = cam.ScreenToWorldPoint(new Vector3(currentMouse.position.x.ReadValue(), currentMouse.position.y.ReadValue(), 0f));
-		this.gameObject.transform.position = newPosition;
+		this.transform.position = newPosition;
 		previousPosition = newPosition;
 
-		currentBladeTrail = Instantiate(bladeTrailPrefab, this.transform);
+		currentBladeTrail = Instantiate(bladeTrailPrefab, this.transform.position, Quaternion.identity, this.transform);
 	}
 
 	public void MouseStopCutting()
@@ -175,7 +175,7 @@ public class Blade : MonoBehaviour
 		cuttingInitiated = false;
 
 		currentBladeTrail?.transform.SetParent(null); // Denna ger error ibland men jag tror att det har att göra med att man spelar i Editor och för musen utanför spelskärmen osv.
-		Destroy(currentBladeTrail, 1f);
+		Destroy(currentBladeTrail, .5f);
 	}
 #endregion Mouse Input
 
