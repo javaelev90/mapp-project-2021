@@ -10,6 +10,7 @@ public class SongObject : ScriptableObject
     public AudioClip song;
     public AudioClip sfx;
     public float preferredMarginTimeBeforeBeat = 0.7f;
+    public SongDifficulty songDifficulty;
     [SerializeField] List<SpawnPatternChange> spawnPatternChanges;
     [SerializeField] List<float> beats;
 
@@ -21,7 +22,8 @@ public class SongObject : ScriptableObject
         {
             beats = new List<float>();
         }
-        if(spawnPatternChanges == null){
+        if(spawnPatternChanges == null)
+        {
             spawnPatternChanges = new List<SpawnPatternChange>();
         }
     }
@@ -71,4 +73,9 @@ public class SpawnPatternChange
 {
     public SoulSpawner.SpawnPattern spawnPattern;
     public float activationTime;
+}
+
+public enum SongDifficulty
+{
+    EASY, MEDIUM, HARD
 }
