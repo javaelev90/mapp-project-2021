@@ -46,6 +46,7 @@ public class Blade : MonoBehaviour
 #endif
 
 	}
+
 	void OnEnable()
 	{
 #if !UNITY_EDITOR && !UNITY_STANDALONE
@@ -53,6 +54,7 @@ public class Blade : MonoBehaviour
 		inputManager.OnEndEnhancedTouch += TouchStopCutting;
 #endif
 	}
+
 	void OnDisable()
 	{
 #if !UNITY_EDITOR && !UNITY_STANDALONE
@@ -60,6 +62,7 @@ public class Blade : MonoBehaviour
 		inputManager.OnEndEnhancedTouch -= TouchStopCutting;
 #endif
 	}
+
 	void OnDestroy()
 	{
 #if !UNITY_EDITOR && !UNITY_STANDALONE
@@ -73,8 +76,6 @@ public class Blade : MonoBehaviour
 		//Use mouse input in editor or computer
 		if (!GameManager.Instance.GameIsPaused)
 		{
-			MouseUpdateCut(Mouse.current); // UpdateCut before StartCutting to avoid tap cuts
-
 			if (Mouse.current.leftButton.wasPressedThisFrame)
 			{
 				MouseStartCutting(Mouse.current);
@@ -84,8 +85,20 @@ public class Blade : MonoBehaviour
 				MouseStopCutting();
 			}
 		}
+#endif
+
+	}
+
+	void FixedUpdate()
+	{
+#if UNITY_EDITOR || UNITY_STANDALONE
+		//Use mouse input in editor or computer
+		if (!GameManager.Instance.GameIsPaused)
+		{
+			MouseUpdateCut(Mouse.current);
+		}
 #else
-		// Use touch input on mobile
+		//Use touch input on mobile
 		if (!GameManager.Instance.GameIsPaused)
 		{
 			if (UnityEngine.InputSystem.EnhancedTouch.Touch.activeTouches.Count == 1)
@@ -94,11 +107,10 @@ public class Blade : MonoBehaviour
 			}
 		}
 #endif
-
 	}
+	#region Touch Input
 
-    #region Touch Input
-    void TouchUpdateCut(Vector2 touchPos)
+	void TouchUpdateCut(Vector2 touchPos)
 	{
 		Vector2 newPosition = cam.ScreenToWorldPoint(touchPos);
 		rb.position = newPosition;
@@ -130,9 +142,9 @@ public class Blade : MonoBehaviour
 		currentBladeTrail.transform.SetParent(null);
 		Destroy(currentBladeTrail, 2f);
 	}
-    #endregion Touch Input
+#endregion Touch Input
 
-    #region Mouse Input
+#region Mouse Input
     void MouseUpdateCut(Mouse currentMouse)
 	{
 		Vector2 newPosition = cam.ScreenToWorldPoint(new Vector3(currentMouse.position.x.ReadValue(), currentMouse.position.y.ReadValue(), 0f));
@@ -165,7 +177,7 @@ public class Blade : MonoBehaviour
 		currentBladeTrail?.transform.SetParent(null); // Denna ger error ibland men jag tror att det har att göra med att man spelar i Editor och för musen utanför spelskärmen osv.
 		Destroy(currentBladeTrail, 1f);
 	}
-	#endregion Mouse Input
+#endregion Mouse Input
 
 	void Cut(Vector2 newPosition)
 	{
@@ -177,6 +189,7 @@ public class Blade : MonoBehaviour
 			{
 				if (collisionBuffer[i].collider == circleCollider || collisionBuffer[i].collider == null)
 					continue;
+
 				OnFruitSliced?.Invoke(collisionBuffer[i].collider);
 			}
 		}

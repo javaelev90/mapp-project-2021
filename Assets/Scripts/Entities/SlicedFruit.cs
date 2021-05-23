@@ -32,9 +32,5 @@ public class SlicedFruit : MonoBehaviour
         this.transform.localScale *= zSpeed;
     }
     
-    void OnDestroy()
-    {
-        print("OnDestroy fruit");
-        Instantiate(particleDestroyFlash, this.transform.position, Quaternion.identity);
-    }
+    void OnDestroy() => Instantiate(particleDestroyFlash, this.transform.position, Quaternion.identity);
 }

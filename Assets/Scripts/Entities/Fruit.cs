@@ -180,10 +180,7 @@ public class Fruit : MonoBehaviour
 		audioSourceSFX.PlayOneShot(breakGlassSFX[randomValue]);
 	}
 
-	void HandleSwipeMiss()
-	{
-			ReduceHP();
-	}
+	void HandleSwipeMiss() => ReduceHP();
 
 	float GetCurrentSliceTiming() => audioSourceMusic.time - beatTime;
 

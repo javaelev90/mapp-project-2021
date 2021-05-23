@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb6baf8922a41ce468d4d617a52c2d57, type: 3}
+  m_Name: NeverBackDown
+  m_EditorClassIdentifier: 
+  uniqueName: 
+  song: {fileID: 8300000, guid: da0e73d36eb096f45a2271247ef0a6bf, type: 3}
+  sfx: {fileID: 0}
+  preferredMarginTimeBeforeBeat: 0.7
+  spawnPatternChanges:
+  - spawnPattern: 0
+    activationTime: 1.6547525
+  - spawnPattern: 3
+    activationTime: 4.435122
+  - spawnPattern: 4
+    activationTime: 5.1278086
+  - spawnPattern: 2
+    activationTime: 6.2822876
+  - spawnPattern: 1
+    activationTime: 8.793279
+  beats:
+  - 1.9818547
+  - 4.6948795
+  - 5.5896
+  - 6.695976
+  - 9.187725
