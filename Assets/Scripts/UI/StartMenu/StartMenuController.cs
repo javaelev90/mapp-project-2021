@@ -24,9 +24,16 @@ public class StartMenuController : MonoBehaviour
         if (!SceneManager.GetSceneByName("Managers").isLoaded)
             SceneManager.LoadSceneAsync("Managers", LoadSceneMode.Additive);
 
-        // This is in GameManager also. To avoid extreme FPS.
-        if (QualitySettings.vSyncCount == 0 && SystemInfo.deviceType == DeviceType.Desktop)
+        // Limiting the FPS in start menu
+        if (SystemInfo.deviceType == DeviceType.Desktop)
             Application.targetFrameRate = 120;
+        else if (Database.Instance.settingsRepository.GetFPSSetting() == 1f)
+            Application.targetFrameRate = Screen.currentResolution.refreshRate;
+        else if (Database.Instance.settingsRepository.GetFPSSetting() == 0f)
+            Application.targetFrameRate = -1;
+
+        Debug.Log("Current screen refresh rate: " + Screen.currentResolution.refreshRate);
+        Debug.Log("Current targetFrameRate: " + Application.targetFrameRate);
     }
     void Start()
     {

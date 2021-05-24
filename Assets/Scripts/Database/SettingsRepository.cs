@@ -25,12 +25,34 @@ public class SettingsRepository
     public float GetVolumeSetting()
     {
         string volume = GetSetting("VOLUME");
-        return volume == null ? -1 : float.Parse(volume);
+        return volume == null ? 999f : float.Parse(volume);
     }
 
     public void UpdateVolumeSetting(float volume)
     {
         UpdateSetting("VOLUME", ("" + volume));
+    }
+
+    public float GetEffectsVolumeSetting()
+    {
+        string volume = GetSetting("EFFECTS");
+        return volume == null ? 999f : float.Parse(volume);
+    }
+
+    public void UpdateEffectsVolumeSetting(float volume)
+    {
+        UpdateSetting("EFFECTS", ("" + volume));
+    }
+
+    public float GetFPSSetting()
+    {
+        string volume = GetSetting("FPS");
+        return volume == null ? 999f : float.Parse(volume);
+    }
+
+    public void UpdateFPSSetting(float volume)
+    {
+        UpdateSetting("FPS", ("" + volume));
     }
 
     private void UpdateSetting(string settingName, string settingValue)
