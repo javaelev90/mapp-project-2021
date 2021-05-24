@@ -1,5 +1,9 @@
 fileFormatVersion: 2
-guid: 5f4bc86c04121fb48921d43a9c2418ba
+<<<<<<< Updated upstream:Assets/Content/Prefabs/SongSelectionMenu.meta
+guid: cdea0fcd5468aae41a538cbf9bf20230
+=======
+guid: 331c206c6f80d8d4ea148000ac89f829
+>>>>>>> Stashed changes:Assets/Content/Fonts/EffectsBad.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
