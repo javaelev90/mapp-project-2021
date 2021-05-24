@@ -3,11 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using PlayFab;
 using PlayFab.ClientModels;
+using UnityEngine.UI;
 
 public class PlayFabManager : SingletonPatternPersistent<PlayFabManager>, IInitializeAble
 {
+    
     public GetLeaderboardResult result;
     public void Initialize() { }
+
+    public GameObject nameWindow;
+    public GameObject leaderboardWindow;
+
+    [Header("Display name window")]
+    public GameObject nameError;
+    public InputField nameInput;
 
 
     // Start is called before the first frame update
@@ -20,16 +29,47 @@ public class PlayFabManager : SingletonPatternPersistent<PlayFabManager>, IIniti
         var request = new LoginWithCustomIDRequest
         {
             CustomId = SystemInfo.deviceUniqueIdentifier,
-            CreateAccount = true
+            CreateAccount = true,
+            InfoRequestParameters = new GetPlayerCombinedInfoRequestParams {
+                GetPlayerProfile = true
+
+            }
         };
-        PlayFabClientAPI.LoginWithCustomID(request, OnSuccess, OnError);
+        PlayFabClientAPI.LoginWithCustomID(request, OnLoginSuccess, OnError);
 
         }
-    void OnSuccess(LoginResult result)
+    void OnLoginSuccess(LoginResult result)
     {
         Debug.Log("Successful login/account create!");
+        string name = null;
+        if (result.InfoResultPayload.PlayerProfile != null)
+        name = result.InfoResultPayload.PlayerProfile.DisplayName;
+
+        if (name == null)
+            nameWindow.SetActive(true);
+        else
+            leaderboardWindow.SetActive(true);
     
     }
+
+    public void SubmitNameButton() {
+        var request = new UpdateUserTitleDisplayNameRequest
+        {
+            DisplayName = nameInput.text,
+
+        };
+        PlayFabClientAPI.UpdateUserTitleDisplayName(request, OnDisplayNameUpdate, OnError);
+
+    }
+
+    void OnDisplayNameUpdate(UpdateUserTitleDisplayNameResult result)
+    {
+        Debug.Log("Updated display name");
+        leaderboardWindow.SetActive(true);
+        Debug.Log(result.DisplayName);
+    }
+
+
     void OnError(PlayFabError error)
     {
         Debug.Log("Error while logging in/creating account!");
