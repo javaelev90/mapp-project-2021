@@ -4,8 +4,12 @@ using UnityEngine;
 using PlayFab;
 using PlayFab.ClientModels;
 
-public class PlayFabManager : MonoBehaviour
+public class PlayFabManager : SingletonPatternPersistent<PlayFabManager>, IInitializeAble
 {
+    public GetLeaderboardResult result;
+    public void Initialize() { }
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -31,7 +35,7 @@ public class PlayFabManager : MonoBehaviour
         Debug.Log("Error while logging in/creating account!");
         Debug.Log(error.GenerateErrorReport());
     }
-        
+
     public void SendLeaderboard(int score) {
         var request = new UpdatePlayerStatisticsRequest
         {
@@ -46,28 +50,34 @@ public class PlayFabManager : MonoBehaviour
 
         };
         PlayFabClientAPI.UpdatePlayerStatistics(request, OnLeaderboardUpdate, OnError);
+ 
 
     }
     void OnLeaderboardUpdate(UpdatePlayerStatisticsResult result) {
         Debug.Log("Successful leaderboard sent");
-        //send leaderboard i gamecontroller
+        
 
     }
     public void GetLeaderboard() {
-        var request = new GetLeaderboardRequest
-        {
-            StatisticName = "PlatformScore",
-            StartPosition = 0,
-            MaxResultsCount = 10
-        };
+        var request = new GetLeaderboardRequest();
+        request.StatisticName = "PlatformScore";
+        request.StartPosition = 0;
+        request.MaxResultsCount = 10;
+        //{
+            //StatisticName = "PlatformScore",
+            //StartPosition = 0,
+            //MaxResultsCount = 10
+        //};
         PlayFabClientAPI.GetLeaderboard(request, OnLeaderboardGet, OnError);
     }
     void OnLeaderboardGet(GetLeaderboardResult result) {
-        Debug.Log(result.ToString());
-        foreach (var item in result.Leaderboard) {
-            Debug.Log(item.Position + " " + item.PlayFabId + " " + item.StatValue);
+        this.result = result;
+        //Debug.Log(result.ToString());
+        //foreach (var item in result.Leaderboard) {
+        //    Debug.Log(item.Position + " " + item.PlayFabId + " " + item.StatValue);
 
-        }
+
+        //}
 
     }
 }
