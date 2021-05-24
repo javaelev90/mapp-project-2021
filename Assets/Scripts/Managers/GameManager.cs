@@ -68,6 +68,23 @@ public class GameManager : SingletonPattern<GameManager>
 
         hpBarImage = hpBarFiller?.GetComponentInChildren<Image>();
         hpBarAnimator = hpBarFiller?.GetComponentInChildren<Animator>();
+        InitializeHpBar();
+    }
+
+    void InitializeHpBar()
+    {
+        GameObject hpSectionSpacer = hpBarFiller?.transform.GetChild(0).gameObject;
+        int numberOfSpacers = (int) hitPoints / pointsLostOnMiss;
+        float spacePosition = hpBarFiller.GetComponent<RectTransform>().rect.width / numberOfSpacers;
+        float leftMostLocalPosition = hpBarFiller.transform.localPosition.x + hpBarFiller.GetComponent<RectTransform>().rect.width/2f;
+        for(int i = 0; i < numberOfSpacers; i++)
+        {
+            GameObject spacer = Instantiate(hpSectionSpacer, hpBarFiller.transform.position, hpBarFiller.transform.rotation);
+            spacer.transform.SetParent(hpBarFiller.transform);
+            spacer.transform.localScale = Vector3.one;
+            spacer.transform.localPosition = new Vector2(leftMostLocalPosition, spacer.transform.localPosition.y);
+            leftMostLocalPosition += spacePosition;
+        }
     }
 
     void Update() 
@@ -114,7 +131,7 @@ public class GameManager : SingletonPattern<GameManager>
         beatIndex = 0;
         spawner.SetBeatIndex(beatIndex);
         score = 0f;
-        scoreText.text = "Score: " + 0;
+        scoreText.text = "";
         SetHPBar(100f);
         hitPoints = 100f;
         OnStartGame();
@@ -140,7 +157,7 @@ public class GameManager : SingletonPattern<GameManager>
             score += 25f;
         }
 
-        scoreText.text = "Score: " + score;
+        scoreText.text = score.ToString();
     }
 
     public void MissedSwipe()
@@ -183,8 +200,6 @@ public class GameManager : SingletonPattern<GameManager>
         //spawn fruit
         //add countdown value
         //launch fruit
-        //sleep for max prelaunch time value - current time in song
-
 
         float beat = SongHandler.Instance.GetAudioClipBeats()[beatIndex];
         spawner.SetSpawnPattern(GetSpawnPattern(beat));

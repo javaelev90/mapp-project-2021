@@ -185,7 +185,7 @@ public class Fruit : MonoBehaviour
 	void PlayBrokenGlassEffect()
 	{
 		int randomValue = (int)Random.Range(0f, breakGlassSFX.Length);
-		audioSourceSFX.PlayOneShot(breakGlassSFX[randomValue]);
+		audioSourceSFX.PlayOneShot(breakGlassSFX[randomValue], 0.3f);
 	}
 
 	void HandleSwipeMiss() => ReduceHP();

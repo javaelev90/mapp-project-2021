@@ -173,9 +173,10 @@ public class Blade : MonoBehaviour
 	public void MouseStopCutting()
 	{
 		cuttingInitiated = false;
-
-		currentBladeTrail?.transform.SetParent(null); // Denna ger error ibland men jag tror att det har att göra med att man spelar i Editor och för musen utanför spelskärmen osv.
-		Destroy(currentBladeTrail, .5f);
+		if(currentBladeTrail != null){
+			currentBladeTrail?.transform.SetParent(null); // Denna ger error ibland men jag tror att det har att gï¿½ra med att man spelar i Editor och fï¿½r musen utanfï¿½r spelskï¿½rmen osv.
+			Destroy(currentBladeTrail, .5f);
+		}
 	}
 #endregion Mouse Input
 

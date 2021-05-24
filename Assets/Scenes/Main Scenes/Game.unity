@@ -180,7 +180,7 @@ SpriteRenderer:
   m_SortingLayerID: -107396373
   m_SortingLayer: -1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: a01de797e31f5e64ead14829be16124b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d99a4a1ff4976864f88bf8bf350d8124, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -329,6 +329,34 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 976424860, guid: a4ef893afc73ede479b51d474a9545b3, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 371
+      objectReference: {fileID: 0}
+    - target: {fileID: 1073995463, guid: a4ef893afc73ede479b51d474a9545b3, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1073995463, guid: a4ef893afc73ede479b51d474a9545b3, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1073995463, guid: a4ef893afc73ede479b51d474a9545b3, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1073995463, guid: a4ef893afc73ede479b51d474a9545b3, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -296
+      objectReference: {fileID: 0}
+    - target: {fileID: 1073995463, guid: a4ef893afc73ede479b51d474a9545b3, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 144
+      objectReference: {fileID: 0}
+    - target: {fileID: 1751842203, guid: a4ef893afc73ede479b51d474a9545b3, type: 3}
+      propertyPath: m_text
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 3266809322150801772, guid: a4ef893afc73ede479b51d474a9545b3, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -420,6 +448,10 @@ PrefabInstance:
     - target: {fileID: 3266809322228083943, guid: a4ef893afc73ede479b51d474a9545b3, type: 3}
       propertyPath: m_Name
       value: UI
+      objectReference: {fileID: 0}
+    - target: {fileID: 6028047452089516134, guid: a4ef893afc73ede479b51d474a9545b3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a4ef893afc73ede479b51d474a9545b3, type: 3}
@@ -769,6 +801,10 @@ PrefabInstance:
       propertyPath: startGameButton
       value: 
       objectReference: {fileID: 774278941}
+    - target: {fileID: 5231825053993391410, guid: a4997199fef73a44e8a3f130b50a0457, type: 3}
+      propertyPath: pointsLostOnMiss
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 5231825053993391410, guid: a4997199fef73a44e8a3f130b50a0457, type: 3}
       propertyPath: spiritsMoveTarget
       value: 
