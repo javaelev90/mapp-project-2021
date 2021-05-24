@@ -6,13 +6,14 @@ using UnityEngine;
 public class Fruit : MonoBehaviour
 {
 	[Header("Gameplay")]
-	[Tooltip("The prefabs spawned after slicing")]
+	[Tooltip("Spawned after slicing is successful")]
 	[SerializeField] GameObject fruitSlicedPrefab;
+	[Tooltip("Spawned after slicing is UNsuccessful")]
 	[SerializeField] GameObject fruitMissedSlicePrefab;
-
 	[Header("Timing properties")]
 	[SerializeField] SpriteRenderer timingCircle;
 	[SerializeField] Color initialTimingCircleColor;
+	[SerializeField] Color progressingTimingCircleColor;
 	[SerializeField] Color finalTimingCircleColor;
 	[Header("Animation")]
 	[SerializeField] Animator ringAnimator;
@@ -47,7 +48,7 @@ public class Fruit : MonoBehaviour
 	{
 		mainCamera = Camera.main;
 
-		GameManager.Instance.Blade.OnFruitSliced += CheckSliced;
+		GameManager.Instance.Blade.OnFruitSliced += SliceMe;
 
 		myRigidbody = GetComponent<Rigidbody2D>();
 		myCollider = GetComponent<CircleCollider2D>();
@@ -59,13 +60,12 @@ public class Fruit : MonoBehaviour
 	void Update()
 	{
 		UpdateTimingCircleGraphics();
+		HandleMovePattern();
 
 		if (GetCurrentSliceTiming() > GameManager.PERFECT_SWIPE_TIMING_INTERVAL.max && IsOutsideScreen())
 		{
 			ReduceHP();
 		}
-
-		HandleMovePattern();
 	}
 
 	public void Initiate(AudioSource audioSource, AudioSource audioSourceSFX, float beatTime, Vector3 target, Vector3 velocity, SoulSpawner.SpawnPattern spawnPattern)
@@ -87,7 +87,7 @@ public class Fruit : MonoBehaviour
 		myRigidbody.velocity = velocity;
 	}
 
-	void CheckSliced(Collider2D fruitCollider)
+	void SliceMe(Collider2D fruitCollider)
 	{
 		if (this.hasReducedHP || fruitCollider != myCollider)
 			return;
@@ -138,25 +138,25 @@ public class Fruit : MonoBehaviour
 		}
 		else if (sliceTiming < GameManager.GOOD_SWIPE_TIMING_INTERVAL.max && sliceTiming >= GameManager.GOOD_SWIPE_TIMING_INTERVAL.min)
 		{
-			Destroy(Instantiate(particleEffectsGood, this.transform.position, Quaternion.identity), 3f);
+			Destroy(Instantiate(particleEffectsGood, this.transform.position, Quaternion.identity), 2f);
 			Destroy(Instantiate(fruitSlicedPrefab, this.transform.position, Quaternion.identity), 3f);
 			PlayBrokenGlassEffect();
 		}
 		else if (sliceTiming < GameManager.BAD_SWIPE_TIMING_INTERVAL.max && sliceTiming >= GameManager.BAD_SWIPE_TIMING_INTERVAL.min)
 		{
-			Destroy(Instantiate(particleEffectsBad, this.transform.position, Quaternion.identity), 3f);
+			Destroy(Instantiate(particleEffectsBad, this.transform.position, Quaternion.identity), 2f);
 			Destroy(Instantiate(fruitSlicedPrefab, this.transform.position, Quaternion.identity), 3f);
 			PlayBrokenGlassEffect();
 		}
 		else if (sliceTiming > GameManager.PERFECT_SWIPE_TIMING_INTERVAL.max) // Bad post perfect
 		{
-			Destroy(Instantiate(particleEffectsBad, this.transform.position, Quaternion.identity), 3f);
+			Destroy(Instantiate(particleEffectsBad, this.transform.position, Quaternion.identity), 2f);
 			Destroy(Instantiate(fruitSlicedPrefab, this.transform.position, Quaternion.identity), 3f);
 			PlayBrokenGlassEffect();
 		}
 		else if(sliceTiming < GameManager.BAD_SWIPE_TIMING_INTERVAL.max) // Miss
 		{
-			Destroy(Instantiate(particleEffectsMissed, this.transform.position, Quaternion.identity), 3f);
+			Destroy(Instantiate(particleEffectsMissed, this.transform.position, Quaternion.identity), 2f);
 			Destroy(Instantiate(fruitMissedSlicePrefab, this.transform.position, Quaternion.identity), 3f);
 			HandleSwipeMiss();
 		}
@@ -164,13 +164,21 @@ public class Fruit : MonoBehaviour
 	}
 	void UpdateTimingCircleGraphics()
 	{
-		if (GetCurrentSliceTiming() >= GameManager.BAD_SWIPE_TIMING_INTERVAL.min)
+		if (GetCurrentSliceTiming() >= GameManager.BAD_SWIPE_TIMING_INTERVAL.min
+			&& timingCircle.color != progressingTimingCircleColor)
+		{
+			timingCircle.color = progressingTimingCircleColor;
+		}
+		if(GetCurrentSliceTiming() >= GameManager.PERFECT_SWIPE_TIMING_INTERVAL.min
+			&& timingCircle.color != finalTimingCircleColor)
 		{
 			timingCircle.color = finalTimingCircleColor;
 		}
-		if (GetCurrentSliceTiming() > GameManager.PERFECT_SWIPE_TIMING_INTERVAL.max)
+		if (GetCurrentSliceTiming() > GameManager.PERFECT_SWIPE_TIMING_INTERVAL.max
+			&& timingCircle.gameObject.activeSelf == true)
 		{
-			timingCircle.enabled = false;
+			//timingCircle.enabled = false;
+			timingCircle.gameObject.SetActive(false);
 		}
 	}
 

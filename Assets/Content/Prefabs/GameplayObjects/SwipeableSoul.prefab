@@ -49,7 +49,8 @@ MonoBehaviour:
   fruitSlicedPrefab: {fileID: 7624220443380890488, guid: aa1055f694647bd4587061ff3cb9294f, type: 3}
   fruitMissedSlicePrefab: {fileID: 4600915889894013459, guid: 285f2b4b41330c7499334f4fb8fe7f5a, type: 3}
   timingCircle: {fileID: 562907150041462893}
-  initialTimingCircleColor: {r: 1, g: 0.08627451, b: 0, a: 1}
+  initialTimingCircleColor: {r: 0.8301887, g: 0.07162412, b: 0, a: 1}
+  progressingTimingCircleColor: {r: 0.8396226, g: 0.82985955, b: 0, a: 1}
   finalTimingCircleColor: {r: 0, g: 0.98039216, b: 0.2, a: 1}
   ringAnimator: {fileID: 2396861401666926532}
   ringAnimationClip: {fileID: 7400000, guid: fb7c99b05ba3cb94389f413023b91b72, type: 2}
