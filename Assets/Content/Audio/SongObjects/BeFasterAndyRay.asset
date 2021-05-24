@@ -26,7 +26,7 @@ MonoBehaviour:
   - spawnPattern: 3
     activationTime: 33.91757
   - spawnPattern: 2
-    activationTime: 35.202976
+    activationTime: 35.19387
   - spawnPattern: 3
     activationTime: 36.944496
   - spawnPattern: 2
@@ -36,25 +36,37 @@ MonoBehaviour:
   - spawnPattern: 2
     activationTime: 41.277557
   - spawnPattern: 0
-    activationTime: 43.039806
-  - spawnPattern: 1
-    activationTime: 44.30448
+    activationTime: 42.96122
+  - spawnPattern: 2
+    activationTime: 44.33992
   - spawnPattern: 0
-    activationTime: 45.80758
-  - spawnPattern: 1
-    activationTime: 47.300312
+    activationTime: 45.97778
+  - spawnPattern: 2
+    activationTime: 47.263184
   - spawnPattern: 0
-    activationTime: 48.907066
-  - spawnPattern: 1
-    activationTime: 50.461998
+    activationTime: 49.0358
+  - spawnPattern: 2
+    activationTime: 50.346695
   - spawnPattern: 0
-    activationTime: 51.94436
+    activationTime: 52.057117
   - spawnPattern: 3
-    activationTime: 54.23529
+    activationTime: 54.928543
+  - spawnPattern: 0
+    activationTime: 55.78894
+  - spawnPattern: 3
+    activationTime: 56.483475
+  - spawnPattern: 0
+    activationTime: 57.509727
+  - spawnPattern: 3
+    activationTime: 58.01767
+  - spawnPattern: 0
+    activationTime: 58.96099
+  - spawnPattern: 3
+    activationTime: 59.500034
   - spawnPattern: 1
     activationTime: 60.537926
   - spawnPattern: 0
-    activationTime: 75.761314
+    activationTime: 76.1688
   - spawnPattern: 3
     activationTime: 76.812836
   - spawnPattern: 0
@@ -62,7 +74,7 @@ MonoBehaviour:
   - spawnPattern: 3
     activationTime: 78.284836
   - spawnPattern: 0
-    activationTime: 79.09339
+    activationTime: 79.06979
   - spawnPattern: 3
     activationTime: 82.92888
   - spawnPattern: 0
@@ -105,26 +117,24 @@ MonoBehaviour:
     activationTime: 132.45853
   - spawnPattern: 3
     activationTime: 134.15198
-  - spawnPattern: 2
-    activationTime: 135.56175
-  - spawnPattern: 3
-    activationTime: 137.05554
-  - spawnPattern: 2
-    activationTime: 137.71898
-  - spawnPattern: 3
-    activationTime: 138.45499
-  - spawnPattern: 2
-    activationTime: 139.37756
-  - spawnPattern: 3
-    activationTime: 139.96844
-  - spawnPattern: 2
-    activationTime: 140.92213
-  - spawnPattern: 3
-    activationTime: 141.4508
-  - spawnPattern: 2
-    activationTime: 142.35266
   - spawnPattern: 0
-    activationTime: 143.02647
+    activationTime: 135.72424
+  - spawnPattern: 3
+    activationTime: 136.93709
+  - spawnPattern: 0
+    activationTime: 137.8804
+  - spawnPattern: 3
+    activationTime: 138.5231
+  - spawnPattern: 0
+    activationTime: 139.3835
+  - spawnPattern: 3
+    activationTime: 140.0262
+  - spawnPattern: 0
+    activationTime: 140.9177
+  - spawnPattern: 3
+    activationTime: 141.5293
+  - spawnPattern: 0
+    activationTime: 142.43115
   beats:
   - 6.254263
   - 7.0685263
@@ -181,25 +191,31 @@ MonoBehaviour:
   - 42.886642
   - 43.81721
   - 44.15855
-  - 45.70059
+  - 45.721813
+  - 45.89247
   - 46.825214
   - 47.187893
-  - 48.70254
+  - 48.815147
+  - 48.964466
   - 49.854557
   - 50.195873
-  - 51.79587
+  - 51.780476
+  - 51.951134
   - 52.905216
   - 53.289207
-  - 54.120705
+  - 54.827145
   - 55.392895
   - 55.559284
   - 55.72567
+  - 56.405804
   - 57.043377
   - 57.235374
   - 57.42737
+  - 57.941814
   - 58.515373
   - 58.728706
   - 58.899387
+  - 59.41381
   - 60.051384
   - 60.222042
   - 60.414036
@@ -233,6 +249,7 @@ MonoBehaviour:
   - 78.972496
   - 79.86791
   - 80.27324
+  - 80.661835
   - 81.40392
   - 81.76658
   - 82.18308
@@ -312,28 +329,23 @@ MonoBehaviour:
   - 135.01045
   - 135.22379
   - 135.39444
-  - 136.83621
-  - 136.96422
+  - 136.85236
   - 137.3203
   - 137.49095
   - 137.66164
-  - 138.24199
-  - 138.39131
+  - 138.43102
   - 138.96295
   - 139.13362
   - 139.30429
-  - 139.75664
-  - 139.92732
+  - 139.9457
   - 140.47762
   - 140.66962
   - 140.8403
-  - 141.22867
-  - 141.39932
+  - 141.46036
   - 141.9283
   - 142.1203
   - 142.29095
-  - 142.73578
-  - 142.90643
+  - 142.84581
   - 144.39992
   - 145.85118
   - 147.44205

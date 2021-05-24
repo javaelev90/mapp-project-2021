@@ -261,12 +261,12 @@ public class SoulSpawner : SingletonPattern<SoulSpawner>
 
     Vector2[] GetSafePairTargets()
     {
-        Bounds squareBounds = GetSafeBoundsInMapSection(new Vector2(1f, 2f), GetMapSection());
+        Bounds squareBounds = GetSafeBoundsInMapSection(new Vector2(1.5f, 2.25f), GetMapSection());
         float middleX = squareBounds.min.x + ((squareBounds.max.x - squareBounds.min.x) / 2f);
         return new Vector2[2] 
         {
-            new Vector2(squareBounds.max.x, squareBounds.max.y),
-            new Vector2(squareBounds.min.x, squareBounds.min.y)
+            new Vector2(squareBounds.max.x - 0.25f, squareBounds.max.y),
+            new Vector2(squareBounds.min.x + 0.25f, squareBounds.min.y)
         };
     }
 
@@ -286,13 +286,13 @@ public class SoulSpawner : SingletonPattern<SoulSpawner>
     {
         
         // Bounds squareBounds = GetSafeBounds(null);
-        Bounds squareBounds = GetSafeBoundsInMapSection(null, GetMapSection());
+        Bounds squareBounds = GetSafeBoundsInMapSection(new Vector2(3.5f, 2.2f), GetMapSection());
         float middleX = squareBounds.min.x + ((squareBounds.max.x - squareBounds.min.x) / 2f);
         return new Vector2[3] 
         {
-            new Vector2(middleX, squareBounds.max.y),
-            new Vector2(squareBounds.min.x, squareBounds.min.y),
-            new Vector2(squareBounds.max.x, squareBounds.min.y)
+            new Vector2(middleX, squareBounds.max.y - 0.1f),
+            new Vector2(squareBounds.min.x + 0.25f, squareBounds.min.y + 0.1f),
+            new Vector2(squareBounds.max.x - 0.25f, squareBounds.min.y + 0.1f)
         };
     }
     

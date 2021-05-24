@@ -2101,7 +2101,7 @@ MonoBehaviour:
   musicTime: {fileID: 1394219952}
   songObjectName: {fileID: 773001539}
   beatMarker: {fileID: 6311956939763026546, guid: a11e2826d03e05e41ba4fd32558ec5a1, type: 3}
-  songObject: {fileID: 11400000, guid: ba96d31decf85aa4bbaf32b4eb6fa133, type: 2}
+  songObject: {fileID: 11400000, guid: e0b7d02239eaa47128fd4ae358576b98, type: 2}
   waveFormColor: {r: 0.103773594, g: 0.1032841, b: 0.09545213, a: 1}
   audioSourceMusic: {fileID: 1611185545}
   audioSourceSFX: {fileID: 1495687192}
