@@ -54,8 +54,7 @@ AnimatorState:
   m_Name: Default
   m_Speed: 0
   m_CycleOffset: 0
-  m_Transitions:
-  - {fileID: -7300849921554762521}
+  m_Transitions: []
   m_StateMachineBehaviours: []
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0

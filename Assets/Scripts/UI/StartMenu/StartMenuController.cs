@@ -14,33 +14,31 @@ public class StartMenuController : MonoBehaviour
     //[SerializeField] Image loadingProgressBar;
     //List<AsyncOperation> scenesToLoad = new List<AsyncOperation>();
 
-    SongHandler songHandler;
     SceneHandler sceneHandler;
-
+    SongHandler songHandler;
 
     void Awake()
     {
-        // Load the Managers scen
+        // Load the Managers scen first of all!
         if (!SceneManager.GetSceneByName("Managers").isLoaded)
             SceneManager.LoadSceneAsync("Managers", LoadSceneMode.Additive);
+    }
+
+    void Start()
+    {
+        sceneHandler = SceneHandler.Instance;
+
+        songHandler = SongHandler.Instance;
+        songHandler.SetSongObject(songObjects[0]);
 
         // Limiting the FPS in start menu
         if (SystemInfo.deviceType == DeviceType.Desktop)
             Application.targetFrameRate = 120;
         else if (Database.Instance.settingsRepository.GetFPSSetting() == 1f)
-            Application.targetFrameRate = Screen.currentResolution.refreshRate;
-        else if (Database.Instance.settingsRepository.GetFPSSetting() == 0f)
             Application.targetFrameRate = -1;
+        else if (Database.Instance.settingsRepository.GetFPSSetting() == 0f)
+            Application.targetFrameRate = Screen.currentResolution.refreshRate;
 
-        Debug.Log("Current screen refresh rate: " + Screen.currentResolution.refreshRate);
-        Debug.Log("Current targetFrameRate: " + Application.targetFrameRate);
-    }
-    void Start()
-    {
-        songHandler = SongHandler.Instance;
-        songHandler.SetSongObject(songObjects[0]);
-
-        sceneHandler = SceneHandler.Instance;
     }
 
     public void OnDropdownChange() => songHandler.SetSongObject(songObjects[songSelection.value]);

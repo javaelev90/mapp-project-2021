@@ -55,12 +55,9 @@ public class GameManager : SingletonPattern<GameManager>
         if (SystemInfo.deviceType == DeviceType.Desktop)
             Application.targetFrameRate = 120;
         else if (Database.Instance.settingsRepository.GetFPSSetting() == 1f)
-            Application.targetFrameRate = Screen.currentResolution.refreshRate;
-        else if (Database.Instance.settingsRepository.GetFPSSetting() == 0f)
             Application.targetFrameRate = -1;
-
-        Debug.Log("Current screen refresh rate: " + Screen.currentResolution.refreshRate);
-        Debug.Log("Current targetFrameRate: " + Application.targetFrameRate);
+        else if (Database.Instance.settingsRepository.GetFPSSetting() == 0f)
+            Application.targetFrameRate = Screen.currentResolution.refreshRate;
 
         UnityEngine.Random.InitState(42); // The answer to everything?
         GameManager.SetInstanceIfNull(this);

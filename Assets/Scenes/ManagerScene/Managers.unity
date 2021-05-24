@@ -166,6 +166,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b560e81a8a66d40cebf2bf963f2e32dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  result:
+    Leaderboard: []
+    Version: 0
+  nameWindow: {fileID: 0}
+  leaderboardWindow: {fileID: 0}
+  nameError: {fileID: 0}
+  nameInput: {fileID: 0}
 --- !u!1 &917921200
 GameObject:
   m_ObjectHideFlags: 0
@@ -243,8 +250,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a571d2ed457e098449e140a17680fb08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  persistentScene:
-    m_Handle: 0
 --- !u!1 &1924252115
 GameObject:
   m_ObjectHideFlags: 0

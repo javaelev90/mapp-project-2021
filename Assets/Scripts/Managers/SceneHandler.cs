@@ -7,9 +7,7 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class SceneHandler : SingletonPatternPersistent<SceneHandler>, IInitializeAble
 {
-    [Tooltip("The scene you want to be persistent through scene-transitions")]
-    [SerializeField] Scene persistentScene;
-    //[SerializeField] Object mainMenuScene;
+    Scene persistentScene;
 
     void Awake()
     {
