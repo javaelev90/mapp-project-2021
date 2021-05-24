@@ -285,7 +285,6 @@ public class SoulSpawner : SingletonPattern<SoulSpawner>
     Vector2[] GetSafeTriangleTargets()
     {
         
-        // Bounds squareBounds = GetSafeBounds(null);
         Bounds squareBounds = GetSafeBoundsInMapSection(new Vector2(3.5f, 2.2f), GetMapSection());
         float middleX = squareBounds.min.x + ((squareBounds.max.x - squareBounds.min.x) / 2f);
         return new Vector2[3] 

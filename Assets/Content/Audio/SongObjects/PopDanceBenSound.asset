@@ -18,12 +18,40 @@ MonoBehaviour:
   preferredMarginTimeBeforeBeat: 0.7
   songDifficulty: 0
   spawnPatternChanges:
+  - spawnPattern: 1
+    activationTime: 8.382302
   - spawnPattern: 2
-    activationTime: 8.365933
+    activationTime: 9.8826475
+  - spawnPattern: 1
+    activationTime: 10.582057
+  - spawnPattern: 2
+    activationTime: 11.947032
+  - spawnPattern: 1
+    activationTime: 12.714127
+  - spawnPattern: 2
+    activationTime: 13.965619
+  - spawnPattern: 1
+    activationTime: 14.722108
+  - spawnPattern: 2
+    activationTime: 16.088673
   - spawnPattern: 0
-    activationTime: 16.615513
+    activationTime: 16.834993
   - spawnPattern: 2
-    activationTime: 26.546661
+    activationTime: 26.368267
+  - spawnPattern: 1
+    activationTime: 27.225605
+  - spawnPattern: 2
+    activationTime: 28.184473
+  - spawnPattern: 1
+    activationTime: 29.488817
+  - spawnPattern: 2
+    activationTime: 30.515368
+  - spawnPattern: 1
+    activationTime: 31.620884
+  - spawnPattern: 2
+    activationTime: 32.624874
+  - spawnPattern: 0
+    activationTime: 33.358128
   - spawnPattern: 3
     activationTime: 49.39548
   - spawnPattern: 1
@@ -58,11 +86,119 @@ MonoBehaviour:
     activationTime: 72.66417
   - spawnPattern: 2
     activationTime: 74.108345
+  - spawnPattern: 1
+    activationTime: 74.79275
+  - spawnPattern: 3
+    activationTime: 76.10625
+  - spawnPattern: 1
+    activationTime: 77.14933
+  - spawnPattern: 3
+    activationTime: 78.24466
+  - spawnPattern: 1
+    activationTime: 79.32763
+  - spawnPattern: 3
+    activationTime: 80.388016
+  - spawnPattern: 1
+    activationTime: 81.31641
+  - spawnPattern: 3
+    activationTime: 82.42983
+  - spawnPattern: 1
+    activationTime: 83.53536
+  - spawnPattern: 3
+    activationTime: 84.418915
+  - spawnPattern: 1
+    activationTime: 85.54334
+  - spawnPattern: 3
+    activationTime: 86.46073
+  - spawnPattern: 1
+    activationTime: 87.65285
+  - spawnPattern: 3
+    activationTime: 88.5364
+  - spawnPattern: 1
+    activationTime: 89.60443
+  - spawnPattern: 3
+    activationTime: 90.62335
   - spawnPattern: 0
-    activationTime: 74.761185
+    activationTime: 91.52235
+  - spawnPattern: 2
+    activationTime: 92.07396
+  - spawnPattern: 0
+    activationTime: 93.235886
+  - spawnPattern: 2
+    activationTime: 94.18347
+  - spawnPattern: 0
+    activationTime: 95.43564
+  - spawnPattern: 2
+    activationTime: 96.383224
+  - spawnPattern: 0
+    activationTime: 97.454895
+  - spawnPattern: 2
+    activationTime: 98.3348
+  - spawnPattern: 0
+    activationTime: 99.57759
+  - spawnPattern: 3
+    activationTime: 101.49628
+  - spawnPattern: 0
+    activationTime: 102.476746
+  - spawnPattern: 3
+    activationTime: 105.602486
+  - spawnPattern: 0
+    activationTime: 106.515274
+  - spawnPattern: 3
+    activationTime: 109.68613
+  - spawnPattern: 0
+    activationTime: 110.598915
+  - spawnPattern: 3
+    activationTime: 113.84875
+  - spawnPattern: 1
+    activationTime: 114.687706
+  - spawnPattern: 3
+    activationTime: 117.977516
+  - spawnPattern: 1
+    activationTime: 118.90672
+  - spawnPattern: 3
+    activationTime: 122.106285
+  - spawnPattern: 1
+    activationTime: 122.99037
+  - spawnPattern: 3
+    activationTime: 126.302734
+  - spawnPattern: 1
+    activationTime: 127.19811
+  - spawnPattern: 3
+    activationTime: 130.38638
+  - spawnPattern: 1
+    activationTime: 131.42209
+  - spawnPattern: 3
+    activationTime: 134.50175
+  - spawnPattern: 1
+    activationTime: 135.60727
+  - spawnPattern: 3
+    activationTime: 138.65308
+  - spawnPattern: 1
+    activationTime: 139.7586
+  - spawnPattern: 3
+    activationTime: 142.80441
+  - spawnPattern: 1
+    activationTime: 143.81969
+  - spawnPattern: 3
+    activationTime: 147.00087
+  - spawnPattern: 1
+    activationTime: 147.95973
+  - spawnPattern: 0
+    activationTime: 149.35129
+  - spawnPattern: 2
+    activationTime: 150.18607
+  - spawnPattern: 0
+    activationTime: 151.3931
+  - spawnPattern: 2
+    activationTime: 152.23917
+  - spawnPattern: 0
+    activationTime: 153.41237
+  - spawnPattern: 2
+    activationTime: 154.32611
+  - spawnPattern: 0
+    activationTime: 155.44292
   beats:
-  - 0.5759864
-  - 0.9386621
   - 1.4293197
   - 1.9413152
   - 2.4533107
@@ -77,23 +213,18 @@ MonoBehaviour:
   - 7.103991
   - 7.6159863
   - 8.127982
-  - 8.661315
-  - 8.917324
-  - 9.706644
-  - 10.005329
-  - 10.687982
-  - 10.965329
-  - 11.711995
-  - 12.010657
-  - 12.757324
-  - 13.055986
-  - 13.759977
-  - 14.079977
-  - 14.86932
-  - 15.146644
-  - 15.765328
-  - 16.08533
-  - 16.917324
+  - 9.24102
+  - 10.265012
+  - 10.499682
+  - 11.310363
+  - 12.355692
+  - 12.611678
+  - 13.40102
+  - 14.36102
+  - 14.638345
+  - 15.470363
+  - 16.49653
+  - 16.731201
   - 17.42932
   - 18.00533
   - 18.517324
@@ -112,21 +243,17 @@ MonoBehaviour:
   - 25.163015
   - 25.717688
   - 26.208366
-  - 26.751995
-  - 27.031347
-  - 27.797325
-  - 28.031996
-  - 28.821316
-  - 29.077324
-  - 29.887981
-  - 30.122654
-  - 30.847982
-  - 31.10399
-  - 31.857891
-  - 32.049885
-  - 32.98855
-  - 33.253704
-  - 33.504852
+  - 26.801065
+  - 27.014399
+  - 27.931723
+  - 28.891724
+  - 29.126394
+  - 29.95839
+  - 30.982403
+  - 31.195738
+  - 32.006393
+  - 33.030407
+  - 33.24374
   - 33.99551
   - 34.528843
   - 35.040863
@@ -199,20 +326,185 @@ MonoBehaviour:
   - 67.63272
   - 68.144714
   - 68.37939
-  - 68.69939
   - 69.16873
   - 69.680725
   - 70.17139
   - 70.44873
-  - 70.76873
   - 71.30206
   - 71.75007
   - 72.26206
   - 72.51805
-  - 72.816734
   - 73.307396
   - 73.81939
   - 74.35272
   - 74.60873
-  - 74.907394
-  - 75.41939
+  - 75.360146
+  - 75.88041
+  - 76.37542
+  - 76.60103
+  - 76.90562
+  - 77.413246
+  - 77.93217
+  - 78.439804
+  - 78.7331
+  - 78.93616
+  - 79.466354
+  - 80.04167
+  - 80.515465
+  - 80.76364
+  - 81.011826
+  - 81.57587
+  - 82.04966
+  - 82.60576
+  - 82.853935
+  - 83.13596
+  - 83.67744
+  - 84.12866
+  - 84.71527
+  - 84.94089
+  - 85.189064
+  - 85.7101
+  - 86.240295
+  - 86.74581
+  - 87.02784
+  - 87.23088
+  - 87.84217
+  - 88.30469
+  - 88.79891
+  - 89.12606
+  - 89.32912
+  - 89.82726
+  - 90.30106
+  - 90.885864
+  - 91.100204
+  - 91.34837
+  - 91.95818
+  - 92.96086
+  - 93.152855
+  - 94.09152
+  - 95.13687
+  - 95.328865
+  - 96.24619
+  - 97.18485
+  - 97.398186
+  - 98.20887
+  - 99.21152
+  - 99.42485
+  - 100.19782
+  - 100.75247
+  - 101.307144
+  - 101.79782
+  - 102.07515
+  - 102.331154
+  - 102.86449
+  - 103.35515
+  - 103.82449
+  - 104.27247
+  - 104.78449
+  - 105.296486
+  - 105.872475
+  - 106.10714
+  - 106.40581
+  - 106.91782
+  - 107.40848
+  - 107.94181
+  - 108.43247
+  - 108.90182
+  - 109.41381
+  - 109.94714
+  - 110.181816
+  - 110.45914
+  - 111.01381
+  - 111.5258
+  - 111.97381
+  - 112.52848
+  - 113.040474
+  - 113.57381
+  - 114.12848
+  - 114.34181
+  - 114.576485
+  - 116.19241
+  - 116.68877
+  - 117.17914
+  - 117.71247
+  - 118.245804
+  - 118.523155
+  - 118.75782
+  - 119.31247
+  - 119.781815
+  - 120.29381
+  - 120.8058
+  - 121.33646
+  - 121.844086
+  - 122.38449
+  - 122.61914
+  - 122.875145
+  - 123.36581
+  - 123.92048
+  - 124.43247
+  - 124.965805
+  - 125.43515
+  - 125.94714
+  - 126.54449
+  - 126.77914
+  - 127.01381
+  - 127.56848
+  - 128.05914
+  - 128.57872
+  - 129.08315
+  - 129.55247
+  - 130.10715
+  - 130.65439
+  - 130.92513
+  - 131.19586
+  - 131.6858
+  - 132.15515
+  - 132.66714
+  - 133.24315
+  - 133.71248
+  - 134.20316
+  - 134.75783
+  - 135.01381
+  - 135.33653
+  - 135.86714
+  - 136.42181
+  - 136.91248
+  - 137.40315
+  - 137.91515
+  - 138.38449
+  - 138.93913
+  - 139.21649
+  - 139.4938
+  - 140.02715
+  - 140.49649
+  - 140.98714
+  - 141.47783
+  - 141.94714
+  - 142.48047
+  - 143.07814
+  - 143.35548
+  - 143.56882
+  - 144.1018
+  - 144.61382
+  - 145.16849
+  - 145.68048
+  - 146.19247
+  - 146.70448
+  - 147.21649
+  - 147.4938
+  - 147.77116
+  - 148.24115
+  - 148.76006
+  - 149.22256
+  - 150.02309
+  - 150.98308
+  - 151.23907
+  - 152.07109
+  - 153.0524
+  - 153.26573
+  - 154.16174
+  - 155.12175
+  - 155.33508
+  - 155.99652
+  - 156.4816
+  - 156.97794
