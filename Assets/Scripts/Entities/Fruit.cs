@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEditor;
 
 // TODO: Skapa object pooling f�r flygande objekt och partiklar
 [RequireComponent(typeof(Rigidbody2D))]
@@ -64,15 +65,30 @@ public class Fruit : MonoBehaviour
 
 		if (GetCurrentSliceTiming() > GameManager.PERFECT_SWIPE_TIMING_INTERVAL.max && IsOutsideScreen())
 		{
+			SoulSpawner.occupiedLocations.TryRemove(target, out _);
 			ReduceHP();
 		}
 	}
+
+	private void OnDestroy()
+	{	
+		// Removes this object's reserved target on the map
+		SoulSpawner.occupiedLocations.TryRemove(target, out _);
+	}
+
+	void OnDrawGizmos()
+    {
+#if UNITY_EDITOR
+		// Draw the objects bounds square
+		Gizmos.color = Color.red;
+		Gizmos.DrawWireCube(target, myCollider.bounds.size);
+#endif
+    }
 
 	public void Initiate(AudioSource audioSource, AudioSource audioSourceSFX, float beatTime, Vector3 target, Vector3 velocity, SoulSpawner.SpawnPattern spawnPattern)
 	{
 		this.target = target;
 		this.timeToTargetPosition = beatTime - (audioSource.time - calibratedAnimationDelay);
-		// this.timeToTargetPosition = beatTime - audioSourceMusic.time;
 
 		float countDown = Mathf.Abs(beatTime - audioSource.time);
 		float animatorSpeed = 1 / ((countDown + calibratedAnimationDelay) / ringAnimationClip.length);
@@ -85,6 +101,7 @@ public class Fruit : MonoBehaviour
 		ringAnimator.speed = animatorSpeed;
 		ringAnimator.SetBool("ShrinkCircle", true);
 		myRigidbody.velocity = velocity;
+
 	}
 
 	void SliceMe(Collider2D fruitCollider)

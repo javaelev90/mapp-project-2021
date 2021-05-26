@@ -86,6 +86,14 @@ public class GameManager : SingletonPattern<GameManager>
             leftMostLocalPosition += spacePosition;
         }
     }
+    void OnDrawGizmos()
+    {
+#if UNITY_EDITOR
+		Gizmos.color = Color.red;
+		Gizmos.DrawLine(SoulSpawner.leftMapSection.bottomRightCorner, SoulSpawner.middleMapSection.upperLeftCorner);
+        Gizmos.DrawLine(SoulSpawner.middleMapSection.bottomRightCorner, SoulSpawner.rightMapSection.upperLeftCorner);
+#endif
+    }
 
     void Update() 
     {
