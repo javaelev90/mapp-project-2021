@@ -1307,10 +1307,12 @@ MonoBehaviour:
   result:
     Leaderboard: []
     Version: 0
-  nameWindow: {fileID: 0}
-  leaderboardWindow: {fileID: 0}
-  nameError: {fileID: 0}
-  nameInput: {fileID: 0}
+  rowPrefab: {fileID: 6261568679632565046, guid: 25f328883996d4b198fbefd1c4a4a688, type: 3}
+  rowsParent: {fileID: 706209587}
+  nameWindow: {fileID: 2136899995}
+  leaderboardWindow: {fileID: 433279492}
+  nameError: {fileID: 919928366}
+  nameInput: {fileID: 1375393647}
 --- !u!1 &1010562136
 GameObject:
   m_ObjectHideFlags: 0
@@ -1923,7 +1925,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -165, y: -390}
+  m_AnchoredPosition: {x: -156, y: -394}
   m_SizeDelta: {x: 160, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1516280928
@@ -2109,7 +2111,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2147065833
 RectTransform:
   m_ObjectHideFlags: 0
