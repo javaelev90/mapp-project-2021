@@ -11,6 +11,9 @@ public class PlayFabManager : SingletonPatternPersistent<PlayFabManager>, IIniti
     public GetLeaderboardResult result;
     public void Initialize() { }
 
+    public GameObject rowPrefab;
+    public Transform rowsParent;
+
     public GameObject nameWindow;
     public GameObject leaderboardWindow;
 
@@ -18,8 +21,6 @@ public class PlayFabManager : SingletonPatternPersistent<PlayFabManager>, IIniti
     public GameObject nameError;
     public InputField nameInput;
 
-
-    // Start is called before the first frame update
     void Start()
     {
         Login();
@@ -76,12 +77,13 @@ public class PlayFabManager : SingletonPatternPersistent<PlayFabManager>, IIniti
         Debug.Log(error.GenerateErrorReport());
     }
 
-    public void SendLeaderboard(int score) {
+    public void SendLeaderboard(int score, string songName)
+    {
         var request = new UpdatePlayerStatisticsRequest
         {
             Statistics = new List<StatisticUpdate> {
                 new StatisticUpdate {
-                    StatisticName = "PlatformScore",
+                    StatisticName = songName,
                     Value = score
 
                 }
@@ -90,34 +92,47 @@ public class PlayFabManager : SingletonPatternPersistent<PlayFabManager>, IIniti
 
         };
         PlayFabClientAPI.UpdatePlayerStatistics(request, OnLeaderboardUpdate, OnError);
- 
+
 
     }
+
+
+
+
     void OnLeaderboardUpdate(UpdatePlayerStatisticsResult result) {
         Debug.Log("Successful leaderboard sent");
         
 
     }
-    public void GetLeaderboard() {
+    public void GetLeaderboard(string songName) {
         var request = new GetLeaderboardRequest();
-        request.StatisticName = "PlatformScore";
+        request.StatisticName = songName;
         request.StartPosition = 0;
         request.MaxResultsCount = 10;
-        //{
-            //StatisticName = "PlatformScore",
-            //StartPosition = 0,
-            //MaxResultsCount = 10
-        //};
+
         PlayFabClientAPI.GetLeaderboard(request, OnLeaderboardGet, OnError);
     }
     void OnLeaderboardGet(GetLeaderboardResult result) {
-        this.result = result;
-        //Debug.Log(result.ToString());
-        //foreach (var item in result.Leaderboard) {
-        //    Debug.Log(item.Position + " " + item.PlayFabId + " " + item.StatValue);
+     
+
+        foreach (Transform item in rowsParent)
+        {
+            Destroy(item.gameObject);
+        }
+
+        foreach (PlayerLeaderboardEntry item in result.Leaderboard)
+        {
+            GameObject newGo = Instantiate(rowPrefab, rowsParent);
+            Text[] texts = newGo.GetComponentsInChildren<Text>();
+            texts[0].text = (item.Position + 1).ToString();
+            texts[1].text = item.DisplayName;
+            texts[2].text = item.StatValue.ToString();
+
+            Debug.Log(string.Format("PLACE: {0} | IDictionary {1} | VALUE: {2}",
+                item.Position, item.PlayFabId, item.StatValue));
 
 
-        //}
+        }
 
     }
 }
