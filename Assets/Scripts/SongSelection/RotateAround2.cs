@@ -24,7 +24,7 @@ public class RotateAround2 : MonoBehaviour
     {
         if (Mouse.current.leftButton.isPressed)
         {
-            print("Mouse is moving in this X-axis: " + mouseDeltaMove.x);
+            //print("Mouse is moving in this X-axis: " + mouseDeltaMove.x);
             this.transform.Rotate(Vector3.down, mouseDeltaMove.x * rotationSpeed);
         }
         
