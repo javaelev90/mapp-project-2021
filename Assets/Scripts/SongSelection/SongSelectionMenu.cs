@@ -135,8 +135,9 @@ public class SongSelectionMenu : MonoBehaviour
 
     }
 
-    public void StartGame()
+    public void StartGame(string gameSceneName)
     {
-        Debug.Log("YES");
+        Debug.Log("Started game");
+        SceneHandler.Instance.ChangeScene(gameSceneName);
     }
 }
