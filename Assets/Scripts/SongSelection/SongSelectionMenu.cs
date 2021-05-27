@@ -40,7 +40,7 @@ public class SongSelectionMenu : MonoBehaviour
             GameObject currentPanel = panels[i];
             
 
-            if(i < songs.Length){ 
+            if(i <= songs.Length){ 
                 SongObject currentSong = songs[i];
                 currentPanel.GetComponent<SongPanel>().setSong(currentSong);
                 //selectedSongMusic = currentSong.song;
@@ -133,8 +133,6 @@ public class SongSelectionMenu : MonoBehaviour
     public void Back(){
         if(panel.activeInHierarchy){
             panel.SetActive(false);
-        }else{
-            
         }
     }
 }

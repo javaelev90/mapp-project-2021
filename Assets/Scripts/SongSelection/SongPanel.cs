@@ -8,6 +8,8 @@ public class SongPanel : MonoBehaviour
 {
 
     public TMP_Text songText;
+
+    public SongObject songObject;
     void Start()
     {
         
@@ -19,7 +21,17 @@ public class SongPanel : MonoBehaviour
     }
 
     public void setSong(SongObject songName){
+        
+        songObject = songName;
+    
         songText.text = songName.song.name;
+
+
+    }
+
+    public void SetSongObject()
+    {
+        SongHandler.Instance.SetSongObject(songObject);
     }
 
 }

@@ -7,15 +7,20 @@ using TMPro;
 public class SongSelectionMenuController : MonoBehaviour
 {
 
-    [SerializeField] SongObject songObject;
     [SerializeField] TMP_Text songInformationPanel;
+
+    private void OnEnable() {
+        PopulateSongInformationPanel();    
+    }
 
     public void PopulateSongInformationPanel()
     {
-        SongHandler.Instance.SetSongObject(songObject);
-        int songScore = Database.Instance.songRepository.GetSongScore(songObject.uniqueName);
-        songInformationPanel.text = songObject.song.name + "\n"
-         + "<size=18px>Song length: " + songObject.song.length + " seconds " + "</size>\n"
+
+        string uniqueName = SongHandler.Instance.GetUniqueSongName();
+
+        int songScore = Database.Instance.songRepository.GetSongScore(uniqueName);
+        songInformationPanel.text = SongHandler.Instance.GetSongAudioClip().name + "\n"
+         + "<size=18px>Song length: " + SongHandler.Instance.GetSongAudioClip().length + " seconds " + "</size>\n"
          + "<size=20px>Score: " + (songScore == -1 ? 0 : songScore) + "</size>";
     }
 
