@@ -251,11 +251,23 @@ public class GameManager : SingletonPattern<GameManager>
         if (!audioSource.isPlaying)
         {
             popupScreenController.ToggleWinScreen(true);
-            int songScore = Database.Instance.songRepository.GetSongScore(SongHandler.Instance.GetSongName());
+            int songScore = Database.Instance.songRepository.GetSongScore(SongHandler.Instance.GetUniqueSongName());
             if (songScore == -1 || songScore < score)
             {
-                Database.Instance.songRepository.UpdateSongScore(SongHandler.Instance.GetSongName(), (int)score);
+                Database.Instance.songRepository.UpdateSongScore(SongHandler.Instance.GetUniqueSongName(), (int)score);
+                
             }
+            // Always send score to leaderboard incase of internet problems.
+            // Leaderboard setting will save the highest score sent from the user.
+            if(songScore > score)
+            {
+                PlayFabManager.Instance.SendLeaderboard(songScore, SongHandler.Instance.GetUniqueSongName());
+            }
+            else
+            {
+                PlayFabManager.Instance.SendLeaderboard((int)score, SongHandler.Instance.GetUniqueSongName());
+            }
+
             wonGame = false;
         }
     }

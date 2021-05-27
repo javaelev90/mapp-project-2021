@@ -49,7 +49,7 @@ public class SongHandler : SingletonPatternPersistent<SongHandler>, IInitializeA
         return Database.Instance.playerStatsRepository.GetLatency()/1000f;
     }
 
-    public string GetSongName()
+    public string GetUniqueSongName()
     {
         return selectedSong.uniqueName;
     }
