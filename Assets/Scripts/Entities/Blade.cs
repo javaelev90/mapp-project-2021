@@ -21,12 +21,13 @@ public class Blade : MonoBehaviour
 	Rigidbody2D rb;
 	Camera cam;
 	CircleCollider2D circleCollider;
+	RaycastHit2D[] collisionBuffer = new RaycastHit2D[12];
 
-#region Input
-    Vector2 previousPosition;
+	#region Input
+
+	Vector2 previousPosition;
 	Vector2 startingTouch;
 	bool cuttingInitiated = false;
-	RaycastHit2D[] collisionBuffer = new RaycastHit2D[12];
 
 #if !UNITY_EDITOR && !UNITY_STANDALONE
 	InputManager inputManager;

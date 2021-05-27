@@ -6,91 +6,76 @@ using UnityEngine.UI;
 public class SongSelectionMenu : MonoBehaviour
 {
     [SerializeField] BoxCollider selectionArea = default;
-
     //[SerializeField] BoxCollider switchSongArea = default;
     [SerializeField] TMP_Text selectionText = default;
 
-
     public GameObject panel;
     public int mainMenu;
-
     public SongObject[] songs;
-
     public GameObject [] panels;
 
     private Vector3 scaleChange;
-
     private GameObject selectedPanel;
-
     private AudioClip selectedSongMusic;
-
     private AudioSource audioSource;
-    
+    private Collider[] collidersBuffer = new Collider[12];
+
+
     void Awake()
     {
         audioSource = GetComponent<AudioSource>();
 
-        // Load the Managers scene
-        if (!SceneManager.GetSceneByName("Managers").isLoaded)
-        {
-            SceneManager.LoadSceneAsync("Managers", LoadSceneMode.Additive);
-        }
-
         for(int i = 0; i < panels.Length; i++){
             GameObject currentPanel = panels[i];
-            
 
             if(i <= songs.Length){ 
                 SongObject currentSong = songs[i];
                 currentPanel.GetComponent<SongPanel>().setSong(currentSong);
                 //selectedSongMusic = currentSong.song;
-            }else{
-                continue;
             }
-
-            
         }
 
-
     }
-    void Update()
+
+    void FixedUpdate()
     {
         if (selectionArea != default) //Kollar ifall default värdet överensstämmer
         {
             CheckSelection();
         }
 
-        revertChange();
+        revertSelection();
     }
 
     private void CheckSelection()
-    {       
-        if (Physics.CheckBox(selectionArea.transform.position, selectionArea.size)) // En snabb och billig koll ifall n�gon collider befinner sig i selectionArea
+    {
+        if (!Physics.CheckBox(selectionArea.transform.position, selectionArea.size, selectionArea.transform.rotation)) // En snabb och billig koll ifall n�gon collider befinner sig i selectionArea
+            return;
+
+        string displayText = "Your Selected Song Is: ";
+            
+        Physics.OverlapBoxNonAlloc(selectionArea.transform.position, selectionArea.size, collidersBuffer, selectionArea.transform.rotation);
+        for (int i = 0; i < collidersBuffer.Length; i++)
         {
-            string displayText = "Your Selected Song Is: ";
-
-            Collider[] hitColliders = Physics.OverlapBox(selectionArea.transform.position, selectionArea.size); // H�mtar alla colliders som har kolliderat, relativt dyr s� vi vill g�rna f�rb�ttra koden senare s� den inte k�rs i on�dan
-            for (int i = 0; i < hitColliders.Length; i++)
-            {
-                if (hitColliders[i] == selectionArea || hitColliders[i] == null) // Hoppar �ver dessa
-                    continue;
-                displayText += hitColliders[i].gameObject.name; // H�r h�mtar man allt man vill fr�n objektet, just nu �r det bara namnet f�r GameObjectet
+            if (collidersBuffer[i] == selectionArea || collidersBuffer[i] == null) // Hoppar �ver dessa
+                continue;
+            displayText += collidersBuffer[i].gameObject.name; // H�r h�mtar man allt man vill fr�n objektet, just nu �r det bara namnet f�r GameObjectet
                 
-                selectedPanel = hitColliders[i].gameObject;
-                print(i);
+            selectedPanel = collidersBuffer[i].gameObject;
+            selectedSongMusic = songs[i].song;
 
-                selectedSongMusic = songs[i].song;
+            collidersBuffer[i].gameObject.transform.localScale = new Vector3(1.25f, 1.25f, collidersBuffer[i].gameObject.transform.localScale.z);
+            //float defaultScale = hitColliders[i].transform.localScale.z;
+            //scaleChange = new Vector3(1.25f, 1.25f, defaultScale);
 
-                float defaultScale = hitColliders[i].transform.localScale.z;
-                scaleChange = new Vector3(1.25f, 1.25f, defaultScale);
-
-                if(hitColliders[i] != selectionArea){
-                    hitColliders[i].gameObject.transform.localScale = scaleChange;
-                    audioSource.PlayOneShot(selectedSongMusic);
-                }
-            }
-            selectionText.text = displayText;
+            //if(hitColliders[i] != selectionArea){
+            //    hitColliders[i].gameObject.transform.localScale = scaleChange;
+            //    audioSource.PlayOneShot(selectedSongMusic);
+            //}
         }
+
+        selectionText.text = displayText;
+
     }
 /*
     private void ChangeSong(){
@@ -106,10 +91,13 @@ public class SongSelectionMenu : MonoBehaviour
     }
     */
 
-    private void revertChange(){
-        foreach(GameObject panel in panels){
-            if(panel.GetInstanceID() != selectedPanel.GetInstanceID()){
-                panel.transform.localScale = Vector3.one;
+    private void revertSelection()
+    {
+        for (int i = 0; i < panels.Length; i++)
+        {
+            if (panels[i].GetInstanceID() != selectedPanel.GetInstanceID() && panels[i].transform.localScale != Vector3.one)
+            {
+                panels[i].transform.localScale = Vector3.one;
                 audioSource.Stop();
             }
         }
@@ -121,7 +109,6 @@ public class SongSelectionMenu : MonoBehaviour
         {
             panel.SetActive(true);
         }
-
     }
 
     public void StartGame(string gameSceneName)
@@ -130,7 +117,8 @@ public class SongSelectionMenu : MonoBehaviour
         SceneHandler.Instance.ChangeScene(gameSceneName);
     }
 
-    public void Back(){
+    public void Back()
+    {
         if(panel.activeInHierarchy){
             panel.SetActive(false);
         }
