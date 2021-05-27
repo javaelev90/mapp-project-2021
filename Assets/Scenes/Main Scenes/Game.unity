@@ -875,6 +875,10 @@ PrefabInstance:
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5231825053993391410, guid: a4997199fef73a44e8a3f130b50a0457, type: 3}
+      propertyPath: hpBarFillerSpacer
+      value: 
+      objectReference: {fileID: 503415567949106142, guid: 92d156d21fa25924b84e24233333ccb7, type: 3}
+    - target: {fileID: 5231825053993391410, guid: a4997199fef73a44e8a3f130b50a0457, type: 3}
       propertyPath: spiritsMoveTarget
       value: 
       objectReference: {fileID: 797673000}

@@ -22,6 +22,7 @@ public class GameManager : SingletonPattern<GameManager>
     [SerializeField] TMP_Text scoreText;
     [SerializeField] PopupScreenController popupScreenController;
     [SerializeField] GameObject hpBarFiller;
+    [SerializeField] GameObject hpBarFillerSpacer;
     [SerializeField] PlayFabManager playFabManager;
 
     public static SwipeTimingInterval PERFECT_SWIPE_TIMING_INTERVAL = new SwipeTimingInterval(-.2f, .2f);
@@ -73,16 +74,15 @@ public class GameManager : SingletonPattern<GameManager>
 
     void InitializeHpBar()
     {
-        GameObject hpSectionSpacer = hpBarFiller?.transform.GetChild(0).gameObject;
         int numberOfSpacers = (int) hitPoints / pointsLostOnMiss;
         float spacePosition = hpBarFiller.GetComponent<RectTransform>().rect.width / numberOfSpacers;
-        float leftMostLocalPosition = hpBarFiller.transform.localPosition.x + hpBarFiller.GetComponent<RectTransform>().rect.width/2f;
+        float leftMostLocalPosition = 0f - hpBarFiller.GetComponent<RectTransform>().rect.width/2f;
         for(int i = 0; i < numberOfSpacers; i++)
         {
-            GameObject spacer = Instantiate(hpSectionSpacer, hpBarFiller.transform.position, hpBarFiller.transform.rotation);
+            GameObject spacer = Instantiate(hpBarFillerSpacer, hpBarFiller.transform.position, hpBarFiller.transform.rotation);
             spacer.transform.SetParent(hpBarFiller.transform);
             spacer.transform.localScale = Vector3.one;
-            spacer.transform.localPosition = new Vector2(leftMostLocalPosition, spacer.transform.localPosition.y);
+            spacer.transform.localPosition = new Vector2(leftMostLocalPosition, 0);
             leftMostLocalPosition += spacePosition;
         }
     }
