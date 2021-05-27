@@ -32,10 +32,10 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Vilmas/TestScene - Vilma.unity
     guid: b906a9c94950b484d8b6df63889c1918
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/SongEditingScene/SongEditingScene.unity
     guid: 2be5e734e53cfe945bc782362fc612eb
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/SongEditingScene/GameScene.unity
     guid: 266d4e9d80dcdec40b84ebe27bdffbb2
   m_configObjects: {}

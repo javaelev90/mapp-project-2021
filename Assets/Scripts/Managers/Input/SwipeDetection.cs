@@ -12,6 +12,9 @@ public class SwipeDetection : MonoBehaviour
     [Tooltip("The sensitivity of the detection of directional swipes, 1 = swipe must align 100% to one direction")]
     [SerializeField, Range(0f, 1f)] float directionThreshold = .9f;
 
+    public delegate void SwipeEvent(Vector2 direction);
+    public event SwipeEvent OnSwipe;
+
     InputManager inputManager;
 
     // Variables for calculating swipes
@@ -20,7 +23,7 @@ public class SwipeDetection : MonoBehaviour
     Vector2 endPosition;
     float endTime;
 
-    void Awake()
+    void Start()
     {
         inputManager = InputManager.Instance;
     }
@@ -41,14 +44,14 @@ public class SwipeDetection : MonoBehaviour
     void SwipeStart(Vector2 position, float time)
     {
         startPosition = position;
-        //print("touch start pos: " + startPosition);
+        print("touch start pos: " + startPosition);
 
         startTime = time;
     }
     void SwipeEnd(Vector2 position, float time)
     {
         endPosition = position;
-        //print("touch end pos: " + endPosition);
+        print("touch end pos: " + endPosition);
 
         endTime = time;
         DetectSwipe();
@@ -66,6 +69,7 @@ public class SwipeDetection : MonoBehaviour
 
             Vector2 direction = (endPosition - startPosition).normalized;
             SwipeDirection(direction);
+            OnSwipe?.Invoke(direction);
         }
     }
 

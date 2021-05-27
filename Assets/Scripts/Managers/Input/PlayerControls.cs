@@ -33,6 +33,14 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""PrimaryTouch"",
+                    ""type"": ""Value"",
+                    ""id"": ""c08b01ec-841b-4e0a-a330-daacd18b75f7"",
+                    ""expectedControlType"": ""Touch"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -55,6 +63,17 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""PrimaryPosition"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""39e5fbe7-4316-41c6-8ee2-560ead6832bf"",
+                    ""path"": ""<Touchscreen>/primaryTouch/press"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PrimaryTouch"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -901,6 +920,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         m_Touch = asset.FindActionMap("Touch", throwIfNotFound: true);
         m_Touch_PrimaryContact = m_Touch.FindAction("PrimaryContact", throwIfNotFound: true);
         m_Touch_PrimaryPosition = m_Touch.FindAction("PrimaryPosition", throwIfNotFound: true);
+        m_Touch_PrimaryTouch = m_Touch.FindAction("PrimaryTouch", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -973,12 +993,14 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     private ITouchActions m_TouchActionsCallbackInterface;
     private readonly InputAction m_Touch_PrimaryContact;
     private readonly InputAction m_Touch_PrimaryPosition;
+    private readonly InputAction m_Touch_PrimaryTouch;
     public struct TouchActions
     {
         private @PlayerControls m_Wrapper;
         public TouchActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @PrimaryContact => m_Wrapper.m_Touch_PrimaryContact;
         public InputAction @PrimaryPosition => m_Wrapper.m_Touch_PrimaryPosition;
+        public InputAction @PrimaryTouch => m_Wrapper.m_Touch_PrimaryTouch;
         public InputActionMap Get() { return m_Wrapper.m_Touch; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -994,6 +1016,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @PrimaryPosition.started -= m_Wrapper.m_TouchActionsCallbackInterface.OnPrimaryPosition;
                 @PrimaryPosition.performed -= m_Wrapper.m_TouchActionsCallbackInterface.OnPrimaryPosition;
                 @PrimaryPosition.canceled -= m_Wrapper.m_TouchActionsCallbackInterface.OnPrimaryPosition;
+                @PrimaryTouch.started -= m_Wrapper.m_TouchActionsCallbackInterface.OnPrimaryTouch;
+                @PrimaryTouch.performed -= m_Wrapper.m_TouchActionsCallbackInterface.OnPrimaryTouch;
+                @PrimaryTouch.canceled -= m_Wrapper.m_TouchActionsCallbackInterface.OnPrimaryTouch;
             }
             m_Wrapper.m_TouchActionsCallbackInterface = instance;
             if (instance != null)
@@ -1004,6 +1029,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @PrimaryPosition.started += instance.OnPrimaryPosition;
                 @PrimaryPosition.performed += instance.OnPrimaryPosition;
                 @PrimaryPosition.canceled += instance.OnPrimaryPosition;
+                @PrimaryTouch.started += instance.OnPrimaryTouch;
+                @PrimaryTouch.performed += instance.OnPrimaryTouch;
+                @PrimaryTouch.canceled += instance.OnPrimaryTouch;
             }
         }
     }
@@ -1198,6 +1226,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     {
         void OnPrimaryContact(InputAction.CallbackContext context);
         void OnPrimaryPosition(InputAction.CallbackContext context);
+        void OnPrimaryTouch(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

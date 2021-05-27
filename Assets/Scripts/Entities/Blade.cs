@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.EnhancedTouch;
 #if !UNITY_EDITOR && !UNITY_STANDALONE
 using UnityEngine.InputSystem.EnhancedTouch;
 #endif
@@ -109,8 +110,8 @@ public class Blade : MonoBehaviour
 		}
 #endif
 	}
-	#region Touch Input
 
+#region Touch Input
 	void TouchUpdateCut(Vector2 touchPos)
 	{
 		Vector2 newPosition = cam.ScreenToWorldPoint(touchPos);
@@ -125,7 +126,7 @@ public class Blade : MonoBehaviour
 		previousPosition = newPosition;
 	}
 
-	public void TouchStartCutting(Vector2 touchPos, float time)
+	public void TouchStartCutting(Finger finger, Vector2 touchPos, float time)
 	{
 		cuttingInitiated = true;
 		startingTouch = touchPos;
@@ -136,7 +137,7 @@ public class Blade : MonoBehaviour
 		currentBladeTrail = Instantiate(bladeTrailPrefab, this.transform.position, Quaternion.identity, this.transform); // Creating new instances to stop sudden removal of trails, TODO: make object pool
 	}
 
-	public void TouchStopCutting(Vector2 position, float time)
+	public void TouchStopCutting(Finger finger, Vector2 position, float time)
 	{
 		cuttingInitiated = false;
 

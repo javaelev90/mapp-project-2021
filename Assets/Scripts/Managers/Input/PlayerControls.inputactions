@@ -20,6 +20,14 @@
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "PrimaryTouch",
+                    "type": "Value",
+                    "id": "c08b01ec-841b-4e0a-a330-daacd18b75f7",
+                    "expectedControlType": "Touch",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -42,6 +50,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "PrimaryPosition",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "39e5fbe7-4316-41c6-8ee2-560ead6832bf",
+                    "path": "<Touchscreen>/primaryTouch/press",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PrimaryTouch",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -11,10 +11,12 @@ public class InputManager : SingletonPattern<InputManager>
     public delegate void EndTouchEvent(Vector2 position, float time);
     public event EndTouchEvent OnEndTouch;
 
-    public delegate void StartEnhancedTouchEvent(Vector2 position, float time);
+    public delegate void StartEnhancedTouchEvent(Finger finger, Vector2 position, float time);
     public event StartEnhancedTouchEvent OnStartEnhancedTouch;
-    public delegate void EndEnhancedTouchEvent(Vector2 position, float time);
+    public delegate void EndEnhancedTouchEvent(Finger finger, Vector2 position, float time);
     public event EndEnhancedTouchEvent OnEndEnhancedTouch;
+    public delegate void MoveEnhancedTouchEvent(Finger finger);
+    public event MoveEnhancedTouchEvent OnMoveEnhancedTouch;
     #endregion
 
     PlayerControls playerControls;
@@ -31,6 +33,7 @@ public class InputManager : SingletonPattern<InputManager>
         // Enhanced touch
         UnityEngine.InputSystem.EnhancedTouch.Touch.onFingerDown += FingerDown;
         UnityEngine.InputSystem.EnhancedTouch.Touch.onFingerUp += FingerUp;
+        UnityEngine.InputSystem.EnhancedTouch.Touch.onFingerMove += FingerMove;
 
         playerControls.Enable();
     }
@@ -39,6 +42,7 @@ public class InputManager : SingletonPattern<InputManager>
         // Enhanced touch
         UnityEngine.InputSystem.EnhancedTouch.Touch.onFingerDown -= FingerDown;
         UnityEngine.InputSystem.EnhancedTouch.Touch.onFingerUp -= FingerUp;
+        UnityEngine.InputSystem.EnhancedTouch.Touch.onFingerMove -= FingerMove;
 
         playerControls.Disable();
     }
@@ -54,6 +58,11 @@ public class InputManager : SingletonPattern<InputManager>
         return mainCamera.ScreenToWorldPoint(playerControls.Touch.PrimaryPosition.ReadValue<Vector2>());
     }
 
+    public UnityEngine.Touch PrimaryTouch()
+    {
+        return playerControls.Touch.PrimaryTouch.ReadValue<UnityEngine.Touch>();
+    }
+
     void StartTouchPrimary(InputAction.CallbackContext context)
     {
         OnStartTouch?.Invoke(mainCamera.ScreenToWorldPoint(playerControls.Touch.PrimaryPosition.ReadValue<Vector2>()), (float)context.startTime);
@@ -65,11 +74,15 @@ public class InputManager : SingletonPattern<InputManager>
 
     void FingerDown(Finger finger)
     {
-        OnStartEnhancedTouch?.Invoke(finger.screenPosition, Time.time);
+        OnStartEnhancedTouch?.Invoke(finger, finger.screenPosition, Time.time);
     }
     void FingerUp(Finger finger)
     {
-        OnEndEnhancedTouch?.Invoke(finger.screenPosition, Time.time);
+        OnEndEnhancedTouch?.Invoke(finger, finger.screenPosition, Time.time);
+    }
+    void FingerMove(Finger finger)
+    {
+        OnMoveEnhancedTouch?.Invoke(finger);
     }
 
 }
