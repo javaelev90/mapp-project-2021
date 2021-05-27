@@ -7,7 +7,7 @@ public class SongSelectionMenu : MonoBehaviour
 {
     [SerializeField] BoxCollider selectionArea = default;
 
-    [SerializeField] BoxCollider switchSongArea = default;
+    //[SerializeField] BoxCollider switchSongArea = default;
     [SerializeField] TMP_Text selectionText = default;
 
 
@@ -92,7 +92,7 @@ public class SongSelectionMenu : MonoBehaviour
             selectionText.text = displayText;
         }
     }
-
+/*
     private void ChangeSong(){
         if(Physics.CheckBox(switchSongArea.transform.position, switchSongArea.size))
         {
@@ -104,6 +104,7 @@ public class SongSelectionMenu : MonoBehaviour
         }
 
     }
+    */
 
     private void revertChange(){
         foreach(GameObject panel in panels){
@@ -111,18 +112,6 @@ public class SongSelectionMenu : MonoBehaviour
                 panel.transform.localScale = Vector3.one;
                 audioSource.Stop();
             }
-        }
-    }
-
-    public void GoBack()
-    {
-        if (panel.activeInHierarchy)
-        {
-            panel.SetActive(false);
-        }
-        else
-        {
-            SceneManager.LoadScene(mainMenu);
         }
     }
 
@@ -139,5 +128,13 @@ public class SongSelectionMenu : MonoBehaviour
     {
         Debug.Log("Started game");
         SceneHandler.Instance.ChangeScene(gameSceneName);
+    }
+
+    public void Back(){
+        if(panel.activeInHierarchy){
+            panel.SetActive(false);
+        }else{
+            
+        }
     }
 }
