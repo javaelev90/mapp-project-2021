@@ -5,11 +5,10 @@ using PlayFab;
 using PlayFab.ClientModels;
 using UnityEngine.UI;
 
-public class PlayFabManager : SingletonPatternPersistent<PlayFabManager>, IInitializeAble
+public class PlayFabManager : MonoBehaviour
 {
     
     public GetLeaderboardResult result;
-    public void Initialize() { }
 
     public GameObject rowPrefab;
     public Transform rowsParent;
