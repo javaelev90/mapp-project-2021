@@ -4,6 +4,7 @@ using UnityEngine;
 using PlayFab;
 using PlayFab.ClientModels;
 using UnityEngine.UI;
+using TMPro;
 
 public class PlayFabManager : MonoBehaviour
 {
@@ -19,6 +20,8 @@ public class PlayFabManager : MonoBehaviour
     [Header("Display name window")]
     public GameObject nameError;
     public InputField nameInput;
+
+    private bool sentLeaderBoardRequest = false;
 
     void Start()
     {
@@ -92,6 +95,7 @@ public class PlayFabManager : MonoBehaviour
     {
         Debug.Log("Error while logging in/creating account!");
         Debug.Log(error.GenerateErrorReport());
+        sentLeaderBoardRequest = false;
     }
 
     public void SendLeaderboard(int score, string songName)
@@ -113,21 +117,23 @@ public class PlayFabManager : MonoBehaviour
 
     }
 
-
-
-
     void OnLeaderboardUpdate(UpdatePlayerStatisticsResult result) {
         Debug.Log("Successful leaderboard sent");
     }
-    public void GetLeaderboard() {
-        var request = new GetLeaderboardRequest();
-        request.StatisticName = SongHandler.Instance.GetUniqueSongName();
-        request.StartPosition = 0;
-        request.MaxResultsCount = 10;
 
-        PlayFabClientAPI.GetLeaderboard(request, OnLeaderboardGet, OnError);
+    public void GetLeaderboard() {
+        if(!sentLeaderBoardRequest){
+            var request = new GetLeaderboardRequest();
+            request.StatisticName = SongHandler.Instance.GetUniqueSongName();
+            request.StartPosition = 0;
+            request.MaxResultsCount = 10;
+
+            PlayFabClientAPI.GetLeaderboard(request, OnLeaderboardGet, OnError);
+            sentLeaderBoardRequest = true;
+        }
     }
     void OnLeaderboardGet(GetLeaderboardResult result) {
+        sentLeaderBoardRequest = false;
         this.result = result;
         if(rowsParent == null || rowPrefab == null) return;
 
@@ -139,15 +145,13 @@ public class PlayFabManager : MonoBehaviour
         foreach (PlayerLeaderboardEntry item in result.Leaderboard)
         {
             GameObject newGo = Instantiate(rowPrefab, rowsParent);
-            Text[] texts = newGo.GetComponentsInChildren<Text>();
+            TMP_Text[] texts = newGo.GetComponentsInChildren<TMP_Text>();
             texts[0].text = (item.Position + 1).ToString();
             texts[1].text = item.DisplayName != null ? item.DisplayName : item.PlayFabId;
             texts[2].text = item.StatValue.ToString();
 
             Debug.Log(string.Format("PLACE: {0} | IDictionary {1} | VALUE: {2}",
                 item.Position, item.PlayFabId, item.StatValue));
-
-
         }
 
     }
