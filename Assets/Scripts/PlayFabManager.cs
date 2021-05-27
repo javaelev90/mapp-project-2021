@@ -47,9 +47,9 @@ public class PlayFabManager : SingletonPatternPersistent<PlayFabManager>, IIniti
         name = result.InfoResultPayload.PlayerProfile.DisplayName;
 
         if (name == null)
-            nameWindow.SetActive(true);
+            if(nameWindow != null) nameWindow.SetActive(true);
         else
-            leaderboardWindow.SetActive(true);
+            if(leaderboardWindow != null) leaderboardWindow.SetActive(true);
     
     }
 
@@ -66,7 +66,7 @@ public class PlayFabManager : SingletonPatternPersistent<PlayFabManager>, IIniti
     void OnDisplayNameUpdate(UpdateUserTitleDisplayNameResult result)
     {
         Debug.Log("Updated display name");
-        leaderboardWindow.SetActive(true);
+        if(leaderboardWindow != null) leaderboardWindow.SetActive(true);
         Debug.Log(result.DisplayName);
     }
 
@@ -113,7 +113,8 @@ public class PlayFabManager : SingletonPatternPersistent<PlayFabManager>, IIniti
         PlayFabClientAPI.GetLeaderboard(request, OnLeaderboardGet, OnError);
     }
     void OnLeaderboardGet(GetLeaderboardResult result) {
-     
+        this.result = result;
+        if(rowsParent == null || rowPrefab == null) return;
 
         foreach (Transform item in rowsParent)
         {

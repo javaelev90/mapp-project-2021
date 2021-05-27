@@ -22,6 +22,7 @@ public class GameManager : SingletonPattern<GameManager>
     [SerializeField] TMP_Text scoreText;
     [SerializeField] PopupScreenController popupScreenController;
     [SerializeField] GameObject hpBarFiller;
+    [SerializeField] PlayFabManager playFabManager;
 
     public static SwipeTimingInterval PERFECT_SWIPE_TIMING_INTERVAL = new SwipeTimingInterval(-.2f, .2f);
     public static SwipeTimingInterval GOOD_SWIPE_TIMING_INTERVAL = new SwipeTimingInterval(-.4f, -.2f);
@@ -34,7 +35,6 @@ public class GameManager : SingletonPattern<GameManager>
     public Blade Blade => blade;
 
     [System.NonSerialized] public int beatIndex = 0;
-    int spawnPointIndex = 0;
 
     Image hpBarImage;
     Animator hpBarAnimator;
@@ -261,11 +261,11 @@ public class GameManager : SingletonPattern<GameManager>
             // Leaderboard setting will save the highest score sent from the user.
             if(songScore > score)
             {
-                PlayFabManager.Instance.SendLeaderboard(songScore, SongHandler.Instance.GetUniqueSongName());
+                if(playFabManager != null) playFabManager.SendLeaderboard(songScore, SongHandler.Instance.GetUniqueSongName());
             }
             else
             {
-                PlayFabManager.Instance.SendLeaderboard((int)score, SongHandler.Instance.GetUniqueSongName());
+                if(playFabManager != null) playFabManager.SendLeaderboard((int)score, SongHandler.Instance.GetUniqueSongName());
             }
 
             wonGame = false;
