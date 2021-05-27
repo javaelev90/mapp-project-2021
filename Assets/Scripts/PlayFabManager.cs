@@ -25,6 +25,12 @@ public class PlayFabManager : MonoBehaviour
         Login();
     }
 
+    private void OnEnable()
+    {
+        GetLeaderboard();
+
+    }
+
     void Login() {
         var request = new LoginWithCustomIDRequest
         {
@@ -53,13 +59,19 @@ public class PlayFabManager : MonoBehaviour
     }
 
     public void SubmitNameButton() {
-        var request = new UpdateUserTitleDisplayNameRequest
-        {
-            DisplayName = nameInput.text,
+        if (nameInput.text.Trim() != "") {
 
-        };
-        PlayFabClientAPI.UpdateUserTitleDisplayName(request, OnDisplayNameUpdate, OnError);
+            var request = new UpdateUserTitleDisplayNameRequest
+            {
+                DisplayName = nameInput.text,
 
+            };
+            PlayFabClientAPI.UpdateUserTitleDisplayName(request, OnDisplayNameUpdate, OnError);
+
+            nameWindow.SetActive(false);
+
+        }
+            
     }
 
     void OnDisplayNameUpdate(UpdateUserTitleDisplayNameResult result)
@@ -103,9 +115,9 @@ public class PlayFabManager : MonoBehaviour
         
 
     }
-    public void GetLeaderboard(string songName) {
+    public void GetLeaderboard() {
         var request = new GetLeaderboardRequest();
-        request.StatisticName = songName;
+        request.StatisticName = SongHandler.Instance.GetUniqueSongName();
         request.StartPosition = 0;
         request.MaxResultsCount = 10;
 
@@ -125,7 +137,7 @@ public class PlayFabManager : MonoBehaviour
             GameObject newGo = Instantiate(rowPrefab, rowsParent);
             Text[] texts = newGo.GetComponentsInChildren<Text>();
             texts[0].text = (item.Position + 1).ToString();
-            texts[1].text = item.DisplayName;
+            texts[1].text = item.DisplayName != null ? item.DisplayName : item.PlayFabId;
             texts[2].text = item.StatValue.ToString();
 
             Debug.Log(string.Format("PLACE: {0} | IDictionary {1} | VALUE: {2}",
