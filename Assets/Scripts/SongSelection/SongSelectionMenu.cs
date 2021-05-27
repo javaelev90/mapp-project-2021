@@ -77,15 +77,16 @@ public class SongSelectionMenu : MonoBehaviour
                 displayText += hitColliders[i].gameObject.name; // H�r h�mtar man allt man vill fr�n objektet, just nu �r det bara namnet f�r GameObjectet
                 
                 selectedPanel = hitColliders[i].gameObject;
+                print(i);
 
                 selectedSongMusic = songs[i].song;
 
                 float defaultScale = hitColliders[i].transform.localScale.z;
                 scaleChange = new Vector3(1.25f, 1.25f, defaultScale);
-                
+
                 if(hitColliders[i] != selectionArea){
                     hitColliders[i].gameObject.transform.localScale = scaleChange;
-                    //audioSource.PlayOneShot(selectedSongMusic);
+                    audioSource.PlayOneShot(selectedSongMusic);
                 }
             }
             selectionText.text = displayText;
