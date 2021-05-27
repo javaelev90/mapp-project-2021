@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb6baf8922a41ce468d4d617a52c2d57, type: 3}
   m_Name: BeFasterAndyRay
   m_EditorClassIdentifier: 
-  uniqueName: 
+  uniqueName: befasterandyray
   song: {fileID: 8300000, guid: 4fbb5055a3c27ad41acf1582d52b95fd, type: 3}
   sfx: {fileID: 0}
   preferredMarginTimeBeforeBeat: 0.7
+  songDifficulty: 1
   spawnPatternChanges:
   - spawnPattern: 0
     activationTime: 0

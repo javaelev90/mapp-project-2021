@@ -16,6 +16,7 @@ MonoBehaviour:
   song: {fileID: 8300000, guid: da0e73d36eb096f45a2271247ef0a6bf, type: 3}
   sfx: {fileID: 0}
   preferredMarginTimeBeforeBeat: 0.7
+  songDifficulty: 2
   spawnPatternChanges:
   - spawnPattern: 0
     activationTime: 0

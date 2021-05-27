@@ -22,6 +22,8 @@ public class GameManager : SingletonPattern<GameManager>
     [SerializeField] TMP_Text scoreText;
     [SerializeField] PopupScreenController popupScreenController;
     [SerializeField] GameObject hpBarFiller;
+    [SerializeField] GameObject hpBarFillerSpacer;
+    [SerializeField] PlayFabManager playFabManager;
 
     public static SwipeTimingInterval PERFECT_SWIPE_TIMING_INTERVAL = new SwipeTimingInterval(-.2f, .2f);
     public static SwipeTimingInterval GOOD_SWIPE_TIMING_INTERVAL = new SwipeTimingInterval(-.4f, -.2f);
@@ -34,7 +36,6 @@ public class GameManager : SingletonPattern<GameManager>
     public Blade Blade => blade;
 
     [System.NonSerialized] public int beatIndex = 0;
-    int spawnPointIndex = 0;
 
     Image hpBarImage;
     Animator hpBarAnimator;
@@ -73,16 +74,15 @@ public class GameManager : SingletonPattern<GameManager>
 
     void InitializeHpBar()
     {
-        GameObject hpSectionSpacer = hpBarFiller?.transform.GetChild(0).gameObject;
         int numberOfSpacers = (int) hitPoints / pointsLostOnMiss;
         float spacePosition = hpBarFiller.GetComponent<RectTransform>().rect.width / numberOfSpacers;
-        float leftMostLocalPosition = hpBarFiller.transform.localPosition.x + hpBarFiller.GetComponent<RectTransform>().rect.width/2f;
+        float leftMostLocalPosition = 0f - hpBarFiller.GetComponent<RectTransform>().rect.width/2f;
         for(int i = 0; i < numberOfSpacers; i++)
         {
-            GameObject spacer = Instantiate(hpSectionSpacer, hpBarFiller.transform.position, hpBarFiller.transform.rotation);
+            GameObject spacer = Instantiate(hpBarFillerSpacer, hpBarFiller.transform.position, hpBarFiller.transform.rotation);
             spacer.transform.SetParent(hpBarFiller.transform);
             spacer.transform.localScale = Vector3.one;
-            spacer.transform.localPosition = new Vector2(leftMostLocalPosition, spacer.transform.localPosition.y);
+            spacer.transform.localPosition = new Vector2(leftMostLocalPosition, 0);
             leftMostLocalPosition += spacePosition;
         }
     }
@@ -251,11 +251,23 @@ public class GameManager : SingletonPattern<GameManager>
         if (!audioSource.isPlaying)
         {
             popupScreenController.ToggleWinScreen(true);
-            int songScore = Database.Instance.songRepository.GetSongScore(SongHandler.Instance.GetSongName());
+            int songScore = Database.Instance.songRepository.GetSongScore(SongHandler.Instance.GetUniqueSongName());
             if (songScore == -1 || songScore < score)
             {
-                Database.Instance.songRepository.UpdateSongScore(SongHandler.Instance.GetSongName(), (int)score);
+                Database.Instance.songRepository.UpdateSongScore(SongHandler.Instance.GetUniqueSongName(), (int)score);
+                
             }
+            // Always send score to leaderboard incase of internet problems.
+            // Leaderboard setting will save the highest score sent from the user.
+            if(songScore > score)
+            {
+                if(playFabManager != null) playFabManager.SendLeaderboard(songScore, SongHandler.Instance.GetUniqueSongName());
+            }
+            else
+            {
+                if(playFabManager != null) playFabManager.SendLeaderboard((int)score, SongHandler.Instance.GetUniqueSongName());
+            }
+
             wonGame = false;
         }
     }
