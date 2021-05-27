@@ -27,8 +27,14 @@ public class PlayFabManager : MonoBehaviour
 
     private void OnEnable()
     {
-        GetLeaderboard();
-
+        if(!PlayFabClientAPI.IsClientLoggedIn())
+        {
+            Login();
+        }
+        else
+        {
+            GetLeaderboard();
+        }
     }
 
     void Login() {
@@ -42,8 +48,7 @@ public class PlayFabManager : MonoBehaviour
             }
         };
         PlayFabClientAPI.LoginWithCustomID(request, OnLoginSuccess, OnError);
-
-        }
+    }
     void OnLoginSuccess(LoginResult result)
     {
         Debug.Log("Successful login/account create!");
@@ -55,7 +60,8 @@ public class PlayFabManager : MonoBehaviour
             if(nameWindow != null) nameWindow.SetActive(true);
         else
             if(leaderboardWindow != null) leaderboardWindow.SetActive(true);
-    
+        
+        GetLeaderboard();
     }
 
     public void SubmitNameButton() {
@@ -112,8 +118,6 @@ public class PlayFabManager : MonoBehaviour
 
     void OnLeaderboardUpdate(UpdatePlayerStatisticsResult result) {
         Debug.Log("Successful leaderboard sent");
-        
-
     }
     public void GetLeaderboard() {
         var request = new GetLeaderboardRequest();

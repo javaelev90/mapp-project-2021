@@ -2,7 +2,7 @@
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Text.RegularExpressions;
+using UnityEditor;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -76,7 +76,7 @@ public class CSVLoader
         return dictionary;
     }
 
-//#if UNITY_EDITOR 
+#if UNITY_EDITOR 
   
     public void Add(string key, string value)  // to be able to add values from our file
     {
@@ -126,7 +126,7 @@ public class CSVLoader
         Add(key, value); 
     }
      
-//#endif
+#endif
 
 
 
