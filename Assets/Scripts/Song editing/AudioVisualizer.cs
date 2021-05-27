@@ -118,6 +118,7 @@ public class AudioVisualizer : MonoBehaviour, IPointerDownHandler, IPointerUpHan
         string optionValue = spawnMarkerDropdown.options[spawnMarkerDropdown.value].text;
         chosenSpawnPattern = spawnPatternTypeMapping[optionValue];
         spawnPatternColor = spawnPatternColorMapping[optionValue];
+        spawnMarkerDropdown.GetComponent<Image>().color = spawnPatternColor;
     }
 
     private void DisplaySongObjectName()
@@ -125,7 +126,7 @@ public class AudioVisualizer : MonoBehaviour, IPointerDownHandler, IPointerUpHan
 #if UNITY_EDITOR
         string assetPath = AssetDatabase.GetAssetPath(songObject.GetInstanceID());
         string fileName = System.IO.Path.GetFileNameWithoutExtension(assetPath);
-        songObjectName.text = "<color=#000000>Song Object:</color> <color=#772fde>" + fileName + "</color>";
+        songObjectName.text = "<color=#000000>Song Object:</color> <color=#ffffff>" + fileName + "</color>";
 #endif
     }
 
