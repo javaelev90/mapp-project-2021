@@ -3,11 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using TMPro;
 
 public class TextLocaliserUI : MonoBehaviour
 {
-    Text textField;
+    TMP_Text textField;
 
     public string key;
 
@@ -17,7 +17,7 @@ public class TextLocaliserUI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        textField = GetComponent<Text>(); //change to ours
+        textField = GetComponent<TMP_Text>(); 
         string value = LocalisationSystem.GetLocalisedValue(key);
         textField.text = value;
         Debug.Log(value);
