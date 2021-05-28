@@ -123,6 +123,65 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &28661244
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 28661245}
+  - component: {fileID: 28661246}
+  m_Layer: 5
+  m_Name: PlayFabManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &28661245
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 28661244}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 433279493}
+  - {fileID: 919928367}
+  m_Father: {fileID: 1010562140}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &28661246
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 28661244}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b560e81a8a66d40cebf2bf963f2e32dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  result:
+    Leaderboard: []
+    Version: 0
+  rowPrefab: {fileID: 6261568679632565046, guid: 25f328883996d4b198fbefd1c4a4a688, type: 3}
+  rowsParent: {fileID: 706209587}
+  nameWindow: {fileID: 919928366}
+  leaderboardWindow: {fileID: 433279492}
+  nameError: {fileID: 919928366}
+  nameInput: {fileID: 1375393647}
 --- !u!1 &166304213
 GameObject:
   m_ObjectHideFlags: 0
@@ -578,7 +637,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &433279493
 RectTransform:
   m_ObjectHideFlags: 0
@@ -586,7 +645,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 433279492}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -595,7 +654,7 @@ RectTransform:
   - {fileID: 706209587}
   - {fileID: 599225477}
   - {fileID: 2147371672}
-  m_Father: {fileID: 1010562140}
+  m_Father: {fileID: 28661245}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -806,22 +865,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 990249293}
+      - m_Target: {fileID: 28661246}
         m_TargetAssemblyTypeName: PlayFabManager, Assembly-CSharp
         m_MethodName: SubmitNameButton
         m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 919928366}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -910,7 +957,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myFx: {fileID: 474271593}
-  clickFx: {fileID: 8300000, guid: 8474da4c6d5c94e53b79672fc05fd7ec, type: 3}
+  clickFx: {fileID: 8300000, guid: 33cfd93e0acca4d95a499ffbfc30cfbe, type: 3}
 --- !u!82 &474271593
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1090,9 +1137,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 990249293}
+      - m_Target: {fileID: 28661244}
         m_TargetAssemblyTypeName: PlayFabManager, Assembly-CSharp
-        m_MethodName: SendLeaderboard
+        m_MethodName: 
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1304,7 +1351,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 919928366}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1312,7 +1359,7 @@ RectTransform:
   - {fileID: 1375393646}
   - {fileID: 1584187138}
   - {fileID: 474271587}
-  m_Father: {fileID: 1010562140}
+  m_Father: {fileID: 28661245}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -1516,8 +1563,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
-  - {fileID: 433279493}
-  - {fileID: 919928367}
+  - {fileID: 28661245}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2224,7 +2270,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 990249293}
+      - m_Target: {fileID: 28661246}
         m_TargetAssemblyTypeName: PlayFabManager, Assembly-CSharp
         m_MethodName: GetLeaderboard
         m_Mode: 5
