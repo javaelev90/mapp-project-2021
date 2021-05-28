@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEditor;
 
 // TODO: Skapa object pooling f�r flygande objekt och partiklar
 [RequireComponent(typeof(Rigidbody2D))]
@@ -51,9 +50,6 @@ public class Fruit : MonoBehaviour
 		mainCamera = Camera.main;
 
 		GameManager.Instance.Blade.OnFruitSliced += SliceMe;
-
-		//myRigidbody = GetComponent<Rigidbody2D>();
-		//FruitCollider = GetComponent<CircleCollider2D>();
 
 		calibratedAnimationDelay = SongHandler.Instance.GetAudioLatency();
 		timingCircle.color = new Color(initialTimingCircleColor.r, initialTimingCircleColor.b, initialTimingCircleColor.g, 0.2f);

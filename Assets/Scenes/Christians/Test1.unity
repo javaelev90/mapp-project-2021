@@ -254,6 +254,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 620845582406163233, guid: 8193805887cb02847ad89211f1fc5fc4, type: 3}
+      propertyPath: looping
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2580198200822094754, guid: 8193805887cb02847ad89211f1fc5fc4, type: 3}
       propertyPath: m_Name
       value: GoodSliceParticles
@@ -920,6 +924,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7482993346715284196, guid: f6c11faa015618844bad6ec519e3d79c, type: 3}
+      propertyPath: looping
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7482993346858384592, guid: f6c11faa015618844bad6ec519e3d79c, type: 3}
       propertyPath: m_RootOrder
       value: 7
@@ -1025,6 +1033,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BadSliceParticles
       objectReference: {fileID: 0}
+    - target: {fileID: 8165512327611479265, guid: b2dca2e8d6a8adb428b951b695273aa0, type: 3}
+      propertyPath: looping
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b2dca2e8d6a8adb428b951b695273aa0, type: 3}
 --- !u!1001 &8325044230680854887
@@ -1036,7 +1048,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5631931028569409700, guid: 94814c10962def84da1e89de83a39f3f, type: 3}
       propertyPath: looping
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5950682425082441539, guid: 94814c10962def84da1e89de83a39f3f, type: 3}
       propertyPath: m_Name

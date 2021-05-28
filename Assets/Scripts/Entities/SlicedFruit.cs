@@ -6,14 +6,12 @@ public class SlicedFruit : MonoBehaviour
     [SerializeField][Range(.95f, .99f)] float zSpeed = .98f;
     [SerializeField] Rigidbody2D[] bubblePieces = default;
     [SerializeField] GameObject particleDestroyFlash;
-
+    [SerializeField] Rigidbody2D spiritRigidbody;
 
     Transform moveTarget;
-    Rigidbody2D rb;
 
     void Start()
     {
-        rb = this.GetComponent<Rigidbody2D>();
         moveTarget = GameManager.Instance.SpiritsMoveTarget.transform;
 
         for (int i = 0; i < bubblePieces.Length; i++)
@@ -28,7 +26,7 @@ public class SlicedFruit : MonoBehaviour
     void FixedUpdate()
     {
         Vector3 moveDir = moveTarget.position - this.transform.position;
-        rb.velocity = moveDir * speed;
+        spiritRigidbody.velocity = moveDir * speed;
         this.transform.localScale *= zSpeed;
     }
     

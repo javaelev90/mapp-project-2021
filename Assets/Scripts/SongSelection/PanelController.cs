@@ -1,8 +1,6 @@
 using UnityEngine.InputSystem;
 using UnityEngine;
-#if !UNITY_EDITOR && !UNITY_STANDALONE
 using UnityEngine.InputSystem.EnhancedTouch;
-#endif
 
 public class PanelController : MonoBehaviour
 {
@@ -12,10 +10,8 @@ public class PanelController : MonoBehaviour
     float rotationSlowdownMultiplier = .95f;
     InputManager inputManager;
 
-#if !UNITY_EDITOR && !UNITY_STANDALONE
     float touchRotationMultiplier = .1f;
     float touchRotationSpeed = .5f;
-#endif
 
     void OnEnable()
     {
@@ -74,7 +70,6 @@ public class PanelController : MonoBehaviour
 #endif
     }
 
-#if !UNITY_EDITOR && !UNITY_STANDALONE
     void OnMovingTouch(Finger finger)
     {
         if ((finger.currentTouch.startScreenPosition - finger.currentTouch.screenPosition).magnitude > (Screen.width / 20f))
@@ -87,6 +82,5 @@ public class PanelController : MonoBehaviour
     {
         rotationSpeed = 0f;
     }
-#endif
 
 }

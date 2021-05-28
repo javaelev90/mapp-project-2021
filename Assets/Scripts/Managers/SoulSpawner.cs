@@ -184,10 +184,11 @@ public class SoulSpawner : SingletonPattern<SoulSpawner>
         float beat = SongHandler.Instance.GetAudioClipBeats()[beatIndex];
         float timeDifference = beat - audioSourceMusic.time;
         Vector2 velocity = CalculateVelocity(target, spawnedObject.transform.position, spawnThresholdTime - 0.2f);
-        spawnedObject.GetComponentInChildren<Fruit>().Initiate(audioSourceMusic, audioSourceSFX, beat, target, velocity, spawnPattern);
         Destroy(spawnedObject, timeDifference + 5f);
 
         Fruit spawnedFruit = spawnedObject.GetComponentInChildren<Fruit>();
+        spawnedFruit.Initiate(audioSourceMusic, audioSourceSFX, beat, target, velocity, spawnPattern);
+
         occupiedLocations[target] = new Bounds(
             target,
             new Vector2(
