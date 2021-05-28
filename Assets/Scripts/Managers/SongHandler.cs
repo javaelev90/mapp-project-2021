@@ -53,4 +53,9 @@ public class SongHandler : SingletonPatternPersistent<SongHandler>, IInitializeA
     {
         return selectedSong.uniqueName;
     }
+
+    public string GetSongDifficulty()
+    {
+        return selectedSong.songDifficulty.ToString();
+    }
 }

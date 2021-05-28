@@ -45,3 +45,4 @@
 "GetLeaderboard","Get Leaderboard","Hämta Ledartavla"
 "Name","Name","Namn"
 "Place","Place","Plats"
+"SongDifficulty","Difficulty","Svårighetsgrad"

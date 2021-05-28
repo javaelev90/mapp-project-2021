@@ -16,18 +16,130 @@ MonoBehaviour:
   song: {fileID: 8300000, guid: 67a8e6692aa26454184720e426b90c8f, type: 3}
   sfx: {fileID: 0}
   preferredMarginTimeBeforeBeat: 0.7
-  songDifficulty: 0
+  songDifficulty: 2
   spawnPatternChanges:
+  - spawnPattern: 1
+    activationTime: 0.27145913
   - spawnPattern: 0
-    activationTime: 0.44931182
+    activationTime: 9.241209
   - spawnPattern: 3
     activationTime: 13.293337
   - spawnPattern: 0
-    activationTime: 14.425978
+    activationTime: 14.490296
   - spawnPattern: 3
-    activationTime: 18.04855
+    activationTime: 17.819317
   - spawnPattern: 0
-    activationTime: 19.17183
+    activationTime: 19.251415
+  - spawnPattern: 3
+    activationTime: 22.349789
+  - spawnPattern: 0
+    activationTime: 24.05343
+  - spawnPattern: 3
+    activationTime: 27.273495
+  - spawnPattern: 0
+    activationTime: 28.855448
+  - spawnPattern: 3
+    activationTime: 32.06615
+  - spawnPattern: 0
+    activationTime: 33.6013
+  - spawnPattern: 3
+    activationTime: 37.00858
+  - spawnPattern: 1
+    activationTime: 38.422035
+  - spawnPattern: 0
+    activationTime: 43.1501
+  - spawnPattern: 2
+    activationTime: 44.092747
+  - spawnPattern: 0
+    activationTime: 44.80906
+  - spawnPattern: 2
+    activationTime: 45.4594
+  - spawnPattern: 0
+    activationTime: 46.00722
+  - spawnPattern: 2
+    activationTime: 46.58268
+  - spawnPattern: 0
+    activationTime: 47.196022
+  - spawnPattern: 2
+    activationTime: 47.82765
+  - spawnPattern: 0
+    activationTime: 48.375465
+  - spawnPattern: 2
+    activationTime: 49.02581
+  - spawnPattern: 0
+    activationTime: 49.629795
+  - spawnPattern: 2
+    activationTime: 50.214615
+  - spawnPattern: 0
+    activationTime: 50.84668
+  - spawnPattern: 2
+    activationTime: 51.394054
+  - spawnPattern: 0
+    activationTime: 52.101006
+  - spawnPattern: 2
+    activationTime: 52.512875
+  - spawnPattern: 0
+    activationTime: 53.205563
+  - spawnPattern: 2
+    activationTime: 53.767204
+  - spawnPattern: 0
+    activationTime: 54.300762
+  - spawnPattern: 1
+    activationTime: 54.973156
+  - spawnPattern: 0
+    activationTime: 57.674805
+  - spawnPattern: 3
+    activationTime: 60.939526
+  - spawnPattern: 0
+    activationTime: 62.418503
+  - spawnPattern: 3
+    activationTime: 65.75091
+  - spawnPattern: 0
+    activationTime: 67.22052
+  - spawnPattern: 3
+    activationTime: 70.55292
+  - spawnPattern: 0
+    activationTime: 72.04127
+  - spawnPattern: 3
+    activationTime: 75.32686
+  - spawnPattern: 1
+    activationTime: 76.81943
+  - spawnPattern: 0
+    activationTime: 86.15283
+  - spawnPattern: 2
+    activationTime: 87.61309
+  - spawnPattern: 0
+    activationTime: 88.59596
+  - spawnPattern: 2
+    activationTime: 90.1124
+  - spawnPattern: 0
+    activationTime: 90.93613
+  - spawnPattern: 2
+    activationTime: 92.396385
+  - spawnPattern: 0
+    activationTime: 93.51031
+  - spawnPattern: 2
+    activationTime: 94.88632
+  - spawnPattern: 1
+    activationTime: 95.824905
+  - spawnPattern: 0
+    activationTime: 105.546265
+  - spawnPattern: 3
+    activationTime: 108.98162
+  - spawnPattern: 0
+    activationTime: 110.46998
+  - spawnPattern: 3
+    activationTime: 113.80235
+  - spawnPattern: 0
+    activationTime: 115.29071
+  - spawnPattern: 3
+    activationTime: 118.585655
+  - spawnPattern: 0
+    activationTime: 120.064644
+  - spawnPattern: 3
+    activationTime: 123.48127
+  - spawnPattern: 1
+    activationTime: 124.876015
   beats:
   - 1.0879818
   - 1.4079819
@@ -50,40 +162,267 @@ MonoBehaviour:
   - 8.298662
   - 8.597324
   - 9.002653
-  - 9.514648
-  - 9.791995
-  - 9.944853
-  - 10.264853
-  - 10.755533
-  - 11.011519
-  - 11.374195
-  - 11.944921
-  - 12.243606
-  - 12.691587
-  - 13.139592
+  - 9.82721
+  - 10.147211
+  - 10.9152155
+  - 11.299207
+  - 12.088549
+  - 12.493877
   - 13.438254
   - 13.587596
   - 13.715601
   - 14.035601
   - 14.206259
   - 14.355601
-  - 14.6542635
-  - 15.059592
-  - 15.5289345
-  - 15.827597
-  - 16.232925
-  - 16.74492
-  - 17.022268
-  - 17.470272
-  - 17.918255
+  - 14.677211
+  - 15.018526
+  - 15.743877
+  - 16.085194
+  - 16.874535
+  - 17.215874
   - 18.1956
   - 18.387596
   - 18.494263
   - 18.814262
   - 18.963606
   - 19.091587
-  - 19.454264
-  - 19.838253
-  - 20.328934
-  - 20.606258
-  - 21.032925
+  - 19.479591
+  - 19.842268
+  - 20.610249
+  - 20.994263
+  - 21.783583
+  - 22.14626
+  - 22.978254
+  - 23.127596
+  - 23.2556
+  - 23.575602
+  - 23.767597
+  - 23.895601
+  - 24.262335
+  - 24.603674
+  - 25.393017
+  - 25.755669
+  - 26.63331
+  - 26.995964
+  - 27.778254
+  - 27.927597
+  - 28.055601
+  - 28.3756
+  - 28.546259
+  - 28.674263
+  - 29.164944
+  - 29.463606
+  - 30.210272
+  - 30.594263
+  - 31.301157
+  - 31.741108
+  - 32.578255
+  - 32.706257
+  - 32.855602
+  - 33.196915
+  - 33.34626
+  - 33.4956
+  - 33.844467
+  - 34.20712
+  - 34.996464
+  - 35.380455
+  - 36.148457
+  - 36.532448
+  - 37.42093
+  - 37.570248
+  - 37.719593
+  - 38.018253
+  - 38.167595
+  - 38.2956
+  - 38.62916
+  - 39.798683
+  - 41.03601
+  - 42.252018
+  - 43.4183
+  - 43.88764
+  - 44.335648
+  - 44.634308
+  - 45.124966
+  - 45.57297
+  - 45.82898
+  - 46.298298
+  - 46.746304
+  - 47.02363
+  - 47.428978
+  - 47.919636
+  - 48.19696
+  - 48.644966
+  - 49.114307
+  - 49.41297
+  - 49.882313
+  - 50.330296
+  - 50.607643
+  - 51.07696
+  - 51.546303
+  - 51.823627
+  - 52.29297
+  - 52.71964
+  - 53.03964
+  - 53.530296
+  - 53.914307
+  - 54.19163
+  - 54.660976
+  - 55.10898
+  - 55.386303
+  - 55.73136
+  - 56.021587
+  - 56.341587
+  - 56.618935
+  - 56.938934
+  - 57.21626
+  - 57.493584
+  - 57.986824
+  - 58.26415
+  - 58.96814
+  - 59.352154
+  - 60.16281
+  - 60.568142
+  - 61.378822
+  - 61.549477
+  - 61.677483
+  - 61.997482
+  - 62.12549
+  - 62.274807
+  - 62.616146
+  - 63.021473
+  - 63.76814
+  - 64.13081
+  - 64.77081
+  - 65.325485
+  - 66.11481
+  - 66.26415
+  - 66.41349
+  - 66.776146
+  - 66.92549
+  - 67.05349
+  - 67.416145
+  - 67.86415
+  - 68.52549
+  - 68.93082
+  - 69.72016
+  - 70.10415
+  - 70.91481
+  - 71.06415
+  - 71.192154
+  - 71.57614
+  - 71.72549
+  - 71.85349
+  - 72.21615
+  - 72.66415
+  - 73.41082
+  - 73.79481
+  - 74.49882
+  - 74.90415
+  - 75.736145
+  - 75.86415
+  - 76.01349
+  - 76.376144
+  - 76.52549
+  - 76.653496
+  - 77.03422
+  - 77.61023
+  - 78.20755
+  - 78.82621
+  - 79.44488
+  - 80.04222
+  - 80.61821
+  - 81.23689
+  - 81.83422
+  - 82.45288
+  - 83.050224
+  - 83.60487
+  - 84.21771
+  - 84.799545
+  - 85.3969
+  - 86.01556
+  - 86.591545
+  - 87.23141
+  - 88.10024
+  - 88.38106
+  - 88.8959
+  - 89.59941
+  - 90.431404
+  - 90.79406
+  - 91.41274
+  - 92.01007
+  - 92.8634
+  - 93.226074
+  - 93.80206
+  - 94.42072
+  - 95.295395
+  - 95.615395
+  - 96.254105
+  - 96.59544
+  - 97.36345
+  - 97.768776
+  - 98.57943
+  - 98.96345
+  - 99.7741
+  - 100.15812
+  - 100.69157
+  - 101.032906
+  - 101.90757
+  - 102.20624
+  - 103.08091
+  - 103.37957
+  - 104.29689
+  - 104.59556
+  - 105.855286
+  - 106.28195
+  - 107.0073
+  - 107.41263
+  - 108.20195
+  - 108.6073
+  - 109.39662
+  - 109.5673
+  - 109.673965
+  - 109.993965
+  - 110.14329
+  - 110.27129
+  - 110.633965
+  - 111.06064
+  - 111.807304
+  - 112.19129
+  - 112.9593
+  - 113.364624
+  - 114.196625
+  - 114.32462
+  - 114.47397
+  - 114.815285
+  - 115.0073
+  - 115.11397
+  - 115.455284
+  - 115.90329
+  - 116.649956
+  - 117.07662
+  - 117.82329
+  - 118.228615
+  - 118.99662
+  - 119.145966
+  - 119.27397
+  - 119.63662
+  - 119.785965
+  - 119.93528
+  - 120.25529
+  - 120.724625
+  - 121.42862
+  - 121.89796
+  - 122.60195
+  - 123.02862
+  - 123.839294
+  - 123.98862
+  - 124.11662
+  - 124.43662
+  - 124.58596
+  - 124.75662
+  - 125.05528
+  - 126.249954
+  - 127.40195
+  - 128.57123
+  - 129.23256
+  - 129.53122
