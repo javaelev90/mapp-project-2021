@@ -20,7 +20,6 @@ public class TextLocaliserUI : MonoBehaviour
         textField = GetComponent<TMP_Text>(); 
         string value = LocalisationSystem.GetLocalisedValue(key);
         textField.text = value;
-        Debug.Log(value);
         language = LocalisationSystem.language;
     }
 

@@ -31,7 +31,14 @@ public class SoundCalibrator : MonoBehaviour
         int latency = Database.Instance.playerStatsRepository.GetLatency();
         if(latency > -1)
         {
-            soundLatency.text = "Calibrated latency: " + latency + " ms"; 
+            soundLatency.text = LocalisationSystem.GetLocalisedValue("CalibrationLatency") + ": " + latency + " " + LocalisationSystem.GetLocalisedValue("Milliseconds"); 
+        }
+    }
+    private void OnEnable() {
+        int latency = Database.Instance.playerStatsRepository.GetLatency();
+        if(latency > -1)
+        {
+            soundLatency.text = LocalisationSystem.GetLocalisedValue("CalibrationLatency") + ": " + latency + " " + LocalisationSystem.GetLocalisedValue("Milliseconds"); 
         }
     }
 
@@ -46,14 +53,14 @@ public class SoundCalibrator : MonoBehaviour
                 float audioLatency = CalculateAudioLatency();
                 if(audioLatency == -1)
                 {
-                    SetResultScreenText("You clicked too few times during the test.");
+                    SetResultScreenText(LocalisationSystem.GetLocalisedValue("CalibrationText2"));
                 }
-                else
+                else 
                 {
                     int latency = (int)Mathf.Round(audioLatency * 1000);
                     Database.Instance.playerStatsRepository.UpdateLatency(latency);
-                    SetResultScreenText("You have a sound latency of " + latency + " ms.");
-                    soundLatency.text = "Calibrated latency: " + latency + " ms"; 
+                    SetResultScreenText(LocalisationSystem.GetLocalisedValue("CalibrationText3") + " " + latency + " " + LocalisationSystem.GetLocalisedValue("Milliseconds"));
+                    soundLatency.text = LocalisationSystem.GetLocalisedValue("CalibrationLatency") + ": " + latency + " " + LocalisationSystem.GetLocalisedValue("Milliseconds"); 
                 }
                 ToggleResultsPanel(true);
                 
@@ -206,7 +213,7 @@ public class SoundCalibrator : MonoBehaviour
 
     public void RemoveCalibrationResult()
     {
-        soundLatency.text = "Calibrated latency: ";
+        soundLatency.text = LocalisationSystem.GetLocalisedValue("CalibrationLatency") + ": ";
         Database.Instance.playerStatsRepository.UpdateLatency(-1);
     }
 }

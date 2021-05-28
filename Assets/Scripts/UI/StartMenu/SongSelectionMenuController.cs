@@ -20,8 +20,8 @@ public class SongSelectionMenuController : MonoBehaviour
 
         int songScore = Database.Instance.songRepository.GetSongScore(uniqueName);
         songInformationPanel.text = SongHandler.Instance.GetSongAudioClip().name + "\n"
-         + "<size=18px>Song length: " + SongHandler.Instance.GetSongAudioClip().length + " seconds " + "</size>\n"
-         + "<size=20px>Score: " + (songScore == -1 ? 0 : songScore) + "</size>";
+         + "<size=18px>" + LocalisationSystem.GetLocalisedValue("SongLength") + ": " + SongHandler.Instance.GetSongAudioClip().length + " " + LocalisationSystem.GetLocalisedValue("Seconds") + " " + "</size>\n"
+         + "<size=20px>" + LocalisationSystem.GetLocalisedValue("Score") + " " + (songScore == -1 ? 0 : songScore) + "</size>";
     }
 
 }

@@ -19,7 +19,6 @@ public class CSVLoader
     public void LoadCSV()
     {
         csvFile = Resources.Load<TextAsset>("translations_SC4");
-        Debug.Log(csvFile);
         contents = csvFile.text;
 
     }
@@ -57,7 +56,7 @@ public class CSVLoader
             {
                 fields[f] = fields[f].TrimStart(' ', surround);
                 fields[f] = fields[f].TrimEnd(surround);
-                Debug.Log(fields[f]);
+                // Debug.Log(fields[f]);
                 
             }
 

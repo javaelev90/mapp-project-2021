@@ -30,8 +30,24 @@ public class LocalisationSystem
         csvLoader.LoadCSV();
 
         UpdateDictionaires();
-
+        // Get saved language setting from database
+        SetLanguage(Database.Instance.settingsRepository.GetLanguageSetting());
         isInit = true;
+    }
+
+    private static void SetLanguage(string language)
+    {
+        if(language == null) return;
+        if(language.Equals("")) return;
+
+        if(language.ToLower() == LocalisationSystem.Language.English.ToString().ToLower())
+        {
+            LocalisationSystem.language = LocalisationSystem.Language.English;
+        }
+        else if(language.ToLower() == LocalisationSystem.Language.Swedish.ToString().ToLower())
+        {
+            LocalisationSystem.language = LocalisationSystem.Language.Swedish;
+        }
 
     }
 
