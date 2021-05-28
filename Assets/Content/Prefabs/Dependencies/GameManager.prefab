@@ -92,6 +92,8 @@ MonoBehaviour:
   scoreText: {fileID: 0}
   popupScreenController: {fileID: 0}
   hpBarFiller: {fileID: 0}
+  hpBarFillerSpacer: {fileID: 503415567949106142, guid: 92d156d21fa25924b84e24233333ccb7, type: 3}
+  playFabManager: {fileID: 0}
 --- !u!82 &1982526629564437759
 AudioSource:
   m_ObjectHideFlags: 0
@@ -200,7 +202,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: -964533664553336053, guid: e402d3ca4b03e44a8a6f59810a261723, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.3
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0

@@ -6,11 +6,13 @@ using UnityEditor;
 [RequireComponent(typeof(CircleCollider2D))]
 public class Fruit : MonoBehaviour
 {
-	[Header("Gameplay")]
+	[Header("Game data")]
 	[Tooltip("Spawned after slicing is successful")]
 	[SerializeField] GameObject fruitSlicedPrefab;
 	[Tooltip("Spawned after slicing is UNsuccessful")]
 	[SerializeField] GameObject fruitMissedSlicePrefab;
+	[SerializeField] Rigidbody2D myRigidbody;
+	public Collider2D FruitCollider;
 	[Header("Timing properties")]
 	[SerializeField] SpriteRenderer timingCircle;
 	[SerializeField] Color initialTimingCircleColor;
@@ -29,6 +31,7 @@ public class Fruit : MonoBehaviour
 	[SerializeField] GameObject particleEffectsMissed;
 	[SerializeField] GameObject particleDestroyFlash;
 
+
 	bool hasReducedHP = false;
 	float beatTime = 0f;
 	AudioSource audioSourceMusic;
@@ -36,8 +39,6 @@ public class Fruit : MonoBehaviour
 	Camera mainCamera;
 	Vector3 target;
 	float timeElapsed = 0f;
-	Collider2D myCollider;
-	Rigidbody2D myRigidbody;
 
 	float calibratedAnimationDelay = 0f;
 	Vector2 startPosition;
@@ -51,8 +52,8 @@ public class Fruit : MonoBehaviour
 
 		GameManager.Instance.Blade.OnFruitSliced += SliceMe;
 
-		myRigidbody = GetComponent<Rigidbody2D>();
-		myCollider = GetComponent<CircleCollider2D>();
+		//myRigidbody = GetComponent<Rigidbody2D>();
+		//FruitCollider = GetComponent<CircleCollider2D>();
 
 		calibratedAnimationDelay = SongHandler.Instance.GetAudioLatency();
 		timingCircle.color = new Color(initialTimingCircleColor.r, initialTimingCircleColor.b, initialTimingCircleColor.g, 0.2f);
@@ -70,7 +71,7 @@ public class Fruit : MonoBehaviour
 		}
 	}
 
-	private void OnDestroy()
+	void OnDestroy()
 	{	
 		// Removes this object's reserved target on the map
 		SoulSpawner.occupiedLocations.TryRemove(target, out _);
@@ -81,7 +82,7 @@ public class Fruit : MonoBehaviour
 #if UNITY_EDITOR
 		// Draw the objects bounds square
 		Gizmos.color = Color.red;
-		Gizmos.DrawWireCube(target, myCollider.bounds.size);
+		Gizmos.DrawWireCube(target, FruitCollider.bounds.size);
 #endif
     }
 
@@ -106,7 +107,7 @@ public class Fruit : MonoBehaviour
 
 	void SliceMe(Collider2D fruitCollider)
 	{
-		if (this.hasReducedHP || fruitCollider != myCollider)
+		if (this.hasReducedHP || fruitCollider != FruitCollider)
 			return;
 
 		GameManager.Instance.SetScore(GetCurrentSliceTiming());

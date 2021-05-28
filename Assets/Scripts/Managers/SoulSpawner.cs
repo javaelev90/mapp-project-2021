@@ -111,17 +111,18 @@ public class SoulSpawner : SingletonPattern<SoulSpawner>
         Transform spawnPoint = GetSpawnLocation();
         Vector2 target = GetSafeTargetPoint(GetMapSection(), new Vector2(2f, 2f));
         float beat = SongHandler.Instance.GetAudioClipBeats()[beatIndex];
-        GameObject spawnedFruit = Instantiate(objectToSpawn, spawnPoint.position, spawnPoint.rotation);                
-        Vector3 velocity = optionalVelocity.HasValue ? optionalVelocity.Value : CalculateVelocity(target, spawnedFruit.transform.position, spawnThresholdTime);
+        GameObject spawnedObject = Instantiate(objectToSpawn, spawnPoint.position, spawnPoint.rotation);                
+        Vector3 velocity = optionalVelocity.HasValue ? optionalVelocity.Value : CalculateVelocity(target, spawnedObject.transform.position, spawnThresholdTime);
+        Destroy(spawnedObject, 5f);
 
-        spawnedFruit.GetComponentInChildren<Fruit>().Initiate(audioSourceMusic, audioSourceSFX, beat, target, velocity, spawnPattern);
-        Destroy(spawnedFruit, 5f);    
+        Fruit spawnedFruit = spawnedObject.GetComponentInChildren<Fruit>();
+        spawnedFruit.Initiate(audioSourceMusic, audioSourceSFX, beat, target, velocity, spawnPattern);
         beatIndex++;  
         occupiedLocations[target] = new Bounds(
             target,
             new Vector2(
-                spawnedFruit.GetComponent<Collider2D>().bounds.size.x,
-                spawnedFruit.GetComponent<Collider2D>().bounds.size.y
+                spawnedFruit.FruitCollider.bounds.size.x,
+                spawnedFruit.FruitCollider.bounds.size.y
             )
         );
     }
@@ -179,17 +180,19 @@ public class SoulSpawner : SingletonPattern<SoulSpawner>
 
     void SpawnPatternObject(Transform spawnPoint, Vector2 target, float spawnThresholdTime, SpawnPattern spawnPattern)
     {
-        GameObject spawnedFruit = Instantiate(objectToSpawn, spawnPoint.position, spawnPoint.rotation);
+        GameObject spawnedObject = Instantiate(objectToSpawn, spawnPoint.position, spawnPoint.rotation);
         float beat = SongHandler.Instance.GetAudioClipBeats()[beatIndex];
         float timeDifference = beat - audioSourceMusic.time;
-        Vector2 velocity = CalculateVelocity(target, spawnedFruit.transform.position, spawnThresholdTime - 0.2f);
-        spawnedFruit.GetComponentInChildren<Fruit>().Initiate(audioSourceMusic, audioSourceSFX, beat, target, velocity, spawnPattern);
-        Destroy(spawnedFruit, timeDifference + 5f);
+        Vector2 velocity = CalculateVelocity(target, spawnedObject.transform.position, spawnThresholdTime - 0.2f);
+        spawnedObject.GetComponentInChildren<Fruit>().Initiate(audioSourceMusic, audioSourceSFX, beat, target, velocity, spawnPattern);
+        Destroy(spawnedObject, timeDifference + 5f);
+
+        Fruit spawnedFruit = spawnedObject.GetComponentInChildren<Fruit>();
         occupiedLocations[target] = new Bounds(
             target,
             new Vector2(
-                spawnedFruit.GetComponent<Collider2D>().bounds.size.x,
-                spawnedFruit.GetComponent<Collider2D>().bounds.size.y
+                spawnedFruit.FruitCollider.bounds.size.x,
+                spawnedFruit.FruitCollider.bounds.size.y
             )
         );
     }

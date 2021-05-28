@@ -138,7 +138,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!212 &364110743
 SpriteRenderer:
@@ -329,9 +329,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 194932909, guid: a4ef893afc73ede479b51d474a9545b3, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 194932910, guid: a4ef893afc73ede479b51d474a9545b3, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: -508
+      objectReference: {fileID: 0}
+    - target: {fileID: 960918230, guid: a4ef893afc73ede479b51d474a9545b3, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 960918231, guid: a4ef893afc73ede479b51d474a9545b3, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -340,6 +348,10 @@ PrefabInstance:
     - target: {fileID: 976424860, guid: a4ef893afc73ede479b51d474a9545b3, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 371
+      objectReference: {fileID: 0}
+    - target: {fileID: 1073995462, guid: a4ef893afc73ede479b51d474a9545b3, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 1073995463, guid: a4ef893afc73ede479b51d474a9545b3, type: 3}
       propertyPath: m_LocalScale.x
@@ -847,8 +859,12 @@ PrefabInstance:
     m_TransformParent: {fileID: 2102159171}
     m_Modifications:
     - target: {fileID: 1283634769196179143, guid: a4997199fef73a44e8a3f130b50a0457, type: 3}
-      propertyPath: m_Volume
-      value: 0.5
+      propertyPath: m_Pitch
+      value: 1.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 1982526629564437759, guid: a4997199fef73a44e8a3f130b50a0457, type: 3}
+      propertyPath: m_Pitch
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5231825053993391408, guid: a4997199fef73a44e8a3f130b50a0457, type: 3}
       propertyPath: m_Name
@@ -874,14 +890,6 @@ PrefabInstance:
       propertyPath: startGameButton
       value: 
       objectReference: {fileID: 774278941}
-    - target: {fileID: 5231825053993391410, guid: a4997199fef73a44e8a3f130b50a0457, type: 3}
-      propertyPath: pointsLostOnMiss
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 5231825053993391410, guid: a4997199fef73a44e8a3f130b50a0457, type: 3}
-      propertyPath: hpBarFillerSpacer
-      value: 
-      objectReference: {fileID: 503415567949106142, guid: 92d156d21fa25924b84e24233333ccb7, type: 3}
     - target: {fileID: 5231825053993391410, guid: a4997199fef73a44e8a3f130b50a0457, type: 3}
       propertyPath: spiritsMoveTarget
       value: 

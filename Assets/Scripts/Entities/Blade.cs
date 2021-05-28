@@ -1,9 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.EnhancedTouch;
-#if !UNITY_EDITOR && !UNITY_STANDALONE
-using UnityEngine.InputSystem.EnhancedTouch;
-#endif
 
 // TODO: Create object pooling for bladeTrail
 public class Blade : MonoBehaviour
@@ -29,6 +26,7 @@ public class Blade : MonoBehaviour
 	Vector2 previousPosition;
 	Vector2 startingTouch;
 	bool cuttingInitiated = false;
+	Finger currentFinger = null;
 
 #if !UNITY_EDITOR && !UNITY_STANDALONE
 	InputManager inputManager;
@@ -87,6 +85,15 @@ public class Blade : MonoBehaviour
 				MouseStopCutting();
 			}
 		}
+//#else
+//		//Use touch input on mobile
+//		if (!GameManager.Instance.GameIsPaused)
+//		{
+//			if (currentFinger != null && currentFinger.currentTouch.valid)
+//			{
+//				TouchUpdateCut(currentFinger.currentTouch.screenPosition);
+//			}
+//		}
 #endif
 
 	}
@@ -103,15 +110,15 @@ public class Blade : MonoBehaviour
 		//Use touch input on mobile
 		if (!GameManager.Instance.GameIsPaused)
 		{
-			if (UnityEngine.InputSystem.EnhancedTouch.Touch.activeTouches.Count == 1)
+			if (currentFinger != null && currentFinger.currentTouch.valid)
 			{
-				TouchUpdateCut(UnityEngine.InputSystem.EnhancedTouch.Touch.activeTouches[0].screenPosition);
+				TouchUpdateCut(currentFinger.currentTouch.screenPosition);
 			}
 		}
 #endif
 	}
 
-#region Touch Input
+	#region Touch Input
 	void TouchUpdateCut(Vector2 touchPos)
 	{
 		Vector2 newPosition = cam.ScreenToWorldPoint(touchPos);
@@ -120,7 +127,7 @@ public class Blade : MonoBehaviour
 		float velocity = (newPosition - previousPosition).magnitude * Time.deltaTime;
 		if (cuttingInitiated && velocity > minTouchCuttingVelocity)
 		{
-			Cut(newPosition);
+			Cut(previousPosition, newPosition);
 		}
 
 		previousPosition = newPosition;
@@ -128,7 +135,11 @@ public class Blade : MonoBehaviour
 
 	public void TouchStartCutting(Finger finger, Vector2 touchPos, float time)
 	{
+		if (cuttingInitiated)
+			return;
+
 		cuttingInitiated = true;
+		currentFinger = finger;
 		startingTouch = touchPos;
 		Vector2 newPosition = cam.ScreenToWorldPoint(touchPos);
 		this.transform.position = newPosition;
@@ -140,6 +151,7 @@ public class Blade : MonoBehaviour
 	public void TouchStopCutting(Finger finger, Vector2 position, float time)
 	{
 		cuttingInitiated = false;
+		currentFinger = null;
 
 		currentBladeTrail.transform.SetParent(null);
 		Destroy(currentBladeTrail, .5f);
@@ -155,7 +167,7 @@ public class Blade : MonoBehaviour
 		float velocity = (newPosition - previousPosition).magnitude * Time.deltaTime;
 		if (cuttingInitiated && velocity > minMouseCuttingVelocity)
 		{
-			Cut(newPosition);
+			Cut(previousPosition, newPosition);
 		}
 
 		previousPosition = newPosition;
@@ -163,6 +175,9 @@ public class Blade : MonoBehaviour
 
 	public void MouseStartCutting(Mouse currentMouse)
 	{
+		if (cuttingInitiated)
+			return;
+
 		cuttingInitiated = true;
 
 		Vector2 newPosition = cam.ScreenToWorldPoint(new Vector3(currentMouse.position.x.ReadValue(), currentMouse.position.y.ReadValue(), 0f));
@@ -182,11 +197,11 @@ public class Blade : MonoBehaviour
 	}
 #endregion Mouse Input
 
-	void Cut(Vector2 newPosition)
+	void Cut(Vector2 previousPos, Vector2 newPos)
 	{
-		Vector2 direction = (newPosition - previousPosition).normalized;
-		float distance = Vector2.Distance(newPosition, previousPosition);
-		if (Physics2D.CircleCastNonAlloc(previousPosition, circleCollider.radius, direction, collisionBuffer, distance, sliceLayer) > 0)
+		Vector2 direction = (newPos - previousPos).normalized;
+		float distance = Vector2.Distance(newPos, previousPos);
+		if (Physics2D.CircleCastNonAlloc(previousPos, circleCollider.radius, direction, collisionBuffer, distance, sliceLayer) > 0)
 		{
 			for (int i = 0; i < collisionBuffer.Length; i++)
 			{
