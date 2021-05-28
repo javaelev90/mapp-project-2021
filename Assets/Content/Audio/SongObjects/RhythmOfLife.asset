@@ -1,0 +1,89 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb6baf8922a41ce468d4d617a52c2d57, type: 3}
+  m_Name: RhythmOfLife
+  m_EditorClassIdentifier: 
+  uniqueName: RhythmOfLife
+  song: {fileID: 8300000, guid: 67a8e6692aa26454184720e426b90c8f, type: 3}
+  sfx: {fileID: 0}
+  preferredMarginTimeBeforeBeat: 0.7
+  songDifficulty: 0
+  spawnPatternChanges:
+  - spawnPattern: 0
+    activationTime: 0.44931182
+  - spawnPattern: 3
+    activationTime: 13.293337
+  - spawnPattern: 0
+    activationTime: 14.425978
+  - spawnPattern: 3
+    activationTime: 18.04855
+  - spawnPattern: 0
+    activationTime: 19.17183
+  beats:
+  - 1.0879818
+  - 1.4079819
+  - 1.8559864
+  - 2.346644
+  - 2.623991
+  - 3.0719955
+  - 3.562653
+  - 3.8186622
+  - 4.266644
+  - 4.778662
+  - 5.0346484
+  - 5.482653
+  - 5.9519954
+  - 6.207982
+  - 6.6773243
+  - 7.146644
+  - 7.4239907
+  - 7.8933105
+  - 8.298662
+  - 8.597324
+  - 9.002653
+  - 9.514648
+  - 9.791995
+  - 9.944853
+  - 10.264853
+  - 10.755533
+  - 11.011519
+  - 11.374195
+  - 11.944921
+  - 12.243606
+  - 12.691587
+  - 13.139592
+  - 13.438254
+  - 13.587596
+  - 13.715601
+  - 14.035601
+  - 14.206259
+  - 14.355601
+  - 14.6542635
+  - 15.059592
+  - 15.5289345
+  - 15.827597
+  - 16.232925
+  - 16.74492
+  - 17.022268
+  - 17.470272
+  - 17.918255
+  - 18.1956
+  - 18.387596
+  - 18.494263
+  - 18.814262
+  - 18.963606
+  - 19.091587
+  - 19.454264
+  - 19.838253
+  - 20.328934
+  - 20.606258
+  - 21.032925

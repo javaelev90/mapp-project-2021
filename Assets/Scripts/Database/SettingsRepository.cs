@@ -55,6 +55,16 @@ public class SettingsRepository
         UpdateSetting("FPS", ("" + volume));
     }
 
+    public string GetLanguageSetting()
+    {
+        return GetSetting("LANGUAGE");
+    }
+
+    public void UpdateLanguageSetting(string language)
+    {
+        UpdateSetting("LANGUAGE", language);
+    }
+
     private void UpdateSetting(string settingName, string settingValue)
     {
         KeyValuePair<string, object> idParam = new KeyValuePair<string, object>("NAME", settingName);
