@@ -10,31 +10,36 @@ public class PanelController : MonoBehaviour
 
     float rotationSpeed = 0f;
     float rotationSlowdownMultiplier = .95f;
-
-#if UNITY_EDITOR || UNITY_STANDALONE
-    PlayerControls input;
-    Vector2 mouseDeltaMove;
-#else
     InputManager inputManager;
+
+#if !UNITY_EDITOR && !UNITY_STANDALONE
     float touchRotationMultiplier = .1f;
     float touchRotationSpeed = .5f;
 #endif
 
-    void Awake()
+    void OnEnable()
     {
-#if UNITY_EDITOR || UNITY_STANDALONE
-        input = new PlayerControls();
-        input.Player.MouseDelta.performed += ctx => mouseDeltaMove = ctx.ReadValue<Vector2>();
+#if !UNITY_EDITOR && !UNITY_STANDALONE
+        EnhancedTouchSupport.Enable();
+#endif
+    }
+
+    void OnDisable()
+    {
+#if !UNITY_EDITOR && !UNITY_STANDALONE
+        EnhancedTouchSupport.Disable();
 #endif
     }
 
     void Start()
     {
-#if !UNITY_EDITOR && !UNITY_STANDALONE
         inputManager = InputManager.Instance;
+
+#if !UNITY_EDITOR && !UNITY_STANDALONE
         inputManager.OnMoveEnhancedTouch += OnMovingTouch;
         inputManager.OnStartEnhancedTouch += OnStartTouch;
 #endif
+
     }
 
     void FixedUpdate()
@@ -43,15 +48,14 @@ public class PanelController : MonoBehaviour
 
         if (Mouse.current.leftButton.isPressed)
         {
-            this.transform.Rotate(Vector3.down, mouseDeltaMove.x * mouseRotationSpeed);
-            rotationSpeed = mouseDeltaMove.x * mouseRotationSpeed;
+            this.transform.Rotate(Vector3.down, inputManager.MouseDeltaMove.x * mouseRotationSpeed);
+            rotationSpeed = inputManager.MouseDeltaMove.x * mouseRotationSpeed;
         }
         else
         {
             this.transform.Rotate(Vector3.down, rotationSpeed);
             rotationSpeed *= rotationSlowdownMultiplier;
         }
-
 
 #else
         this.transform.Rotate(Vector3.down, rotationSpeed * touchRotationSpeed);
@@ -60,30 +64,17 @@ public class PanelController : MonoBehaviour
 
     }
 
-    void OnEnable()
+
+
+    void OnDestroy()
     {
-#if UNITY_EDITOR || UNITY_STANDALONE
-
-        input.Enable();
-#else
-        EnhancedTouchSupport.Enable();
+#if !UNITY_EDITOR && !UNITY_STANDALONE
+        inputManager.OnMoveEnhancedTouch -= OnMovingTouch;
+        inputManager.OnStartEnhancedTouch -= OnStartTouch;
 #endif
-
-    }
-
-    void OnDisable()
-    {
-#if UNITY_EDITOR || UNITY_STANDALONE
-
-        input.Disable();
-#else
-        EnhancedTouchSupport.Disable();
-#endif
-
     }
 
 #if !UNITY_EDITOR && !UNITY_STANDALONE
-
     void OnMovingTouch(Finger finger)
     {
         if ((finger.currentTouch.startScreenPosition - finger.currentTouch.screenPosition).magnitude > (Screen.width / 20f))

@@ -5,6 +5,8 @@ using UnityEngine.InputSystem.EnhancedTouch;
 [DefaultExecutionOrder(-2)]
 public class InputManager : SingletonPattern<InputManager>
 {
+    public Vector2 MouseDeltaMove{ get; private set; } = default;
+
     #region Events
     public delegate void StartTouchEvent(Vector2 position, float time);
     public event StartTouchEvent OnStartTouch;
@@ -20,13 +22,13 @@ public class InputManager : SingletonPattern<InputManager>
     #endregion
 
     PlayerControls playerControls;
-    Camera mainCamera;
+    //Camera mainCamera;
 
     void Awake()
     {
         SetInstanceIfNull(this);
         playerControls = new PlayerControls();
-        mainCamera = Camera.main;
+        //mainCamera = Camera.main;
     }
     void OnEnable()
     {
@@ -37,6 +39,15 @@ public class InputManager : SingletonPattern<InputManager>
 
         playerControls.Enable();
     }
+
+    void Start()
+    {
+        //playerControls.Touch.PrimaryContact.started += ctx => StartTouchPrimary(ctx);
+        //playerControls.Touch.PrimaryContact.canceled += ctx => EndTouchPrimary(ctx);
+
+        playerControls.Player.MouseDelta.performed += ctx => MouseDeltaMove = ctx.ReadValue<Vector2>();
+    }
+
     void OnDisable()
     {
         // Enhanced touch
@@ -47,30 +58,33 @@ public class InputManager : SingletonPattern<InputManager>
         playerControls.Disable();
     }
 
-    void Start()
+    void OnDestroy()
     {
-        playerControls.Touch.PrimaryContact.started += ctx => StartTouchPrimary(ctx);
-        playerControls.Touch.PrimaryContact.canceled += ctx => EndTouchPrimary(ctx);
+        //playerControls.Touch.PrimaryContact.started -= ctx => StartTouchPrimary(ctx);
+        //playerControls.Touch.PrimaryContact.canceled -= ctx => EndTouchPrimary(ctx);
+
+        playerControls.Player.MouseDelta.performed -= ctx => MouseDeltaMove = ctx.ReadValue<Vector2>();
     }
 
-    public Vector2 PrimaryPosition()
-    {
-        return mainCamera.ScreenToWorldPoint(playerControls.Touch.PrimaryPosition.ReadValue<Vector2>());
-    }
 
-    public UnityEngine.Touch PrimaryTouch()
-    {
-        return playerControls.Touch.PrimaryTouch.ReadValue<UnityEngine.Touch>();
-    }
+    //public Vector2 PrimaryPosition()
+    //{
+    //    return mainCamera.ScreenToWorldPoint(playerControls.Touch.PrimaryPosition.ReadValue<Vector2>());
+    //}
 
-    void StartTouchPrimary(InputAction.CallbackContext context)
-    {
-        OnStartTouch?.Invoke(mainCamera.ScreenToWorldPoint(playerControls.Touch.PrimaryPosition.ReadValue<Vector2>()), (float)context.startTime);
-    }
-    void EndTouchPrimary(InputAction.CallbackContext context)
-    {
-        OnEndTouch?.Invoke(mainCamera.ScreenToWorldPoint(playerControls.Touch.PrimaryPosition.ReadValue<Vector2>()), (float)context.time);
-    }
+    //public UnityEngine.Touch PrimaryTouch()
+    //{
+    //    return playerControls.Touch.PrimaryTouch.ReadValue<UnityEngine.Touch>();
+    //}
+
+    //void StartTouchPrimary(InputAction.CallbackContext context)
+    //{
+    //    OnStartTouch?.Invoke(mainCamera.ScreenToWorldPoint(playerControls.Touch.PrimaryPosition.ReadValue<Vector2>()), (float)context.startTime);
+    //}
+    //void EndTouchPrimary(InputAction.CallbackContext context)
+    //{
+    //    OnEndTouch?.Invoke(mainCamera.ScreenToWorldPoint(playerControls.Touch.PrimaryPosition.ReadValue<Vector2>()), (float)context.time);
+    //}
 
     void FingerDown(Finger finger)
     {
