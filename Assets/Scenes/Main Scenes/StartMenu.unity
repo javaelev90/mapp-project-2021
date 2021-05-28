@@ -537,6 +537,7 @@ GameObject:
   - component: {fileID: 34398924}
   - component: {fileID: 34398923}
   - component: {fileID: 34398929}
+  - component: {fileID: 34398927}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -632,6 +633,24 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &34398927
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 34398922}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d56002f95467a441c87f1af7b1b01000, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioMixer: {fileID: 24100000, guid: e402d3ca4b03e44a8a6f59810a261723, type: 2}
+  musicSlider: {fileID: 225597535}
+  effectsSlider: {fileID: 545657745}
+  musicText: {fileID: 1349513839}
+  effectsText: {fileID: 531129511}
+  limitFPSToggle: {fileID: 1806257047}
 --- !u!114 &34398929
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -644,10 +663,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d963d50cb31366c44b78d44d50f737c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  songSelection: {fileID: 862458011}
-  songObjects:
-  - {fileID: 11400000, guid: a812638a65955ec4a8d676a96f84af8d, type: 2}
-  - {fileID: 11400000, guid: bb1afd0f8925c104a831d64a67c9c5d0, type: 2}
 --- !u!1 &34467878
 GameObject:
   m_ObjectHideFlags: 0
@@ -1795,7 +1810,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1696805335}
+      - m_Target: {fileID: 34398927}
         m_TargetAssemblyTypeName: SettingsMenuController, Assembly-CSharp
         m_MethodName: SetMusicVolume
         m_Mode: 0
@@ -5029,7 +5044,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1696805335}
+      - m_Target: {fileID: 34398927}
         m_TargetAssemblyTypeName: SettingsMenuController, Assembly-CSharp
         m_MethodName: SetEffectsVolume
         m_Mode: 0
@@ -13476,7 +13491,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1696805334}
-  - component: {fileID: 1696805335}
   m_Layer: 5
   m_Name: SettingsMenu
   m_TagString: Untagged
@@ -13509,24 +13523,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1696805335
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1696805333}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d56002f95467a441c87f1af7b1b01000, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  audioMixer: {fileID: 24100000, guid: e402d3ca4b03e44a8a6f59810a261723, type: 2}
-  musicSlider: {fileID: 225597535}
-  effectsSlider: {fileID: 545657745}
-  musicText: {fileID: 1349513839}
-  effectsText: {fileID: 531129511}
-  limitFPSToggle: {fileID: 1806257047}
 --- !u!1 &1722326544
 GameObject:
   m_ObjectHideFlags: 0
@@ -14635,7 +14631,7 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1696805335}
+      - m_Target: {fileID: 34398927}
         m_TargetAssemblyTypeName: SettingsMenuController, Assembly-CSharp
         m_MethodName: SetFPS
         m_Mode: 0

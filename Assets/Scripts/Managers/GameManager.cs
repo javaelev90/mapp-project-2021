@@ -49,17 +49,11 @@ public class GameManager : SingletonPattern<GameManager>
     void Awake()
     {
         Initialize();
+        SetTargetFPS();
     }
 
     void Initialize()
     {
-        if (SystemInfo.deviceType == DeviceType.Desktop)
-            Application.targetFrameRate = 120;
-        else if (Database.Instance.settingsRepository.GetFPSSetting() == 1f)
-            Application.targetFrameRate = -1;
-        else if (Database.Instance.settingsRepository.GetFPSSetting() == 0f)
-            Application.targetFrameRate = Screen.currentResolution.refreshRate;
-
         UnityEngine.Random.InitState(42); // The answer to everything?
         GameManager.SetInstanceIfNull(this);
         startGameButton?.gameObject.SetActive(true);
@@ -70,6 +64,17 @@ public class GameManager : SingletonPattern<GameManager>
         hpBarImage = hpBarFiller?.GetComponentInChildren<Image>();
         hpBarAnimator = hpBarFiller?.GetComponentInChildren<Animator>();
         InitializeHpBar();
+    }
+
+    void SetTargetFPS()
+    {
+        if (SystemInfo.deviceType == DeviceType.Desktop)
+            Application.targetFrameRate = 120;
+        else if (Database.Instance.settingsRepository.GetFPSSetting() == 1f)
+            Application.targetFrameRate = -1;
+        else if (Database.Instance.settingsRepository.GetFPSSetting() == 0f ||
+            Database.Instance.settingsRepository.GetFPSSetting() == 999f)
+            Application.targetFrameRate = Screen.currentResolution.refreshRate;
     }
 
     void InitializeHpBar()

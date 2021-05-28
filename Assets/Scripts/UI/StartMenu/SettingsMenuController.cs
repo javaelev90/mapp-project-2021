@@ -6,44 +6,70 @@ using TMPro;
 public class SettingsMenuController : MonoBehaviour
 {
     [Header("Volume properties")]
-    public AudioMixer audioMixer;
-    public Slider musicSlider;
-    public Slider effectsSlider;
-    public TMP_Text musicText;
-    public TMP_Text effectsText;
+    [SerializeField] AudioMixer audioMixer;
+    [SerializeField] Slider musicSlider;
+    [SerializeField] Slider effectsSlider;
+    [SerializeField] TMP_Text musicText;
+    [SerializeField] TMP_Text effectsText;
     [Header("Graphics properties")]
     [SerializeField] Toggle limitFPSToggle;
 
-    private void Start()
+    float defaultMusicVolume = 0f;
+    float defaultEffectsVolume = -8f;
+
+    void Start()
     {
+        InitializeVolume();
+        InitializeTargetFPS();
+    }
+
+    void InitializeTargetFPS()
+    {
+        float tmpValue = Database.Instance.settingsRepository.GetFPSSetting();
+        if (tmpValue == 0f || tmpValue == 999f)
+        {
+            limitFPSToggle.isOn = false;
+        }
+        else if (tmpValue == 1f)
+        {
+            limitFPSToggle.isOn = true;
+        }
+    }
+
+    void InitializeVolume()
+    {
+        float tmpValue = 0f;
+
         // Init music volume
-        float tmpValue = Database.Instance.settingsRepository.GetVolumeSetting();
+        tmpValue = Database.Instance.settingsRepository.GetVolumeSetting();
         if (tmpValue != 999f)
         {
             audioMixer.SetFloat("musicVolume", tmpValue);
             musicSlider.value = tmpValue;
-            musicText.text = "Music " + To0100(tmpValue, -80, 0);
+            musicText.text = "Music " + To0100(tmpValue, -80f, 0f);
+        }
+        else if (tmpValue == 999f)
+        {
+            Database.Instance.settingsRepository.UpdateVolumeSetting(defaultMusicVolume);
+            audioMixer.SetFloat("musicVolume", defaultMusicVolume);
+            musicSlider.value = defaultMusicVolume;
+            musicText.text = "Music " + To0100(defaultMusicVolume, -80f, 0f);
         }
 
         // Init effects volume
         tmpValue = Database.Instance.settingsRepository.GetEffectsVolumeSetting();
-        if(tmpValue != 999f)
+        if (tmpValue != 999f)
         {
             audioMixer.SetFloat("effectsVolume", tmpValue);
             effectsSlider.value = tmpValue;
-            effectsText.text = "Effects " + To0100(tmpValue, -80, 0);
+            effectsText.text = "Effects " + To0100(tmpValue, -80f, 0f);
         }
-
-        // Init FPS
-        // The game gets the value from the database to change FPS elsewhere
-        tmpValue = Database.Instance.settingsRepository.GetFPSSetting();
-        if (tmpValue == 0f)
+        else if (tmpValue == 999f)
         {
-            limitFPSToggle.isOn = false;
-        }
-        else if(tmpValue == 1f)
-        {
-            limitFPSToggle.isOn = true;
+            Database.Instance.settingsRepository.UpdateEffectsVolumeSetting(defaultEffectsVolume);
+            audioMixer.SetFloat("effectsVolume", defaultEffectsVolume);
+            musicSlider.value = defaultEffectsVolume;
+            musicText.text = "Music " + To0100(defaultEffectsVolume, -80f, 0f);
         }
 
     }
@@ -52,7 +78,7 @@ public class SettingsMenuController : MonoBehaviour
     {
         audioMixer.SetFloat("musicVolume", volume);
         Database.Instance.settingsRepository.UpdateVolumeSetting(volume);
-        musicText.text = "Music " + To0100(volume, -80, 0);
+        musicText.text = "Music " + To0100(volume, -80f, 0f);
     }
 
     public void SetEffectsVolume(float volume)
@@ -64,7 +90,7 @@ public class SettingsMenuController : MonoBehaviour
 
     public void SetFPS(bool toggle)
     {
-        // The game gets the value from the database to change the FPS elsewhere
+        // The game gets the value from the database to set the target FPS elsewhere
         Database.Instance.settingsRepository.UpdateFPSSetting((toggle == false ? 0f : 1f));
     }
 
