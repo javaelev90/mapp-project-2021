@@ -130,7 +130,13 @@ public class GameManager : SingletonPattern<GameManager>
     {
         audioSource.time = 0;
         audioSource.Stop();
-        if(winParticleEffect != null) winParticleEffect.Stop();
+        
+        if(winParticleEffect != null) 
+        {
+            winParticleEffect.Stop();
+            winParticleEffect.Clear();
+        }
+
         // Removing objects in active scene
         foreach (GameObject go in SceneManager.GetActiveScene().GetRootGameObjects())
         {
