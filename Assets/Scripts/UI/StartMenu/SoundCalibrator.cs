@@ -40,6 +40,10 @@ public class SoundCalibrator : MonoBehaviour
         {
             soundLatency.text = LocalisationSystem.GetLocalisedValue("CalibrationLatency") + ": " + latency + " " + LocalisationSystem.GetLocalisedValue("Milliseconds"); 
         }
+        else 
+        {
+            soundLatency.text = LocalisationSystem.GetLocalisedValue("CalibrationLatency") + ": "; 
+        }
     }
 
     void Update()
