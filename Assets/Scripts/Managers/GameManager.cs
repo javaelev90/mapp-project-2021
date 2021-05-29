@@ -24,6 +24,7 @@ public class GameManager : SingletonPattern<GameManager>
     [SerializeField] GameObject hpBarFiller;
     [SerializeField] GameObject hpBarFillerSpacer;
     [SerializeField] PlayFabManager playFabManager;
+    [SerializeField] ParticleSystem winParticleEffect;
 
     public static SwipeTimingInterval PERFECT_SWIPE_TIMING_INTERVAL = new SwipeTimingInterval(-.2f, .2f);
     public static SwipeTimingInterval GOOD_SWIPE_TIMING_INTERVAL = new SwipeTimingInterval(-.4f, -.2f);
@@ -129,6 +130,7 @@ public class GameManager : SingletonPattern<GameManager>
     {
         audioSource.time = 0;
         audioSource.Stop();
+        if(winParticleEffect != null) winParticleEffect.Stop();
         // Removing objects in active scene
         foreach (GameObject go in SceneManager.GetActiveScene().GetRootGameObjects())
         {
@@ -272,7 +274,7 @@ public class GameManager : SingletonPattern<GameManager>
             {
                 if(playFabManager != null) playFabManager.SendLeaderboard((int)score, SongHandler.Instance.GetUniqueSongName());
             }
-
+            if(winParticleEffect != null) winParticleEffect.Play();
             wonGame = false;
         }
     }
