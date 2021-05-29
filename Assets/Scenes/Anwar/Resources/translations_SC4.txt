@@ -46,3 +46,6 @@
 "Name","Name","Namn"
 "Place","Place","Plats"
 "SongDifficulty","Difficulty","Svårighetsgrad"
+"English","English","Engelska"
+"Swedish","Swedish","Svenska"
+"ClickToStart","Click to start","Klicka för att starta"
