@@ -21,7 +21,7 @@
 "TextLosing1","You missed too many souls","Du missade för många själar"
 "Restart","Restart","Spela igen"
 "MainMenu","Main menu","Huvudmeny"
-"WinningText","<b>Congratulations!</b>\n You've finished the song!","<b>Grattis!</b> Du har klarat låten"
+"WinningText","<b>Congratulations!</b> You've finished the song!","<b>Grattis!</b> Du har klarat låten"
 "Language","Language","Språk"
 "ChangeLanguage","Change Language","Byt Språk"
 "Resume","Resume","Fortsätt spela"
