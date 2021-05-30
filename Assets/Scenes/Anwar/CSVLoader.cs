@@ -12,12 +12,19 @@ public class CSVLoader
 {
     private TextAsset csvFile;
     private string lineSeparator = "\r\n";
+    private string lineSeparatorWin = "\r\n";
+    private string lineSeparatorMac = "\n";
     private char surround = '"';
     private string[] fieldSeparator = { "\",\"" };
     private string contents;
 
     public void LoadCSV()
     {
+#if UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX
+        lineSeparator = lineSeparatorMac;
+#else
+        lineSeparator = lineSeparatorWin;
+#endif
         csvFile = Resources.Load<TextAsset>("translations_SC4");
         contents = csvFile.text;
 
