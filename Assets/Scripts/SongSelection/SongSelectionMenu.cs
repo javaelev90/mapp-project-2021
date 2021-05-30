@@ -119,7 +119,7 @@ public class SongSelectionMenu : MonoBehaviour
     }
     private void revertSelection()
     {
-        if(panel != null){
+        if(selectedPanel != null){
             for (int i = 0; i < panels.Length; i++)
             {
                 if (panels[i].GetInstanceID() != selectedPanel.GetInstanceID() && panels[i].transform.localScale != Vector3.one)
