@@ -46,11 +46,13 @@ public class GameManager : SingletonPattern<GameManager>
 
     bool wonGame;
     SoulSpawner spawner;
+    [SerializeField] MenuPageChangeController screenOverlayFader;
 
     void Awake()
     {
         Initialize();
         SetTargetFPS();
+        if(screenOverlayFader != null) screenOverlayFader.FadeInScene();
     }
 
     void Initialize()
