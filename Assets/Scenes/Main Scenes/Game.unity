@@ -1289,14 +1289,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 8698382915898850560, guid: d2f0ef35afcda5246b9a072774c00899, type: 3}
-      propertyPath: playOnAwake
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8698382916376801479, guid: d2f0ef35afcda5246b9a072774c00899, type: 3}
-      propertyPath: playOnAwake
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8698382917448512007, guid: d2f0ef35afcda5246b9a072774c00899, type: 3}
       propertyPath: m_Name
       value: WinSpawnSoulsEffect
@@ -1343,10 +1335,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8698382917448512120, guid: d2f0ef35afcda5246b9a072774c00899, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8698382917448512121, guid: d2f0ef35afcda5246b9a072774c00899, type: 3}
-      propertyPath: playOnAwake
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

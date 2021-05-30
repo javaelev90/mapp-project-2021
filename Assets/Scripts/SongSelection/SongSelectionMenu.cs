@@ -13,7 +13,7 @@ public class SongSelectionMenu : MonoBehaviour
     public GameObject [] panels;
 
     private Vector3 scaleChange;
-    private GameObject selectedPanel;
+    private GameObject selectedPanel = default;
     private AudioClip selectedSongMusic;
     private AudioSource audioSource;
     private Collider[] collidersBuffer = new Collider[12];
@@ -23,7 +23,7 @@ public class SongSelectionMenu : MonoBehaviour
     {
         audioSource = GetComponent<AudioSource>();
 
-        for(int i = 0; i < panels.Length; i++){
+        for (int i = 0; i < panels.Length; i++){
             GameObject currentPanel = panels[i];
 
             if(i <= songs.Length){ 
@@ -51,25 +51,27 @@ public class SongSelectionMenu : MonoBehaviour
             return;
 
         string displayText = "Your Selected Song Is: ";
-            
-        Physics.OverlapBoxNonAlloc(selectionArea.transform.position, selectionArea.size, collidersBuffer, selectionArea.transform.rotation);
-        for (int i = 0; i < collidersBuffer.Length; i++)
+
+        if (Physics.OverlapBoxNonAlloc(selectionArea.transform.position, selectionArea.size, collidersBuffer, selectionArea.transform.rotation) > 0)
         {
-            if (collidersBuffer[i] == selectionArea || collidersBuffer[i] == null) // Hoppar �ver dessa
-                continue;
-            displayText += collidersBuffer[i].gameObject.name; // H�r h�mtar man allt man vill fr�n objektet, just nu �r det bara namnet f�r GameObjectet
-                
-            selectedPanel = collidersBuffer[i].gameObject;
-            selectedSongMusic = songs[i].song;
+            for (int i = 0; i < collidersBuffer.Length; i++)
+            {
+                if (collidersBuffer[i] == selectionArea || collidersBuffer[i] == null) // Hoppar �ver dessa
+                    continue;
+                displayText += collidersBuffer[i].gameObject.name; // H�r h�mtar man allt man vill fr�n objektet, just nu �r det bara namnet f�r GameObjectet
 
-            collidersBuffer[i].gameObject.transform.localScale = new Vector3(1.25f, 1.25f, collidersBuffer[i].gameObject.transform.localScale.z);
-            //float defaultScale = hitColliders[i].transform.localScale.z;
-            //scaleChange = new Vector3(1.25f, 1.25f, defaultScale);
+                selectedPanel = collidersBuffer[i].gameObject;
+                selectedSongMusic = songs[i].song;
 
-            //if(hitColliders[i] != selectionArea){
-            //    hitColliders[i].gameObject.transform.localScale = scaleChange;
-            //    audioSource.PlayOneShot(selectedSongMusic);
-            //}
+                collidersBuffer[i].gameObject.transform.localScale = new Vector3(1.25f, 1.25f, collidersBuffer[i].gameObject.transform.localScale.z);
+                //float defaultScale = hitColliders[i].transform.localScale.z;
+                //scaleChange = new Vector3(1.25f, 1.25f, defaultScale);
+
+                //if(hitColliders[i] != selectionArea){
+                //    hitColliders[i].gameObject.transform.localScale = scaleChange;
+                //    audioSource.PlayOneShot(selectedSongMusic);
+                //}
+            }
         }
 
         selectionText.text = displayText;
@@ -91,12 +93,15 @@ public class SongSelectionMenu : MonoBehaviour
 
     private void revertSelection()
     {
-        for (int i = 0; i < panels.Length; i++)
+        if (selectedPanel != default && panels.Length > 0)
         {
-            if (panels[i].GetInstanceID() != selectedPanel.GetInstanceID() && panels[i].transform.localScale != Vector3.one)
+            for (int i = 0; i < panels.Length; i++)
             {
-                panels[i].transform.localScale = Vector3.one;
-                audioSource.Stop();
+                if (!panels[i].Equals(selectedPanel) && panels[i].transform.localScale != Vector3.one)
+                {
+                    panels[i].transform.localScale = Vector3.one;
+                    audioSource.Stop();
+                }
             }
         }
     }
