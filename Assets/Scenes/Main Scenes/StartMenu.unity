@@ -14600,7 +14600,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a812638a65955ec4a8d676a96f84af8d, type: 2}
   - {fileID: 11400000, guid: ba96d31decf85aa4bbaf32b4eb6fa133, type: 2}
   - {fileID: 11400000, guid: eb9c2b160d9b97241aaa887e6462cefa, type: 2}
-  - {fileID: 11400000, guid: 30721f3e296355f4a956b0d57903ffa0, type: 2}
+  - {fileID: 11400000, guid: 3f6a3adb17b89f2439babd5221ef7ba1, type: 2}
   - {fileID: 11400000, guid: ddda3a6b79c62c542852022b83f031f1, type: 2}
   panels:
   - {fileID: 1270793179}
@@ -19269,7 +19269,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 73.87588
+  field of view: 73.87587
   orthographic: 0
   orthographic size: 533.2953
   m_Depth: -1
