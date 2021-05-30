@@ -11,7 +11,7 @@ public class PanelController : MonoBehaviour
     InputManager inputManager;
 
     float touchRotationMultiplier = .1f;
-    float touchRotationSpeed = .75f;
+    float touchRotationSpeed = .5f;
 
     void OnEnable()
     {
