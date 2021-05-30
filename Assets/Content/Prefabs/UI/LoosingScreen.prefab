@@ -12,8 +12,6 @@ GameObject:
   - component: {fileID: 151010486174808383}
   - component: {fileID: 151010486174808382}
   - component: {fileID: 151010486174808377}
-  - component: {fileID: 4555752525466522326}
-  - component: {fileID: 3645996996380895328}
   m_Layer: 5
   m_Name: RestartButton
   m_TagString: Untagged
@@ -136,49 +134,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &4555752525466522326
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 151010486174808379}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d6e5cd7548604f79944c4c2b735e099, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  myFx: {fileID: 0}
-  clickFx: {fileID: 8300000, guid: 33cfd93e0acca4d95a499ffbfc30cfbe, type: 3}
---- !u!114 &3645996996380895328
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 151010486174808379}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Delegates:
-  - eventID: 2
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 4555752525466522326}
-          m_TargetAssemblyTypeName: ButtonClickSound, Assembly-CSharp
-          m_MethodName: ClickSound
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
 --- !u!1 &151010486226120309
 GameObject:
   m_ObjectHideFlags: 0
@@ -635,8 +590,6 @@ GameObject:
   - component: {fileID: 151010487389250639}
   - component: {fileID: 151010487389250638}
   - component: {fileID: 151010487389250633}
-  - component: {fileID: 7698285105005797243}
-  - component: {fileID: 4354422687943675031}
   m_Layer: 5
   m_Name: ExitToMainButton
   m_TagString: Untagged
@@ -759,49 +712,6 @@ MonoBehaviour:
           m_StringArgument: StartMenu
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &7698285105005797243
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 151010487389250635}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d6e5cd7548604f79944c4c2b735e099, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  myFx: {fileID: 0}
-  clickFx: {fileID: 8300000, guid: 33cfd93e0acca4d95a499ffbfc30cfbe, type: 3}
---- !u!114 &4354422687943675031
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 151010487389250635}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Delegates:
-  - eventID: 2
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 7698285105005797243}
-          m_TargetAssemblyTypeName: ButtonClickSound, Assembly-CSharp
-          m_MethodName: ClickSound
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
 --- !u!1 &151010487390895830
 GameObject:
   m_ObjectHideFlags: 0
