@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class InGameMenuController : MonoBehaviour
@@ -15,13 +14,9 @@ public class InGameMenuController : MonoBehaviour
     [SerializeField] Button exitToMainButton;
     [SerializeField] Button exitApplicationButton;
 
-
-    SceneHandler sceneHandler;
-
-    void Start()
+    void Awake()
     {
-        InitializeUI();
-        sceneHandler = SceneHandler.Instance;
+        //InitializeUI(); // fucks up the inGameMenu.SetActive(true).... Make sure to enable/disable beforehand in scenes
     }
 
     void InitializeUI()
@@ -30,16 +25,18 @@ public class InGameMenuController : MonoBehaviour
         inGameMenu.gameObject.SetActive(false);
     }
 
-    void ChangeScene(string sceneName)
-    {
-        sceneHandler.ChangeScene(sceneName);
-    }
-
     #region OnButtons
     public void OnInGameMenu()
     {
-        inGameMenu.SetActive(!inGameMenu.activeSelf);
-        GameManager.Instance.TogglePause(true);
+        if (GameManager.Instance.GameIsPaused)
+        {
+            OnResume();
+        }
+        else
+        {
+            inGameMenu.SetActive(true);
+            GameManager.Instance.TogglePause(true);
+        }
     }
     public void OnSettings()
     {
@@ -47,7 +44,7 @@ public class InGameMenuController : MonoBehaviour
     }
     public void OnResume()
     {
-        inGameMenu.SetActive(!inGameMenu.activeSelf);
+        inGameMenu.SetActive(false);
         GameManager.Instance.TogglePause(false);
     }
     public void OnRestart()
@@ -58,11 +55,11 @@ public class InGameMenuController : MonoBehaviour
     public void OnExitToMain(string sceneName)
     {
         OnResume();
-        sceneHandler.ChangeScene(sceneName);
+        SceneHandler.Instance.ChangeScene(sceneName);
     }
     public void OnExitApplication()
     {
         Application.Quit();
     }
-    #endregion
+#endregion
 }
