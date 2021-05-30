@@ -5,19 +5,16 @@ public class PopupScreenController : MonoBehaviour
     [SerializeField] GameObject winScreenPanel;
     [SerializeField] GameObject looseScreenPanel;
 
-    SceneHandler sceneHandler;
-
     void Start()
     {
-        InitializeUI();
-        sceneHandler = SceneHandler.Instance;
+        //InitializeUI();
     }
 
-    void InitializeUI()
-    {
-        winScreenPanel.gameObject.SetActive(false);
-        looseScreenPanel.gameObject.SetActive(false);
-    }
+    //void InitializeUI()
+    //{
+    //    winScreenPanel.gameObject.SetActive(false);
+    //    looseScreenPanel.gameObject.SetActive(false);
+    //}
 
     public void OnRestart()
     {
@@ -27,7 +24,7 @@ public class PopupScreenController : MonoBehaviour
     }
     public void OnExitToMain(string sceneName)
     {
-        sceneHandler.ChangeScene(sceneName);
+        SceneHandler.Instance.ChangeScene(sceneName);
     }
 
     public void ToggleWinScreen(bool active)

@@ -19,11 +19,11 @@ public class InGameMenuController : MonoBehaviour
         //InitializeUI(); // fucks up the inGameMenu.SetActive(true).... Make sure to enable/disable beforehand in scenes
     }
 
-    void InitializeUI()
-    {
-        inGameMenuButton.gameObject.SetActive(true);
-        inGameMenu.gameObject.SetActive(false);
-    }
+    //void InitializeUI()
+    //{
+        //inGameMenuButton.gameObject.SetActive(true);
+        //inGameMenu.gameObject.SetActive(false);
+    //}
 
     #region OnButtons
     public void OnInGameMenu()
