@@ -84,24 +84,7 @@ public class SongSelectionMenu : MonoBehaviour
             
             if(audioSource.clip != selectedSongMusic && !audioSource.isPlaying){
                 StartCoroutine(SwitchSongRoutine(selectedSongMusic));
-                Debug.Log("Yay");
             }
-
-         
-            
-            
-            
-            
-
-            //collidersBuffer[i].gameObject.GetComponentInParent<>
-
-            //float defaultScale = hitColliders[i].transform.localScale.z;
-            //scaleChange = new Vector3(1.25f, 1.25f, defaultScale);
-
-            //if(hitColliders[i] != selectionArea){
-            //    hitColliders[i].gameObject.transform.localScale = scaleChange;
-            //    audioSource.PlayOneShot(selectedSongMusic);
-            //}
         }
 
         selectionText.text = displayText;
@@ -136,18 +119,21 @@ public class SongSelectionMenu : MonoBehaviour
     }
     private void revertSelection()
     {
-        for (int i = 0; i < panels.Length; i++)
-        {
-            if (panels[i].GetInstanceID() != selectedPanel.GetInstanceID() && panels[i].transform.localScale != Vector3.one)
+        if(panel != null){
+            for (int i = 0; i < panels.Length; i++)
             {
-                panels[i].transform.localScale = Vector3.one;
-                audioSource.Stop();
+                if (panels[i].GetInstanceID() != selectedPanel.GetInstanceID() && panels[i].transform.localScale != Vector3.one)
+                {
+                    panels[i].transform.localScale = Vector3.one;
+                    audioSource.Stop();
+                }
             }
         }
     }
 
     public void SelectSong()
     {
+
         if (panel != null)
         {
             panel.SetActive(true);
