@@ -9,22 +9,27 @@ public class WaveFormUtil
         float[] samples = new float[audio.channels * audio.samples];
         float[] waveform = new float[size];
         audio.GetData(samples, 0);
+        // Number of samples in a waveform column
         int packSize = audio.samples * audio.channels / size;
         float max = 0f;
-        int c = 0;
-        int s = 0;
+        int column = 0;
+        int sampleInColumn = 0;
+        // Convert audio sample values into waveform columns
         for (int i = 0; i < audio.channels * audio.samples; i++)
         {
-            waveform[c] += Mathf.Abs(samples[i]);
-            s++;
-            if (s > packSize)
+            // Summarize all samples into a column value
+            waveform[column] += Mathf.Abs(samples[i]);
+            sampleInColumn++;
+            if (sampleInColumn > packSize)
             {
-                if (max < waveform[c])
-                    max = waveform[c];
-                c++;
-                s = 0;
+                // Store max waveform column value for normalization purposes
+                if (max < waveform[column])
+                    max = waveform[column];
+                column++;
+                sampleInColumn = 0;
             }
         }
+        //Normalize waveform column values
         for (int i = 0; i < size; i++)
         {
             waveform[i] /= (max * sat);
@@ -39,6 +44,7 @@ public class WaveFormUtil
     {
         Texture2D tex = new Texture2D (waveform.Length, height, TextureFormat.RGBA32, false);
 
+        // Draw all waveform columns up and down
         for (int x = 0; x < waveform.Length; x++) {
             for (int y = 0; y <= waveform [x] * (float)height / 2f; y++) {
                 tex.SetPixel (x, (height / 2) + y, c);
