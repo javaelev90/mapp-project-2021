@@ -16,6 +16,8 @@ public class PopupScreenController : MonoBehaviour
         //looseScreenPanel.gameObject.SetActive(false);
     //}
 
+
+
     public void OnRestart()
     {
         winScreenPanel.gameObject.SetActive(false);
@@ -24,6 +26,7 @@ public class PopupScreenController : MonoBehaviour
     }
     public void OnExitToMain(string sceneName)
     {
+        GameManager.Instance.TogglePause(false);
         SceneHandler.Instance.ChangeScene(sceneName);
     }
 

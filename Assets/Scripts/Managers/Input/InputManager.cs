@@ -28,6 +28,7 @@ public class InputManager : SingletonPattern<InputManager>
         SetInstanceIfNull(this);
         playerControls = new PlayerControls();
         //mainCamera = Camera.main;
+        playerControls.Player.MouseDelta.performed += ctx => MouseDeltaMove = ctx.ReadValue<Vector2>();
     }
     void OnEnable()
     {
@@ -44,7 +45,7 @@ public class InputManager : SingletonPattern<InputManager>
         //playerControls.Touch.PrimaryContact.started += ctx => StartTouchPrimary(ctx);
         //playerControls.Touch.PrimaryContact.canceled += ctx => EndTouchPrimary(ctx);
 
-        playerControls.Player.MouseDelta.performed += ctx => MouseDeltaMove = ctx.ReadValue<Vector2>();
+        //playerControls.Player.MouseDelta.performed += ctx => MouseDeltaMove = ctx.ReadValue<Vector2>();
     }
 
     void OnDisable()

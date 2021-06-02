@@ -122,7 +122,7 @@ public class SongSelectionMenu : MonoBehaviour
         if(selectedPanel != null){
             for (int i = 0; i < panels.Length; i++)
             {
-                if (panels[i].GetInstanceID() != selectedPanel.GetInstanceID() && panels[i].transform.localScale != Vector3.one)
+                if (!panels[i].Equals(selectedPanel) && panels[i].transform.localScale != Vector3.one)
                 {
                     panels[i].transform.localScale = Vector3.one;
                     audioSource.Stop();
